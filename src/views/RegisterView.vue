@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center mb-4 mt-3">
-      <h1>Konto erstellen</h1>
+      <h1>Create Account</h1>
     </div>
     <div class="form-container register-container">
       <form method="post" id="registrationForm">
@@ -9,37 +9,37 @@
           <div class="col-md-6">
             <div class="form-floating mb-3">
               <select class="form-select" id="floatingSelectAnrede" name="anrede" required>
-                <option value="" disabled selected hidden>Anrede</option>
-                <option value="Herr">Herr</option>
-                <option value="Frau">Frau</option>
+                <option value="" disabled selected hidden>Title</option>
+                <option value="Herr">Mr.</option>
+                <option value="Frau">Ms.</option>
               </select>
-              <label for="floatingSelectAnrede">Anrede</label>
+              <label for="floatingSelectAnrede">Title</label>
             </div>
 
             <div class="d-flex">
               <div class="col-md-6 form-floating mb-3">
-                <input type="text" class="form-control" id="vorname" name="vorname" placeholder="Vorname" required />
-                <label for="vorname">Vorname</label>
+                <input type="text" class="form-control" id="vorname" name="vorname" placeholder="First Name" required />
+                <label for="vorname">First Name</label>
               </div>
               <div class="col-md-6 form-floating mb-3">
-                <input type="text" class="form-control" id="nachname" name="nachname" placeholder="Nachname" required />
-                <label for="nachname">Nachname</label>
+                <input type="text" class="form-control" id="nachname" name="nachname" placeholder="Last Name" required />
+                <label for="nachname">Last Name</label>
               </div>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingAdress" name="adresse" placeholder="Adresse" required />
-              <label for="floatingAdress">Adresse</label>
+              <input type="text" class="form-control" id="floatingAdress" name="adresse" placeholder="Address" required />
+              <label for="floatingAdress">Address</label>
             </div>
 
             <div class="d-flex">
               <div class="col-md-6 form-floating mb-3">
-                <input type="text" class="form-control" id="floatingPlz" name="plz" placeholder="PLZ" required />
-                <label for="floatingPlz">PLZ</label>
+                <input type="text" class="form-control" id="floatingPlz" name="plz" placeholder="Postal Code" required />
+                <label for="floatingPlz">Postal Code</label>
               </div>
               <div class="col-md-6 form-floating mb-3">
-                <input type="text" class="form-control" id="floatingOrt" name="ort" placeholder="Ort" required />
-                <label for="floatingOrt">Ort</label>
+                <input type="text" class="form-control" id="floatingOrt" name="ort" placeholder="City" required />
+                <label for="floatingOrt">City</label>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@
                 placeholder="name@example.com"
                 required
               />
-              <label for="floatingEmail">Email-Adresse</label>
+              <label for="floatingEmail">Email Address</label>
             </div>
 
             <div class="form-floating mb-3">
@@ -66,7 +66,7 @@
                 placeholder="Username"
                 required
               />
-              <label for="floatingUsername">Benutzername</label>
+              <label for="floatingUsername">Username</label>
             </div>
 
             <div class="form-floating mb-3">
@@ -75,10 +75,10 @@
                 class="form-control"
                 id="floatingPassword"
                 name="password"
-                placeholder="Passwort"
+                placeholder="Password"
                 required
               />
-              <label for="floatingPassword">Passwort</label>
+              <label for="floatingPassword">Password</label>
             </div>
 
             <div class="form-floating mb-3">
@@ -87,22 +87,22 @@
                 class="form-control"
                 id="floatingPassword2"
                 name="password2"
-                placeholder="Passwort wiederholen"
+                placeholder="Repeat Password"
                 required
               />
-              <label for="floatingPassword2">Passwort wiederholen</label>
+              <label for="floatingPassword2">Repeat Password</label>
             </div>
           </div>
         </div>
 
         <div class="text-center">
-          <button type="submit" class="btn btn-primary" name="reg-submit">Registrieren</button>
+          <button type="submit" class="btn btn-primary" name="reg-submit">Register</button>
         </div>
       </form>
     </div>
 
     <div class="container mt-3 mb-2 text-center">
-      Sie haben bereits ein Konto? <router-link to="/login">Hier anmelden</router-link>
+      Already have an account? <router-link to="/login">Log in here</router-link>
     </div>
   </div>
 </template>
