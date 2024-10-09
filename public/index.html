@@ -12,11 +12,24 @@
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
-    />
+    /><style>
+      .navbar {
+  background: linear-gradient(to bottom, lightblue, ghostwhite);
+  padding: 10px;
+}
+    </style>
+ 
     
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
+      <img src="../src/assets/basseno.png" class="bassenoBild">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom-darkblue pl-1 pr-1">
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  </nav>
     <noscript>
       <strong>
         We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.
