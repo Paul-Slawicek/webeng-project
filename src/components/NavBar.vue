@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-custom-darkblue pl-1 pr-1">
     <router-link to="/" class="navbar-brand">
-      <img src="../assets/basseno.png" class="bassenoBild" />
+      <img src="../assets/img/basseno.png" class="bassenoBild" />
     </router-link>
     <button
       class="navbar-toggler"
