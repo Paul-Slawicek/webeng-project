@@ -2,23 +2,17 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
-<<<<<<< HEAD
 import ProductsView from '../views/ProductsView.vue';
-=======
 import ImprintView from '../views/ImprintView.vue';
 import HelpView from '../views/HelpView.vue';
->>>>>>> 7a33fb8 (added imprint and help pages)
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
   { path: '/login', name: 'Login', component: LoginView },
   { path: '/register', name: 'Register', component: RegisterView },
-<<<<<<< HEAD
-  { path: '/products', name: 'Products', component: ProductsView }
-=======
+  { path: '/products', name: 'Products', component: ProductsView },
   { path: '/impressum', name: 'Impressum', component: ImprintView },  
   { path: '/help', name: 'Help', component: HelpView },  
->>>>>>> 7a33fb8 (added imprint and help pages)
 ];
 
 const router = createRouter({
