@@ -1,18 +1,65 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="d-flex flex-column">
+    <div class="container mt-3 text-center">
+      <h1>Welcome to Basseno: Discover Our Exclusive Product Selection!</h1>
+    </div>
+    <div class="container mt-3 text-center">
+      <h2>Explore Our Product Categories:</h2>
+    </div>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-4" v-for="category in categories" :key="category.query">
+          <div class="card category-card" @click="navigateToProducts(category.query)">
+            <img :src="category.img" class="card-img-top" :alt="category.title">
+            <div class="card-body">
+              <h4 class="card-title">{{ category.title }}</h4>
+              <div class="card-text mb-2">{{ category.description }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      categories: [
+        {
+          query: "tv",
+          img: require('@/assets/img/SmartTV1.webp'),
+          title: "4K Smart TVs",
+          description:
+            "Experience a new dimension of TV with our 4K smart TVs. Enjoy stunning clarity and intelligent features bringing versatile entertainment to your living room."
+        },
+        {
+          query: "laptops",
+          img: require('@/assets/img/Laptop1.webp'),
+          title: "High-Performance Laptops",
+          description:
+            "Browse our selection of high-performance laptops, perfect for both work and leisure. Whether you're a professional or student, find the ideal laptop for your needs."
+        },
+        {
+          query: "speakers",
+          img: require('@/assets/img/Speakers1.webp'),
+          title: "Wireless Sound Systems",
+          description:
+            "Enjoy unparalleled sound with our premium wireless speakers. They deliver crystal-clear audio and innovative features to elevate your listening experience."
+        }
+      ]
+    };
+  },
+  methods: {
+    navigateToProducts(query) {
+      this.$router.push({ path: `/products`, query: { search: query } });
+    }
   }
-}
+};
 </script>
+
+<style scoped>
+
+</style>
