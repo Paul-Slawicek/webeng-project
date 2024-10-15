@@ -22,6 +22,12 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/products">Products</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/impressum">Imprint</router-link> <!-- Added link -->
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/help">Help</router-link> <!-- Added link -->
+        </li>
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
