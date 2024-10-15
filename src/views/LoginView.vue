@@ -47,58 +47,113 @@
     <div class="container mt-3 mb-2 text-center">
       Don't have an account yet? <router-link to="/register">Register now</router-link>
     </div>
+
+    <!-- Error Modal -->
+    <div v-if="showErrorModal" class="modal" tabindex="-1" role="dialog" style="display: block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Login Error</h5>
+            <button type="button" class="close" @click="closeErrorModal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>User not found. Please check your credentials and try again.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="closeErrorModal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
+
 <script>
-  export default {
-    data() {
-      return {
-        emailOrUsername: '',
-        password: '',
-        rememberMe: false
-      };
-    },
-    methods: {
-      submitLogin() {
-        // Handle login logic here
-        console.log('Login submitted:', {
-          emailOrUsername: this.emailOrUsername,
-          password: this.password,
-          rememberMe: this.rememberMe
-        });
+export default {
+  data() {
+    return {
+      emailOrUsername: '',
+      password: '',
+      rememberMe: false,
+      showErrorModal: false,
+      hardcodedUser: {
+        emailOrUsername: 'testuser',
+        password: 'testpassword'
       }
+    };
+  },
+  methods: {
+    submitLogin() {
+      // Hardcoded user for validation
+      if (
+        this.emailOrUsername === this.hardcodedUser.emailOrUsername &&
+        this.password === this.hardcodedUser.password
+      ) {
+        // Successful login, redirect to home
+        this.$router.push({ path: '/' });
+      } else {
+        // Show error modal if user not found
+        this.showErrorModal = true;
+      }
+    },
+    closeErrorModal() {
+      this.showErrorModal = false;
     }
-  };
+  }
+};
 </script>
 
+
 <style scoped>
-  body {
-    background-color: ghostwhite;
-  }
+body {
+  background-color: ghostwhite;
+}
 
-  .form-container {
-    max-width: 360px;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 10px;
-  }
+.form-container {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+}
 
-  .form-floating .form-control {
-    height: 58px;
-    padding: 1rem .75rem;
-  }
+.form-floating .form-control {
+  height: 58px;
+  padding: 1rem .75rem;
+}
 
-  input[type="checkbox"] {
-    margin-right: 10px;
-  }
+input[type="checkbox"] {
+  margin-right: 10px;
+}
 
-  .btn-primary {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.btn-primary {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .btn-primary:hover {
-    transform: scale(1.01);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
+.btn-primary:hover {
+  transform: scale(1.01);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-dialog {
+  max-width: 500px;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
 </style>
