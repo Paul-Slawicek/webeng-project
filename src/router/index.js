@@ -11,8 +11,8 @@ const routes = [
   { path: '/login', name: 'Login', component: LoginView },
   { path: '/register', name: 'Register', component: RegisterView },
   { path: '/products', name: 'Products', component: ProductsView },
-  { path: '/impressum', name: 'Impressum', component: ImprintView },  
-  { path: '/help', name: 'Help', component: HelpView },  
+  { path: '/impressum', name: 'Impressum', component: ImprintView },
+  { path: '/help', name: 'Help', component: HelpView },
 ];
 
 const router = createRouter({
