@@ -19,7 +19,7 @@
 
         <div class="mb-3 text-start">
           <input type="checkbox" id="remember" v-model="rememberMe" />
-          <label for="remember" class="ms-1">Remember me</label>
+          <label for="remember" class="ms-2">Remember me</label>
         </div>
 
         <div class="text-center">

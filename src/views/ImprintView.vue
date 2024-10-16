@@ -1,6 +1,8 @@
 <template>
-  <div class="imprint">
-    <h1>Legal Notice</h1>
+  <div>
+    <div class="text-center mb-4 mt-3">
+      <h1>Legal Notice</h1>
+    </div>
     <p>
       In accordance with Section 5 of the German Telemedia Act (TMG):
     </p>
@@ -39,23 +41,3 @@
     </p>
   </div>
 </template>
-
-<style scoped>
-.imprint {
-  padding: 20px;
-  line-height: 1.6;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.imprint h1 {
-  margin-bottom: 20px;
-  font-size: 2rem;
-  text-align: center;
-}
-
-.imprint p {
-  margin-bottom: 15px;
-  font-size: 1rem;
-}
-</style>
