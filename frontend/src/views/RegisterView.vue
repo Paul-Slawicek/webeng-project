@@ -90,12 +90,11 @@
 export default {
   data() {
     return {
-      // Registration form data here
     };
   },
   methods: {
     submitRegistration() {
-      // Handle registration form submission logic here
+     
     }
   }
 };
