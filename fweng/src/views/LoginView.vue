@@ -33,7 +33,7 @@
     </div>
 
     <!-- Error Modal -->
-    <div v-if="showErrorModal" class="modal" tabindex="-1" role="dialog" style="display: block;">
+    <div v-if="showErrorModal" class="modal"  role="dialog" style="display: block;">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
