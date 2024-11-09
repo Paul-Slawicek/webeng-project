@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS public.users
 (
-    id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+    id SERIAL PRIMARY KEY, -- Automatically handles the sequence
     email character varying(250) COLLATE pg_catalog."default",
     password character varying(250) COLLATE pg_catalog."default",
     role character varying(50) COLLATE pg_catalog."default",
@@ -14,10 +14,8 @@ CREATE TABLE IF NOT EXISTS public.users
     plz numeric(10,0),
     city character varying(100) COLLATE pg_catalog."default",
     saluation character varying(150) COLLATE pg_catalog."default",
-    username character varying(250) COLLATE pg_catalog."default",
-    CONSTRAINT users_pkey PRIMARY KEY (id)
+    username character varying(250) COLLATE pg_catalog."default"
     )
-
     TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.users
