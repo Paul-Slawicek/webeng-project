@@ -34,28 +34,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
-        System.out.println("Login attempt with username/email: " + user.getUsername());
-        System.out.println("Login attempt with password: " + user.getPassword());
-
         Optional<User> existingUser = userService.findByUsername(user.getUsername());
-        if (existingUser.isEmpty()) {
-            existingUser = userService.findByEmail(user.getUsername());
-        }
 
-        if (existingUser.isPresent()) {
-            System.out.println("Found user: " + existingUser.get().getUsername());
-            System.out.println("Hashed password in DB: " + existingUser.get().getPassword());
-            if (passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
-                System.out.println("Password matches");
-                return ResponseEntity.ok("Login successful");
-            } else {
-                System.out.println("Password does not match");
-            }
-        } else {
-            System.out.println("User not found");
+        if (existingUser.isPresent() &&
+                passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
+            return ResponseEntity.ok("Login successful");
         }
-
         return ResponseEntity.status(401).body("Invalid username or password");
     }
-
 }
