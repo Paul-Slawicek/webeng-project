@@ -6,15 +6,15 @@
     <div class="form-container">
       <form @submit.prevent="submitLogin">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingEmailOrUsername" v-model="emailOrUsername"
+          <input type="text" class="form-control" id="emailOrUsername" v-model="emailOrUsername"
             placeholder="Email or Username" required />
-          <label for="floatingEmailOrUsername">Email or Username</label>
+          <label for="emailOrUsername">Email or Username</label>
         </div>
 
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="floatingPassword" v-model="password" placeholder="Password"
+          <input type="password" class="form-control" id="password" v-model="password" placeholder="Password"
             required />
-          <label for="floatingPassword">Password</label>
+          <label for="password">Password</label>
         </div>
 
         <div class="mb-3 text-start">
@@ -54,39 +54,34 @@
 
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      emailOrUsername: '',
+      username: '', // or email if needed
       password: '',
-      rememberMe: false,
-      showErrorModal: false,
-      hardcodedUser: {
-        emailOrUsername: 'testuser',
-        password: 'testpassword'
-      }
     };
   },
   methods: {
-    submitLogin() {
-      // Hardcoded user for validation
-      if (
-        this.emailOrUsername === this.hardcodedUser.emailOrUsername &&
-        this.password === this.hardcodedUser.password
-      ) {
-        // Successful login, redirect to home
-        this.$router.push({ path: '/' });
-      } else {
-        // Show error modal if user not found
-        this.showErrorModal = true;
+    async submitLogin() {
+      try {
+        const response = await axios.post('http://localhost:8080/api/auth/login', {
+          username: this.username, // Use 'email' if your backend supports login with email
+          password: this.password,
+        });
+        alert(response.data); // Zeigt "Login successful" an
+        this.$router.push('/'); // Weiterleitung
+      } catch (error) {
+        console.error(error);
+        alert(error.response ? error.response.data : "Invalid username or password.");
       }
     },
-    closeErrorModal() {
-      this.showErrorModal = false;
-    }
-  }
+  },
 };
+
 </script>
+
 
 
 <style scoped>

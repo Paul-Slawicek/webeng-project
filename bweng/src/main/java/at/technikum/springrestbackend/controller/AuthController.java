@@ -3,6 +3,7 @@ package at.technikum.springrestbackend.controller;
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.crypto.password.PasswordEncoder; // Import PasswordEncoder
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +14,12 @@ import java.util.Optional;
 public class AuthController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder; // Inject PasswordEncoder
 
-    public AuthController(UserService userService) {
+    // Constructor injection for UserService and PasswordEncoder
+    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/register")
@@ -28,10 +32,12 @@ public class AuthController {
         return ResponseEntity.ok("User registered successfully");
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
         Optional<User> existingUser = userService.findByUsername(user.getUsername());
-        if (existingUser.isPresent() && user.getPassword().equals(existingUser.get().getPassword())) {
+
+        if (existingUser.isPresent() &&
+                passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
             return ResponseEntity.ok("Login successful");
         }
         return ResponseEntity.status(401).body("Invalid username or password");

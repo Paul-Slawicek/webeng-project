@@ -29,6 +29,14 @@ public class User {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
+    private String role;
+    private String firstname;
+    private String lastname;
+    private String address;
+    private String city;
+    private String plz;
+    private String salutation;
+
     public Long getId() {
         return id;
     }
@@ -60,5 +68,60 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-}
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPlz() {
+        return plz;
+    }
+
+    public void setPlz(String plz) {
+        this.plz = plz;
+    }
+
+    public String getSalutation() {
+        return salutation;
+    }
+
+    public void setSalutation(String salutation) {
+        this.salutation = salutation;
+    }
+}

@@ -4,11 +4,11 @@
       <h1>Create Account</h1>
     </div>
     <div class="form-container register-container">
-      <form method="post" id="registrationForm">
+      <form @submit.prevent="submitRegistration" method="post" id="registrationForm">
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating mb-3">
-              <select class="form-select" id="floatingSelectAnrede" name="anrede" required>
+              <select class="form-select" id="salutation" v-model="salutation" required>
                 <option value="" disabled selected hidden>Title</option>
                 <option value="Herr">Mr.</option>
                 <option value="Frau">Ms.</option>
@@ -18,58 +18,114 @@
 
             <div class="d-flex">
               <div class="col-md-6 form-floating mb-3">
-                <input type="text" class="form-control" id="vorname" name="vorname" placeholder="First Name" required />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstname"
+                  v-model="firstname"
+                  placeholder="First Name"
+                  required
+                />
                 <label for="vorname">First Name</label>
               </div>
               <div class="col-md-6 form-floating mb-3">
-                <input type="text" class="form-control" id="nachname" name="nachname" placeholder="Last Name"
-                  required />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastname"
+                  v-model="lastname"
+                  placeholder="Last Name"
+                  required
+                />
                 <label for="nachname">Last Name</label>
               </div>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingAdress" name="adresse" placeholder="Address"
-                required />
-              <label for="floatingAdress">Address</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                v-model="address"
+                placeholder="Address"
+                required
+              />
+              <label for="address">Address</label>
             </div>
 
             <div class="d-flex">
               <div class="col-md-6 form-floating mb-3">
-                <input type="text" class="form-control" id="floatingPlz" name="plz" placeholder="Postal Code"
-                  required />
-                <label for="floatingPlz">Postal Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="plz"
+                  v-model="plz"
+                  placeholder="Postal Code"
+                  required
+                />
+                <label for="plz">Postal Code</label>
               </div>
               <div class="col-md-6 form-floating mb-3">
-                <input type="text" class="form-control" id="floatingOrt" name="ort" placeholder="City" required />
-                <label for="floatingOrt">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  v-model="city"
+                  placeholder="City"
+                  required
+                />
+                <label for="city">City</label>
               </div>
             </div>
           </div>
 
           <div class="col-md-6">
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="name@example.com"
-                required />
-              <label for="floatingEmail">Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                v-model="email"
+                placeholder="name@example.com"
+                required
+              />
+              <label for="email">Email Address</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingUsername" name="username" placeholder="Username"
-                required />
-              <label for="floatingUsername">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                v-model="username"
+                placeholder="Username"
+                required
+              />
+              <label for="username">Username</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password"
-                required />
-              <label for="floatingPassword">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                v-model="password"
+                placeholder="Password"
+                required
+              />
+              <label for="password">Password</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword2" name="password2"
-                placeholder="Repeat Password" required />
-              <label for="floatingPassword2">Repeat Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password2"
+                v-model="password2"
+                placeholder="Repeat Password"
+                required
+              />
+              <label for="password2">Repeat Password</label>
             </div>
           </div>
         </div>
@@ -86,16 +142,65 @@
   </div>
 </template>
 
+
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
+      salutation: '',
+      firstname: '',
+      lastname: '',
+      address: '',
+      plz: '',
+      city: '',
+      email: '',
+      username: '',
+      password: '',
+      password2: '',
     };
   },
   methods: {
-    submitRegistration() {
-     
-    }
-  }
+    async submitRegistration() {
+      console.log({
+    salutation: this.salutation,
+    firstname: this.firstname,
+    lastname: this.lastname,
+    address: this.address,
+    plz: this.plz,
+    city: this.city,
+    email: this.email,
+    username: this.username,
+    password: this.password,
+  });
+      // Überprüfen, ob die Passwörter übereinstimmen
+      if (this.password !== this.password2) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      try {
+        const response = await axios.post('http://localhost:8080/api/auth/register', {
+          salutation: this.salutation,
+          firstname: this.firstname,
+          lastname: this.lastname,
+          address: this.address,
+          plz: this.plz,
+          city: this.city,
+          email: this.email,
+          username: this.username,
+          password: this.password,
+        });
+        alert(response.data); // Zeigt "User registered successfully" an
+        this.$router.push('/login'); // Weiterleitung zur Login-Seite
+      } catch (error) {
+        console.error(error);
+        alert(error.response ? error.response.data : "An error occurred during registration.");
+      }
+    },
+  },
 };
 </script>
+
+
