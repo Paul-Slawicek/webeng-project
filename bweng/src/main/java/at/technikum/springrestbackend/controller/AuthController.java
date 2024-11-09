@@ -20,14 +20,15 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
-        if (userService.findByUsername(user.getUsername()).isPresent()) {
-            return ResponseEntity.badRequest().body("Username is already taken");
+        if (userService.findByUsername(user.getUsername()).isPresent() ||
+                userService.findByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body("Username or email is already taken");
         }
         userService.registerUser(user);
         return ResponseEntity.ok("User registered successfully");
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
         Optional<User> existingUser = userService.findByUsername(user.getUsername());
         if (existingUser.isPresent() && user.getPassword().equals(existingUser.get().getPassword())) {
