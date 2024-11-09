@@ -6,9 +6,9 @@
     <div class="form-container">
       <form @submit.prevent="submitLogin">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="emailOrUsername" v-model="emailOrUsername"
-            placeholder="Email or Username" required />
-          <label for="emailOrUsername">Email or Username</label>
+          <input type="text" class="form-control" id="username" v-model="username"
+            placeholder="Username" required />
+          <label for="username">Username</label>
         </div>
 
         <div class="form-floating mb-3">
