@@ -29,7 +29,7 @@ public class User {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    private String role;
+    private String role = "user";
     private String firstname;
     private String lastname;
     private String address;
