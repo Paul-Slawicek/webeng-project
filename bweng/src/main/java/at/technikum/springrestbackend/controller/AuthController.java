@@ -47,4 +47,13 @@ public class AuthController {
         }
         return ResponseEntity.status(401).body("Invalid username or password");
     }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+        Optional<User> user = userService.findById(id);
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(userMapper.toDto(user.get()));
+    }
 }
