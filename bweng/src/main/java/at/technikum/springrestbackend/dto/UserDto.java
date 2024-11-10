@@ -22,5 +22,4 @@ public record UserDto(
         String city,
         String plz,
         String salutation
-) {
-}
+) {}

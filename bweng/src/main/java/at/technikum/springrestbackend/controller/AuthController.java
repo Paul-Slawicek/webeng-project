@@ -1,5 +1,6 @@
 package at.technikum.springrestbackend.controller;
 
+import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.service.UserService;
 import jakarta.validation.Valid;
@@ -14,16 +15,19 @@ import java.util.Optional;
 public class AuthController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder; // Inject PasswordEncoder
+    private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     // Constructor injection for UserService and PasswordEncoder
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AuthController(UserService userService, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDto userDto) {
+        User user = userMapper.toEntity(userDto);
         if (userService.findByUsername(user.getUsername()).isPresent() ||
                 userService.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Username or email is already taken");
@@ -33,7 +37,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
+    public ResponseEntity<?> loginUser(@Valid @RequestBody UserDto userDto) {
+        User user = userMapper.toEntity(userDto);
         Optional<User> existingUser = userService.findByUsername(user.getUsername());
 
         if (existingUser.isPresent() &&

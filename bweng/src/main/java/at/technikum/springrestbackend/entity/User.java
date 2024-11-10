@@ -31,6 +31,23 @@ public class User {
     private String plz;
     private String salutation;
 
+    public User() {
+    }
+
+    public User(Long id, String username, String email, String password, String role, String firstname, String lastname, String address, String city, String plz, String salutation) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.city = city;
+        this.plz = plz;
+        this.salutation = salutation;
+    }
+
     public Long getId() {
         return id;
     }
