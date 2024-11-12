@@ -34,12 +34,11 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String email, String password, String role, String firstname, String lastname, String address, String city, String plz, String salutation) {
+    public User(Long id, String username, String email, String password, String firstname, String lastname, String address, String city, String plz, String salutation) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;

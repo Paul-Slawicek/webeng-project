@@ -4,6 +4,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Data Transfer Object (DTO) for transferring user data between the client and backend.
+ * - Used in requests (e.g., registration, login) to validate input.
+ * - Contains only the fields relevant for user interactions.
+ *
+ * @record: A lightweight data class in Java.
+ */
 public record UserDto(
         Long id,
         @NotBlank(message = "Username is required")

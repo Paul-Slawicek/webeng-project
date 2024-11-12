@@ -28,7 +28,6 @@ public class UserMapper {
                 userDto.username(),
                 userDto.email(),
                 userDto.password(),
-                userDto.role(),
                 userDto.firstname(),
                 userDto.lastname(),
                 userDto.address(),
