@@ -43,7 +43,7 @@ public class SecurityConfig {
 
     /**
      * Configures Cross-Origin Resource Sharing (CORS):
-     * - Allows your frontend (http://localhost:8082) to send requests to the backend.
+     * - Allows your frontend (http://localhost:8081) to send requests to the backend.
      * - Supports specific HTTP methods (e.g., GET, POST, PUT, DELETE).
      * - Accepts all headers from the frontend.
      * - Enables cookies or authentication tokens to be included in requests.
@@ -56,7 +56,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Allows CORS for all endpoints in the backend.
-                        .allowedOrigins("http://localhost:8082") // Allows requests from the Vue.js frontend.
+                        .allowedOrigins("http://localhost:8081") // Allows requests from the Vue.js frontend.
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specifies which HTTP methods are allowed.
                         .allowedHeaders("*") // Accepts any headers in requests.
                         .allowCredentials(true); // Allows cookies or authentication headers in requests.
