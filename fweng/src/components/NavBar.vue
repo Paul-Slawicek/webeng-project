@@ -31,7 +31,7 @@
           <router-link class="nav-link" to="/login">Login</router-link>
         </li>
         <li class="nav-item" v-if="authStore.isLoggedIn">
-          <button class="btn btn-link nav-link" @click="logout">Logout</button>
+          <button class="btn btn-link nav-link" to="/" @click="logout">Logout</button>
         </li>
         <li class="nav-item" v-if="!authStore.isLoggedIn">
           <router-link class="nav-link" to="/register">Register</router-link>
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import { useAuthStore } from "@/stores/authStore";
 
 export default {
@@ -76,7 +77,8 @@ export default {
 
     // Logout-Methode
     const logout = () => {
-      authStore.logout(); // Pinia-Store aktualisieren
+      authStore.logout(); 
+      router.push("/");
     };
 
     return {

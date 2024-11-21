@@ -1,74 +1,53 @@
 <template>
-  <div class="container mt-3">
+  <div class="container-wrapper">
     <div class="text-center mb-4 mt-3">
       <h1>Mein Account</h1>
     </div>
-    <div class="profile-container">
-      <div class="row">
-        <div class="col-md-5">
-          <h3>Benutzerprofil</h3>
-          <form @submit.prevent="updateProfile">
-            <!-- Anrede -->
-            <div class="form-group row mb-2">
-              <label for="anrede" class="col-sm-3 col-form-label">Anrede:</label>
-              <div class="col-sm-9">
-                <select id="anrede" v-model="profileData.salutation" class="form-control">
-                  <option value="Herr">Herr</option>
-                  <option value="Frau">Frau</option>
-                </select>
+    <div class="container d-flex align-items-center justify-content-center">
+      <div class="profile-container">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="text-center">Benutzerprofil</h3>
+            <form @submit.prevent="updateProfile">
+              <!-- Anrede -->
+              <div class="form-group row mb-2">
+                <label for="anrede" class="col-sm-3 col-form-label">Anrede:</label>
+                <div class="col-sm-9">
+                  <select id="anrede" v-model="profileData.salutation" class="form-control">
+                    <option value="Herr">Herr</option>
+                    <option value="Frau">Frau</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <!-- Vorname -->
-            <div class="form-group row mb-2">
-              <label for="firstname" class="col-sm-3 col-form-label">Vorname:</label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  id="firstname"
-                  v-model="profileData.firstname"
-                  class="form-control"
-                />
+              <!-- Vorname -->
+              <div class="form-group row mb-2">
+                <label for="firstname" class="col-sm-3 col-form-label">Vorname:</label>
+                <div class="col-sm-9">
+                  <input type="text" id="firstname" v-model="profileData.firstname" class="form-control" />
+                </div>
               </div>
-            </div>
-            <!-- Nachname -->
-            <div class="form-group row mb-2">
-              <label for="lastname" class="col-sm-3 col-form-label">Nachname:</label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  id="lastname"
-                  v-model="profileData.lastname"
-                  class="form-control"
-                />
+              <!-- Nachname -->
+              <div class="form-group row mb-2">
+                <label for="lastname" class="col-sm-3 col-form-label">Nachname:</label>
+                <div class="col-sm-9">
+                  <input type="text" id="lastname" v-model="profileData.lastname" class="form-control" />
+                </div>
               </div>
-            </div>
-            <!-- Username -->
-            <div class="form-group row mb-2">
-              <label for="username" class="col-sm-3 col-form-label">Username:</label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  id="username"
-                  v-model="profileData.username"
-                  class="form-control"
-                />
+              <!-- Username -->
+              <div class="form-group row mb-2">
+                <label for="username" class="col-sm-3 col-form-label">Username:</label>
+                <div class="col-sm-9">
+                  <input type="text" id="username" v-model="profileData.username" class="form-control" />
+                </div>
               </div>
-            </div>
-            <!-- Email -->
-            <div class="form-group row mb-2">
-              <label for="email" class="col-sm-3 col-form-label">Email:</label>
-              <div class="col-sm-9">
-                <input
-                  type="email"
-                  id="email"
-                  v-model="profileData.email"
-                  class="form-control"
-                />
+              <!-- Email -->
+              <div class="form-group row mb-2">
+                <label for="email" class="col-sm-3 col-form-label">Email:</label>
+                <div class="col-sm-9">
+                  <input type="email" id="email" v-model="profileData.email" class="form-control" />
+                </div>
               </div>
-            </div>
-            <div class="form-group row mb-2">
-</div>
-<div class="form-group row mb-2">
+              <div class="form-group row mb-2 align-items-center">
   <label for="new-password" class="col-sm-3 col-form-label">Neues Passwort:</label>
   <div class="col-sm-9">
     <input
@@ -79,8 +58,9 @@
     />
   </div>
 </div>
-<div class="form-group row mb-2">
-  <label for="confirm-password" class="col-sm-3 col-form-label">Neues Passwort bestätigen:</label>
+
+<div class="form-group row mb-2 align-items-center">
+  <label for="confirm-password" class="col-sm-3 col-form-label">Passwort bestätigen:</label>
   <div class="col-sm-9">
     <input
       type="password"
@@ -91,27 +71,30 @@
   </div>
 </div>
 
-            <div class="form-group row mb-2">
-              <label for="current-password" class="col-sm-3 col-form-label">Aktuelles Passwort:</label>
-              <div class="col-sm-9">
-                <input
-                  type="password"
-                  id="current-password"
-                  v-model="currentPassword"
-                  class="form-control"
-                  required
-                />
+<div class="form-group row mb-2 align-items-center">
+  <label for="current-password" class="col-sm-3 col-form-label">Aktuelles Passwort:</label>
+  <div class="col-sm-9">
+    <input
+      type="password"
+      id="current-password"
+      v-model="currentPassword"
+      class="form-control"
+      required
+    />
+  </div>
+</div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Profil aktualisieren</button>
               </div>
-            </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary">Profil aktualisieren</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 
 
 <script>
@@ -262,9 +245,6 @@ export default {
 
 
 <style scoped>
-.profile-container {
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 5px;
-}
+
+
 </style>
