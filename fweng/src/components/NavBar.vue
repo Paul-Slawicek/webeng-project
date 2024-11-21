@@ -36,6 +36,9 @@
         <li class="nav-item" v-if="!authStore.isLoggedIn">
           <router-link class="nav-link" to="/register">Register</router-link>
         </li>
+        <li class="nav-item" v-if="authStore.isLoggedIn">
+          <router-link class="nav-link" to="/profile">Profile</router-link>
+        </li>
         <li class="nav-item">
           <router-link
             class="nav-link position-relative"

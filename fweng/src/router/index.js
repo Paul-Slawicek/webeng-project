@@ -5,6 +5,8 @@ import RegisterView from '../views/RegisterView.vue';
 import ProductsView from '../views/ProductsView.vue';
 import ImprintView from '../views/ImprintView.vue';
 import HelpView from '../views/HelpView.vue';
+import ProfileView from '../views/ProfileView.vue';
+
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
@@ -13,6 +15,7 @@ const routes = [
   { path: '/products', name: 'Products', component: ProductsView },
   { path: '/impressum', name: 'Impressum', component: ImprintView },
   { path: '/help', name: 'Help', component: HelpView },
+  { path: '/profile', name: 'Profile', component: ProfileView },
 ];
 
 const router = createRouter({
