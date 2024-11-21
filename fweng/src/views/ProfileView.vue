@@ -67,6 +67,31 @@
               </div>
             </div>
             <div class="form-group row mb-2">
+</div>
+<div class="form-group row mb-2">
+  <label for="new-password" class="col-sm-3 col-form-label">Neues Passwort:</label>
+  <div class="col-sm-9">
+    <input
+      type="password"
+      id="new-password"
+      v-model="newPassword"
+      class="form-control"
+    />
+  </div>
+</div>
+<div class="form-group row mb-2">
+  <label for="confirm-password" class="col-sm-3 col-form-label">Neues Passwort bestätigen:</label>
+  <div class="col-sm-9">
+    <input
+      type="password"
+      id="confirm-password"
+      v-model="confirmPassword"
+      class="form-control"
+    />
+  </div>
+</div>
+
+            <div class="form-group row mb-2">
               <label for="current-password" class="col-sm-3 col-form-label">Aktuelles Passwort:</label>
               <div class="col-sm-9">
                 <input
@@ -176,29 +201,56 @@ export default {
     /**
      * Aktualisiert die Profildaten des Benutzers über die API.
      */
-    async updateProfile() {
-      if (!this.userId) {
-        console.error("Benutzer-ID fehlt!");
-        return;
-      }
+     async updateProfile() {
+  if (!this.userId) {
+    console.error("Benutzer-ID fehlt!");
+    return;
+  }
 
-      try {
-        const payload = {
-          ...this.profileData,
-          currentPassword: this.currentPassword,
-        };
+  // Validierung: Aktuelles Passwort muss angegeben werden
+  if (!this.currentPassword) {
+    alert("Bitte geben Sie Ihr aktuelles Passwort ein!");
+    return;
+  }
 
-        const response = await axios.put(`/auth/users/${this.userId}`, payload);
+  // Validierung: Neues Passwort und Bestätigung müssen übereinstimmen
+  if (this.newPassword || this.confirmPassword) {
+    if (this.newPassword !== this.confirmPassword) {
+      alert("Die neuen Passwörter stimmen nicht überein!");
+      return;
+    }
+  }
 
-        if (response.status === 200) {
-          alert("Profil erfolgreich aktualisiert!");
-        } else {
-          console.warn("Fehlerhafte API-Antwort:", response);
-        }
-      } catch (error) {
-        console.error("Fehler beim Aktualisieren des Profils:", error);
-      }
-    },
+  try {
+    const payload = {
+      ...this.profileData, // Profildaten aus den Eingabefeldern
+      password: this.currentPassword, // Aktuelles Passwort
+    };
+
+    // Füge `newPassword` nur hinzu, wenn es eingegeben wurde
+    if (this.newPassword) {
+      payload.newPassword = this.newPassword;
+    }
+
+    const response = await axios.put(`/auth/update_user/${this.userId}`, payload);
+
+    if (response.status === 200) {
+      alert("Profil erfolgreich aktualisiert!");
+      this.currentPassword = "";
+      this.newPassword = "";
+      this.confirmPassword = "";
+    } else {
+      alert("Fehler beim Aktualisieren des Profils: " + response.data);
+    }
+  } catch (error) {
+    console.error("Fehler beim Aktualisieren des Profils:", error);
+    if (error.response?.status === 401) {
+      alert("Das aktuelle Passwort ist falsch!");
+    } else {
+      alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+    }
+  }
+}
   },
 
   mounted() {

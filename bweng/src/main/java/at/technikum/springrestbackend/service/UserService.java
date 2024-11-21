@@ -22,7 +22,10 @@ public class UserService {
     public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword())); // Hash the password for security.
         return userRepository.save(user); // Save the user in the database.
+    }public User updateUser(User user) {
+        return userRepository.save(user);
     }
+
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);

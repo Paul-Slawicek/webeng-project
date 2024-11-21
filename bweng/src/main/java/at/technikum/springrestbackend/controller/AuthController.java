@@ -95,4 +95,41 @@ public class AuthController {
         }
         return ResponseEntity.ok(userMapper.toDto(user.get())); // Convert the user to a DTO and return it.
     }
+    @PutMapping("/update_user/{id}")
+    public ResponseEntity<?> updateUserProfile(@PathVariable Long id, @RequestBody UserDto userDto) {
+        Optional<User> optionalUser = userService.findById(id);
+
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(404).body("User not found");
+        }
+
+        User user = optionalUser.get();
+
+        System.out.println("Eingegebenes aktuelles Passwort: " + userDto.password());
+        System.out.println("Gespeichertes Passwort: " + user.getPassword());
+        if (!passwordEncoder.matches(userDto.password(), user.getPassword())) {
+            return ResponseEntity.status(401).body("Incorrect current password");
+        }
+
+        user.setFirstname(userDto.firstname());
+        user.setLastname(userDto.lastname());
+        user.setEmail(userDto.email());
+        user.setUsername(userDto.username());
+        user.setAddress(userDto.address());
+        user.setCity(userDto.city());
+        user.setPlz(userDto.plz());
+        user.setSalutation(userDto.salutation());
+
+        if (userDto.newPassword() != null && !userDto.newPassword().isEmpty()) {
+            System.out.println("Setze neues Passwort...");
+            user.setPassword(passwordEncoder.encode(userDto.newPassword()));
+
+        }
+
+        System.out.println("Ungehashtes Passwort vor dem Speichern: " + userDto.newPassword());
+        userService.updateUser(user);
+        return ResponseEntity.ok("User profile updated successfully");
+    }
+
+
 }

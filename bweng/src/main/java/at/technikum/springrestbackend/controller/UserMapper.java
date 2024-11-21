@@ -12,6 +12,7 @@ public class UserMapper {
                 user.getUsername(),
                 user.getEmail(),
                 null,
+                null,
                 user.getRole(),
                 user.getFirstname(),
                 user.getLastname(),
