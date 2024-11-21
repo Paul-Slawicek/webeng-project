@@ -1,7 +1,10 @@
 package at.technikum.springrestbackend.controller;
 
+import at.technikum.springrestbackend.dto.TokenRequestDto;
+import at.technikum.springrestbackend.dto.TokenResponseDto;
 import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
+import at.technikum.springrestbackend.service.AuthService;
 import at.technikum.springrestbackend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,14 +23,16 @@ import java.util.Optional;
 public class AuthController {
 
     private final UserService userService; // Manages user-related logic.
+    private final AuthService authService;
     private final PasswordEncoder passwordEncoder; // Verifies user passwords.
     private final UserMapper userMapper; // Maps User objects to UserDto and vice versa.
 
     /**
      * Constructor for dependency injection.
      */
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder, UserMapper userMapper) {
+    public AuthController(UserService userService, AuthService authService, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userService = userService;
+        this.authService = authService;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
     }
@@ -67,11 +72,11 @@ public class AuthController {
         return ResponseEntity.status(401).body("Invalid username or password"); // Return error if credentials are invalid.
     }
 
-    /**
-     * Retrieves a user's data by their ID.
-     * @param id The user's ID.
-     * @return The user's data or a 404 error if the user is not found.
-     */
+    @PostMapping("/token")
+    public TokenResponseDto token(@RequestBody @Valid final TokenRequestDto tokenRequestDto) {
+        return authService.authenticate(tokenRequestDto);
+    }
+
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
         Optional<User> user = userService.findById(id); // Retrieve the user by ID.

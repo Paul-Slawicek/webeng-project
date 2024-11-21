@@ -1,67 +1,71 @@
 package at.technikum.springrestbackend.config;
 
+import at.technikum.springrestbackend.security.CustomUserDetailService;
+import at.technikum.springrestbackend.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class SecurityConfig {
 
-    // Configures the PasswordEncoder that encrypts passwords with the BCrypt algorithm.
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * Configures security for the application:
-     * - Allows public access to "/api/auth/**" endpoints (e.g., login and register).
-     * - Requires users to log in for all other endpoints.
-     * - Enables the frontend (CORS) to connect to the backend.
-     * - Disables CSRF protection because REST APIs handle security differently (e.g., tokens).
-     *
-     * @Bean: Tells Spring to create and manage this method's return value
-     * (the SecurityFilterChain) as a reusable component in the application.
-     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .cors()
                 .and()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated();
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Use stateless sessions
+                .authorizeHttpRequests(registry -> registry
+                        .requestMatchers("/api/auth/**").permitAll() // Allow access to auth-related endpoints
+                        .anyRequest().authenticated()) // Secure other endpoints
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
+
         return http.build();
     }
 
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity httpSecurity, CustomUserDetailService customUserDetailService) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
 
-    /**
-     * Configures Cross-Origin Resource Sharing (CORS):
-     * - Allows your frontend (http://localhost:8081) to send requests to the backend.
-     * - Supports specific HTTP methods (e.g., GET, POST, PUT, DELETE).
-     * - Accepts all headers from the frontend.
-     * - Enables cookies or authentication tokens to be included in requests.
-     *
-     * @Bean: Marks this method as a reusable component that Spring will use to configure CORS globally.
-     */
+        authenticationManagerBuilder
+                .userDetailsService(customUserDetailService)
+                .passwordEncoder(passwordEncoder());
+
+        return authenticationManagerBuilder.build();
+    }
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // Allows CORS for all endpoints in the backend.
-                        .allowedOrigins("http://localhost:8081") // Allows requests from the Vue.js frontend.
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specifies which HTTP methods are allowed.
-                        .allowedHeaders("*") // Accepts any headers in requests.
-                        .allowCredentials(true); // Allows cookies or authentication headers in requests.
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:8081")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
-
 }
