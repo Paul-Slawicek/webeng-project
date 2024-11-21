@@ -91,7 +91,7 @@
 
 <script>
 import axios from "@/services/api"; // API-Client
-import jwtDecode from "jwt-decode"; // JWT-Dekodierung
+import { jwtDecode } from "jwt-decode"; // JWT-Dekodierung
 
 export default {
   data() {
