@@ -3,15 +3,19 @@
     <router-link to="/" class="navbar-brand">
       <img src="../assets/img/basseno.png" class="bassenoBild" />
     </router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <input type="text" class="form-control" id="floatingInput" placeholder="Search" />
-        </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/products">Products</router-link>
         </li>
@@ -23,18 +27,33 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
+        <li class="nav-item" v-if="!authStore.isLoggedIn">
           <router-link class="nav-link" to="/login">Login</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="authStore.isLoggedIn">
+          <button class="btn btn-link nav-link" @click="logout">Logout</button>
+        </li>
+        <li class="nav-item" v-if="!authStore.isLoggedIn">
           <router-link class="nav-link" to="/register">Register</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link position-relative" to="/cart" data-bs-toggle="tooltip" title="Shopping Cart">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart"
-              viewBox="0 0 16 16">
+          <router-link
+            class="nav-link position-relative"
+            to="/cart"
+            data-bs-toggle="tooltip"
+            title="Shopping Cart"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-cart"
+              viewBox="0 0 16 16"
+            >
               <path
-                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+              />
             </svg>
           </router-link>
         </li>
@@ -44,10 +63,27 @@
 </template>
 
 <script>
+import { useAuthStore } from "@/stores/authStore";
+
 export default {
-  name: 'NavBar',
+  name: "NavBar",
+  setup() {
+    // Zugriff auf den authStore
+    const authStore = useAuthStore();
+
+    // Logout-Methode
+    const logout = () => {
+      authStore.logout(); // Pinia-Store aktualisieren
+    };
+
+    return {
+      authStore,
+      logout,
+    };
+  },
 };
 </script>
+
 
 <style scoped>
 .navbar {

@@ -4,6 +4,7 @@ import at.technikum.springrestbackend.dto.TokenRequestDto;
 import at.technikum.springrestbackend.dto.TokenResponseDto;
 import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
+import at.technikum.springrestbackend.security.jwt.JwtIssuer;
 import at.technikum.springrestbackend.service.AuthService;
 import at.technikum.springrestbackend.service.UserService;
 import jakarta.validation.Valid;
@@ -25,16 +26,18 @@ public class AuthController {
     private final UserService userService; // Manages user-related logic.
     private final AuthService authService;
     private final PasswordEncoder passwordEncoder; // Verifies user passwords.
-    private final UserMapper userMapper; // Maps User objects to UserDto and vice versa.
+    private final UserMapper userMapper;
+    private final JwtIssuer jwtIssuer;// Maps User objects to UserDto and vice versa.
 
     /**
      * Constructor for dependency injection.
      */
-    public AuthController(UserService userService, AuthService authService, PasswordEncoder passwordEncoder, UserMapper userMapper) {
+    public AuthController(UserService userService, AuthService authService, PasswordEncoder passwordEncoder, UserMapper userMapper, JwtIssuer jwtIssuer){
         this.userService = userService;
         this.authService = authService;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
+        this.jwtIssuer = jwtIssuer;
     }
 
     /**
@@ -61,16 +64,22 @@ public class AuthController {
      */
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody UserDto userDto) {
-        User user = userMapper.toEntity(userDto); // Converts DTO to User entity.
-        Optional<User> existingUser = userService.findByUsername(user.getUsername()); // Check if user exists.
+        User user= userMapper.toEntity(userDto); // Convert the DTO to a User entity.
+        Optional<User> existingUser = userService.findByUsername(user.getUsername());
 
-        // Verify the password using the password encoder.
         if (existingUser.isPresent() &&
                 passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
-            return ResponseEntity.ok("Login successful");
+            // JWT Token erstellen
+            String token = authService.authenticate(
+                    new TokenRequestDto(
+                            userDto.username(),
+                            userDto.password())).getToken();
+
+            return ResponseEntity.ok(new TokenResponseDto(token)); // Token zurückgeben
         }
-        return ResponseEntity.status(401).body("Invalid username or password"); // Return error if credentials are invalid.
+        return ResponseEntity.status(401).body("Invalid username or password");
     }
+
 
     @PostMapping("/token")
     public TokenResponseDto token(@RequestBody @Valid final TokenRequestDto tokenRequestDto) {

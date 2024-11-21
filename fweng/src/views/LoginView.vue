@@ -6,14 +6,26 @@
     <div class="form-container">
       <form @submit.prevent="submitLogin">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="username" v-model="username"
-            placeholder="Username" required />
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            v-model="username"
+            placeholder="Username"
+            required
+          />
           <label for="username">Username</label>
         </div>
 
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="password" v-model="password" placeholder="Password"
-            required />
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            v-model="password"
+            placeholder="Password"
+            required
+          />
           <label for="password">Password</label>
         </div>
 
@@ -33,7 +45,7 @@
     </div>
 
     <!-- Error Modal -->
-    <div v-if="showErrorModal" class="modal"  role="dialog" style="display: block;">
+    <div v-if="showErrorModal" class="modal" role="dialog" style="display: block;">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -41,7 +53,7 @@
             <button type="button" class="close" @click="closeErrorModal">&times;</button>
           </div>
           <div class="modal-body">
-            <p>User not found. Please check your credentials and try again.</p>
+            <p>{{ errorMessage }}</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="closeErrorModal">Close</button>
@@ -52,37 +64,66 @@
   </div>
 </template>
 
-
 <script>
-import axios from 'axios';
+import axios from "axios";
+import { useAuthStore } from "@/stores/authStore"; // Importiere den authStore
 
 export default {
+  name: "LoginView",
   data() {
     return {
-      username: '', // or email if needed
-      password: '',
+      username: "",
+      password: "",
+      rememberMe: false,
+      showErrorModal: false,
+      errorMessage: "",
     };
+  },
+  setup() {
+    const authStore = useAuthStore(); // Zugriff auf den Pinia-Store
+    return { authStore }; // Zur Nutzung in Methoden verfügbar machen
   },
   methods: {
     async submitLogin() {
       try {
-        const response = await axios.post('http://localhost:8080/api/auth/login', {
-          username: this.username, // Use 'email' if your backend supports login with email
-          password: this.password,
-        });
-        alert(response.data); // Zeigt "Login successful" an
-        this.$router.push('/'); // Weiterleitung
+        const response = await axios.post(
+          "http://localhost:8080/api/auth/login", // Dein Login-Endpoint
+          {
+            username: this.username,
+            password: this.password,
+          }
+        );
+
+        const token = response.data.token; // JWT-Token aus der Response
+        console.log("Received Token:", token);
+        
+        if(this.rememberMe)
+        {
+          localStorage.setItem("jwtToken", token);
+        }else{
+          sessionStorage.setItem("jwtToken", token);
+        }
+
+        // Token im Pinia-Store speichern
+        this.authStore.login(token, this.rememberMe);
+
+        alert("Login successful");
+        this.$router.push("/"); // Weiterleitung nach erfolgreichem Login
       } catch (error) {
-        console.error(error);
-        alert(error.response ? error.response.data : "Invalid username or password.");
+        this.showErrorModal = true;
+        this.errorMessage = error.response
+          ? error.response.data
+          : "Invalid username or password.";
+        console.error("Login error:", error); // Fehler debuggen
       }
+    },
+    closeErrorModal() {
+      this.showErrorModal = false;
+      this.errorMessage = "";
     },
   },
 };
-
 </script>
-
-
 
 <style scoped>
 .modal {
