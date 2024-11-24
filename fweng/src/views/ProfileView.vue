@@ -180,7 +180,7 @@ export default {
         if (error.response?.status === 401) {
           alert("Das aktuelle Passwort ist falsch!");
         } else {
-          alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+          alert(error?.response?.data?.errors?.join('\r\n') ?? error?.response?.data ?? "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
         }
       }
     }

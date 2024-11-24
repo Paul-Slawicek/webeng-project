@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUserProfile(@PathVariable Long id, @RequestBody UserDto userDto) {
+    public ResponseEntity<?> updateUserProfile(@PathVariable Long id, @Validated @RequestBody UserDto userDto) {
         Optional<User> optionalUser = userService.findById(id);
 
         if (optionalUser.isEmpty()) {

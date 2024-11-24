@@ -195,8 +195,8 @@ export default {
         alert(response.data); // Zeigt "User registered successfully" an
         this.$router.push('/login');
       } catch (error) {
-        console.error(error);
-        alert(error.response ? error.response.data : "An error occurred during registration.");
+        console.log(error.response);
+        alert(error?.response?.data?.errors?.join('\r\n') ?? error?.response?.data ?? "An error occurred during registration.");
       }
     },
   },
