@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuthStore } from "@/stores/authStore";
 
 const apiClient = axios.create({
   baseURL: "http://localhost:8080/api", // Dein Backend
@@ -10,9 +11,9 @@ const apiClient = axios.create({
 // Request-Interceptor: JWT-Token automatisch hinzufügen
 apiClient.interceptors.request.use(
   (config) => {
-    // JWT-Token aus localStorage oder sessionStorage abrufen
-    const token =
-      localStorage.getItem("jwtToken") || sessionStorage.getItem("jwtToken");
+    
+    const authStore = useAuthStore();
+    const token = authStore.token;
 
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;

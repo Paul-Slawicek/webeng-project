@@ -65,8 +65,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import { useAuthStore } from "@/stores/authStore"; // Importiere den authStore
+import axios from "@/services/api";
+import { useAuthStore } from "@/stores/authStore";
 
 export default {
   name: "LoginView",
@@ -86,8 +86,7 @@ export default {
   methods: {
     async submitLogin() {
       try {
-        const response = await axios.post(
-          "http://localhost:8080/api/auth/login", // Dein Login-Endpoint
+        const response = await axios.post("/auth/token",
           {
             username: this.username,
             password: this.password,
@@ -96,13 +95,6 @@ export default {
 
         const token = response.data.token; // JWT-Token aus der Response
         console.log("Received Token:", token);
-        
-        if(this.rememberMe)
-        {
-          localStorage.setItem("jwtToken", token);
-        }else{
-          sessionStorage.setItem("jwtToken", token);
-        }
 
         // Token im Pinia-Store speichern
         this.authStore.login(token, this.rememberMe);

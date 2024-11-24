@@ -144,7 +144,7 @@
 
 
 <script>
-import axios from 'axios';
+import axios from '@/services/api';
 
 export default {
   data() {
@@ -181,7 +181,7 @@ export default {
       }
 
       try {
-        const response = await axios.post('http://localhost:8080/api/auth/register', {
+        const response = await axios.post('/users', {
           salutation: this.salutation,
           firstname: this.firstname,
           lastname: this.lastname,
@@ -193,7 +193,7 @@ export default {
           password: this.password,
         });
         alert(response.data); // Zeigt "User registered successfully" an
-        this.$router.push('/login'); // Weiterleitung zur Login-Seite
+        this.$router.push('/login');
       } catch (error) {
         console.error(error);
         alert(error.response ? error.response.data : "An error occurred during registration.");
