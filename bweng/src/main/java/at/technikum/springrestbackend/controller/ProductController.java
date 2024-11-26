@@ -4,6 +4,9 @@ import at.technikum.springrestbackend.dto.ProductDTO;
 import at.technikum.springrestbackend.entity.Product;
 import at.technikum.springrestbackend.service.FileService;
 import at.technikum.springrestbackend.service.ProductService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     private final ProductService productService;
     private final FileService fileService;
@@ -28,27 +32,31 @@ public class ProductController {
 
 
     @PostMapping("/add")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> addProduct(
-            @RequestPart("product") ProductDTO productDto,
+            @RequestPart("product") String productJson,
             @RequestPart(value = "file", required = false) MultipartFile file) {
         try {
-            System.out.print("Hello World!");
-            String fileReference = null;
+            logger.info("Received product JSON: {}", productJson);
+            if (file != null && !file.isEmpty()) {
+                logger.info("Received file: {}", file.getOriginalFilename());
+            } else {
+                logger.warn("No file uploaded");
+            }
+            // Parse productJson to DTO
+            ObjectMapper objectMapper = new ObjectMapper();
+            ProductDTO productDto = objectMapper.readValue(productJson, ProductDTO.class);
 
-            // Upload file if provided
+            // Handle file upload
+            String fileReference = null;
             if (file != null && !file.isEmpty()) {
                 fileReference = fileService.upload(file);
             }
-
-
-            // Set file reference in product DTO
             productDto.setPicture(fileReference);
 
-            // Create the product
+            // Create product
             Product product = productService.createProduct(productDto);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(product);
+            return ResponseEntity.ok(product);
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed: " + e.getMessage());

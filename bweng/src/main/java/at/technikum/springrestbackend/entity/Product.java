@@ -4,6 +4,7 @@ package at.technikum.springrestbackend.entity;
 
 import jakarta.persistence.*;
 
+import java.io.File;
 import java.math.BigDecimal;
 
 @Entity
@@ -26,10 +27,9 @@ public class Product {
     @Column(nullable = false, length = 150)
     private String category;
 
-    @Column(nullable = true, length = 250)
+    @Column( length = 250)
     private String picture;
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

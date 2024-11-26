@@ -99,8 +99,9 @@
         productData: {
           title: "",
           price: "",
-          category: "",
           description: "",
+          category: "",
+          
         },
         file: null, // Separate file field
       };
@@ -125,11 +126,14 @@
       formData.append("file", this.file); // Send file as "file"
     }
 
+    console.log("FormData:", [...formData]); // Debugging: Zeige den Inhalt von FormData an
+
     const response = await axios.post("/products/add", formData, {
       headers: {
-        "Content-Type": "multipart/form-data", // Explicitly set Content-Type
+        "Content-Type": "multipart/form-data", // Explicitly set content type
       },
     });
+
 
     if (response.status === 201) {
       alert("Produkt erfolgreich hinzugefügt!");
