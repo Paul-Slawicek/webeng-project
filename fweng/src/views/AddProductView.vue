@@ -84,8 +84,11 @@
             </div>
           </form>
         </div>
+        <div v-else>
+          <p class="text-danger">Sie haben keine berechtigung auf diese Seite zuzugreifen!</p>
       </div>
     </div>
+</div>
   </template>
   
   <script>

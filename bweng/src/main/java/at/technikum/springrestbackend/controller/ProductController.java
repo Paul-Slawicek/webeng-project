@@ -50,7 +50,9 @@ public class ProductController {
             String fileReference = null;
             if (file != null && !file.isEmpty()) {
                 fileReference = fileService.upload(file);
+                logger.info("Hochgeladene Datei: " + fileReference);
             }
+            logger.info("Hochgeladene Datei: " + fileReference);
             logger.info("hier1");
             productDto.setPicture(fileReference);
 
