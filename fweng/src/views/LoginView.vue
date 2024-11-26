@@ -92,13 +92,12 @@ export default {
             password: this.password,
           }
         );
-
+        
         const token = response.data.token; // JWT-Token aus der Response
         console.log("Received Token:", token);
 
         // Token im Pinia-Store speichern
         this.authStore.login(token, this.rememberMe);
-
         alert("Login successful");
         this.$router.push("/"); // Weiterleitung nach erfolgreichem Login
       } catch (error) {

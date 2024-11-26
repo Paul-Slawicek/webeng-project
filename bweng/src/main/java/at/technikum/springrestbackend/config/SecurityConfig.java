@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/api/auth/token").permitAll()
                         .requestMatchers(POST, "/api/users").permitAll()
+                        .requestMatchers(POST, "/api/products").permitAll()
                         .anyRequest().authenticated()) // Secure other endpoints
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
 
