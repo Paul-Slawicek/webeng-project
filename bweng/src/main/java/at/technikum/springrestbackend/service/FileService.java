@@ -1,6 +1,5 @@
 package at.technikum.springrestbackend.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Service
 public class FileService {
 
-    private final String uploadDir="../upload";
+    private final String uploadDir = System.getProperty("user.dir") + "/upload";
 
     public String upload(MultipartFile file) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
@@ -24,7 +23,7 @@ public class FileService {
 
         // Generate a unique file name
         String fileExtension = getFileExtension(file.getOriginalFilename());
-        String uniqueFileName = UUID.randomUUID().toString() + (fileExtension.isEmpty() ? "" : "." + fileExtension);
+        String uniqueFileName = UUID.randomUUID() + (fileExtension.isEmpty() ? "" : "." + fileExtension);
 
         // Save the file
         Path filePath = uploadPath.resolve(uniqueFileName);

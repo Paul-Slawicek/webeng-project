@@ -3,7 +3,6 @@ package at.technikum.springrestbackend.controller;
 import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
