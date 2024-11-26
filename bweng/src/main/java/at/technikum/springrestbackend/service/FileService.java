@@ -14,8 +14,7 @@ import java.util.UUID;
 @Service
 public class FileService {
 
-    @Value("${file.upload-dir:upload}")
-    private String uploadDir;
+    private final String uploadDir="../upload";
 
     public String upload(MultipartFile file) throws IOException {
         Path uploadPath = Paths.get(uploadDir);

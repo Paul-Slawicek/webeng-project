@@ -46,11 +46,13 @@ public class ProductController {
             ObjectMapper objectMapper = new ObjectMapper();
             ProductDTO productDto = objectMapper.readValue(productJson, ProductDTO.class);
 
+            logger.info("hier");
             // Handle file upload
             String fileReference = null;
             if (file != null && !file.isEmpty()) {
                 fileReference = fileService.upload(file);
             }
+            logger.info("hier1");
             productDto.setPicture(fileReference);
 
             // Create product
