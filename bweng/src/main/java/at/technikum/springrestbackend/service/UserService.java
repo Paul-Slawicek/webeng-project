@@ -24,9 +24,9 @@ public class UserService {
     }
 
     public void updateUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
-
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);

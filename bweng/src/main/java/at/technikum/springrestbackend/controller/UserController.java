@@ -61,7 +61,7 @@ public class UserController {
         User user = userMapper.toEntity(userDto);
 
         if (userDto.newPassword() != null && !userDto.newPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(userDto.newPassword()));
+            user.setPassword(userDto.newPassword());
         }
 
         userService.updateUser(user);
