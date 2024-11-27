@@ -8,7 +8,6 @@ import HelpView from '../views/HelpView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import AddProductView from '../views/AddProductView.vue';
 
-
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
   { path: '/login', name: 'Login', component: LoginView },

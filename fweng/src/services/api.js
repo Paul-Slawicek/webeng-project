@@ -11,7 +11,7 @@ const apiClient = axios.create({
 // Request-Interceptor: JWT-Token automatisch hinzufügen
 apiClient.interceptors.request.use(
   (config) => {
-    
+
     const authStore = useAuthStore();
     const token = authStore.token;
 

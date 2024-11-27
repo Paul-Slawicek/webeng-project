@@ -6,26 +6,13 @@
     <div class="form-container">
       <form @submit.prevent="submitLogin">
         <div class="form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="username"
-            v-model="username"
-            placeholder="Username"
-            required
-          />
+          <input type="text" class="form-control" id="username" v-model="username" placeholder="Username" required />
           <label for="username">Username</label>
         </div>
 
         <div class="form-floating mb-3">
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            v-model="password"
-            placeholder="Password"
-            required
-          />
+          <input type="password" class="form-control" id="password" v-model="password" placeholder="Password"
+            required />
           <label for="password">Password</label>
         </div>
 
@@ -92,7 +79,7 @@ export default {
             password: this.password,
           }
         );
-        
+
         const token = response.data.token; // JWT-Token aus der Response
         console.log("Received Token:", token);
 

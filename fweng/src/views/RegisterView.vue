@@ -18,62 +18,29 @@
 
             <div class="d-flex">
               <div class="col-md-6 form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="firstname"
-                  v-model="firstname"
-                  placeholder="First Name"
-                  required
-                />
+                <input type="text" class="form-control" id="firstname" v-model="firstname" placeholder="First Name"
+                  required />
                 <label for="vorname">First Name</label>
               </div>
               <div class="col-md-6 form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="lastname"
-                  v-model="lastname"
-                  placeholder="Last Name"
-                  required
-                />
+                <input type="text" class="form-control" id="lastname" v-model="lastname" placeholder="Last Name"
+                  required />
                 <label for="nachname">Last Name</label>
               </div>
             </div>
 
             <div class="form-floating mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="address"
-                v-model="address"
-                placeholder="Address"
-                required
-              />
+              <input type="text" class="form-control" id="address" v-model="address" placeholder="Address" required />
               <label for="address">Address</label>
             </div>
 
             <div class="d-flex">
               <div class="col-md-6 form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="plz"
-                  v-model="plz"
-                  placeholder="Postal Code"
-                  required
-                />
+                <input type="text" class="form-control" id="plz" v-model="plz" placeholder="Postal Code" required />
                 <label for="plz">Postal Code</label>
               </div>
               <div class="col-md-6 form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="city"
-                  v-model="city"
-                  placeholder="City"
-                  required
-                />
+                <input type="text" class="form-control" id="city" v-model="city" placeholder="City" required />
                 <label for="city">City</label>
               </div>
             </div>
@@ -81,50 +48,26 @@
 
           <div class="col-md-6">
             <div class="form-floating mb-3">
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                v-model="email"
-                placeholder="name@example.com"
-                required
-              />
+              <input type="email" class="form-control" id="email" v-model="email" placeholder="name@example.com"
+                required />
               <label for="email">Email Address</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                v-model="username"
-                placeholder="Username"
-                required
-              />
+              <input type="text" class="form-control" id="username" v-model="username" placeholder="Username"
+                required />
               <label for="username">Username</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                v-model="password"
-                placeholder="Password"
-                required
-              />
+              <input type="password" class="form-control" id="password" v-model="password" placeholder="Password"
+                required />
               <label for="password">Password</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input
-                type="password"
-                class="form-control"
-                id="password2"
-                v-model="password2"
-                placeholder="Repeat Password"
-                required
-              />
+              <input type="password" class="form-control" id="password2" v-model="password2"
+                placeholder="Repeat Password" required />
               <label for="password2">Repeat Password</label>
             </div>
           </div>
@@ -164,16 +107,16 @@ export default {
   methods: {
     async submitRegistration() {
       console.log({
-    salutation: this.salutation,
-    firstname: this.firstname,
-    lastname: this.lastname,
-    address: this.address,
-    plz: this.plz,
-    city: this.city,
-    email: this.email,
-    username: this.username,
-    password: this.password,
-  });
+        salutation: this.salutation,
+        firstname: this.firstname,
+        lastname: this.lastname,
+        address: this.address,
+        plz: this.plz,
+        city: this.city,
+        email: this.email,
+        username: this.username,
+        password: this.password,
+      });
       // Überprüfen, ob die Passwörter übereinstimmen
       if (this.password !== this.password2) {
         alert("Passwords do not match!");
@@ -202,5 +145,3 @@ export default {
   },
 };
 </script>
-
-
