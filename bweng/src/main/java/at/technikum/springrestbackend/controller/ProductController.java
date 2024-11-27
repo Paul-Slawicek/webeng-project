@@ -28,8 +28,6 @@ public class ProductController {
         this.fileService = fileService;
     }
 
-
-
     @PostMapping("/add")
     public ResponseEntity<?> addProduct(
             @RequestPart("product") String productJson,
@@ -45,7 +43,6 @@ public class ProductController {
             ObjectMapper objectMapper = new ObjectMapper();
             ProductDTO productDto = objectMapper.readValue(productJson, ProductDTO.class);
 
-            logger.info("hier");
             // Handle file upload
             String fileReference = null;
             if (file != null && !file.isEmpty()) {
@@ -53,10 +50,8 @@ public class ProductController {
                 logger.info("Hochgeladene Datei: " + fileReference);
             }
             logger.info("Hochgeladene Datei: " + fileReference);
-            logger.info("hier1");
             productDto.setPicture(fileReference);
 
-            // Create product
             Product product = productService.createProduct(productDto);
 
             return ResponseEntity.ok(product);
@@ -66,12 +61,10 @@ public class ProductController {
         }
     }
 
-
     @GetMapping("/loadAll")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
-
 
 }

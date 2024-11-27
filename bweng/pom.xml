@@ -118,8 +118,5 @@
                 <version>10.20.1</version>
             </plugin>
         </plugins>
-       <!---<finalName>spring-rest-backend-0.0.1</finalName>-->
     </build>
-
-
 </project>

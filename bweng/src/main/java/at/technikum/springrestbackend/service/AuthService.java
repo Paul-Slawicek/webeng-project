@@ -1,6 +1,5 @@
 package at.technikum.springrestbackend.service;
 
-
 import at.technikum.springrestbackend.dto.TokenRequestDto;
 import at.technikum.springrestbackend.dto.TokenResponseDto;
 import at.technikum.springrestbackend.security.UserPrincipal;

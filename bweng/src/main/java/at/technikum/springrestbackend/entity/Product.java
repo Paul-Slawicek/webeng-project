@@ -4,9 +4,6 @@ package at.technikum.springrestbackend.entity;
 
 import jakarta.persistence.*;
 
-import java.io.File;
-import java.math.BigDecimal;
-
 @Entity
 @Table(name = "products")
 public class Product {

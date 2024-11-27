@@ -8,7 +8,6 @@ public class ProductDTO {
     private String description;
     private String picture;
 
-    // Getters and setters
     public String getTitle() {
         return title;
     }

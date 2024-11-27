@@ -14,8 +14,8 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserService userService; // Manages user-related logic.
-    private final PasswordEncoder passwordEncoder; // Verifies user passwords.
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
 
     public UserController(UserService userService, PasswordEncoder passwordEncoder, UserMapper userMapper) {

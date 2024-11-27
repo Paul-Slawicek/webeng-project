@@ -6,7 +6,6 @@ import at.technikum.springrestbackend.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -16,7 +15,6 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
 
     public Product createProduct(ProductDTO productDto) {
         Product product = new Product();

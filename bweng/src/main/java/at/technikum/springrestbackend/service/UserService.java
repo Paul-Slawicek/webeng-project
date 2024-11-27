@@ -10,8 +10,8 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository; // Handles database interactions.
-    private final PasswordEncoder passwordEncoder; // Used to hash and verify passwords.
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public void createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Hash the password for security.
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
