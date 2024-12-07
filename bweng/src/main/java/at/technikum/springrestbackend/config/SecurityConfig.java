@@ -46,9 +46,9 @@ public class SecurityConfig {
                         .requestMatchers(POST, "/api/users").permitAll()
                         .requestMatchers(POST, "/api/products").hasRole("admin")
                         .requestMatchers(GET, "/api/products").permitAll()
-                        .requestMatchers("/api/users/admin/**").hasRole("admin")
-                        .anyRequest().authenticated()) // Secure other endpoints
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
+                        .requestMatchers("/api/users/admin").hasRole("admin")
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
