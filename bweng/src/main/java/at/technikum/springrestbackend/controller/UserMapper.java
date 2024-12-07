@@ -4,6 +4,9 @@ import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class UserMapper {
     public UserDto toDto(User user) {
@@ -21,6 +24,10 @@ public class UserMapper {
                 user.getPlz(),
                 user.getSalutation()
         );
+    }
+
+    public List<UserDto> toDto(List<User> users) {
+        return users.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     public User toEntity(UserDto userDto) {

@@ -4,10 +4,12 @@ import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -36,6 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("#id == authentication.principal.id or hasRole('admin')")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
         Optional<User> user = userService.findById(id);
         if (user.isEmpty()) {
@@ -44,7 +47,15 @@ public class UserController {
         return ResponseEntity.ok(userMapper.toDto(user.get()));
     }
 
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('admin')")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<User> users = userService.findAll();
+        return ResponseEntity.ok(userMapper.toDto(users));
+    }
+
     @PutMapping("/{id}")
+    @PreAuthorize("#id == authentication.principal.id")
     public ResponseEntity<?> updateUserProfile(@PathVariable Long id, @Validated @RequestBody UserDto userDto) {
         Optional<User> optionalUser = userService.findById(id);
 
@@ -66,5 +77,30 @@ public class UserController {
 
         userService.updateUser(user);
         return ResponseEntity.ok("User profile updated successfully");
+    }
+
+    @PutMapping("/admin/{id}")
+    @PreAuthorize("hasRole('admin')")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @Validated @RequestBody UserDto userDto) {
+        Optional<User> optionalUser = userService.findById(id);
+
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(404).body("User not found");
+        }
+
+        User user = userMapper.toEntity(userDto);
+        userService.updateUser(user);
+        return ResponseEntity.ok("User updated successfully");
+    }
+
+    @DeleteMapping("/admin/{id}")
+    @PreAuthorize("hasRole('admin')")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        Optional<User> user = userService.findById(id);
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        userService.deleteUser(user.get());
+        return ResponseEntity.ok("User deleted successfully");
     }
 }

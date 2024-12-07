@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +30,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('admin')")
     public ResponseEntity<?> addProduct(
             @RequestPart("product") String productJson,
             @RequestPart(value = "file", required = false) MultipartFile file) {
@@ -39,11 +41,9 @@ public class ProductController {
             } else {
                 logger.warn("No file uploaded");
             }
-            // Parse productJson to DTO
             ObjectMapper objectMapper = new ObjectMapper();
             ProductDTO productDto = objectMapper.readValue(productJson, ProductDTO.class);
 
-            // Handle file upload
             String fileReference = null;
             if (file != null && !file.isEmpty()) {
                 fileReference = fileService.upload(file);

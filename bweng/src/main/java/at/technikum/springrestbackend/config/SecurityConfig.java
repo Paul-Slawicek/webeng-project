@@ -17,6 +17,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.List;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
@@ -43,7 +44,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/api/auth/token").permitAll()
                         .requestMatchers(POST, "/api/users").permitAll()
-                        .requestMatchers(POST, "/api/products").permitAll()
+                        .requestMatchers(POST, "/api/products").hasRole("admin")
+                        .requestMatchers(GET, "/api/products").permitAll()
+                        .requestMatchers("/api/users/admin/**").hasRole("admin")
                         .anyRequest().authenticated()) // Secure other endpoints
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
 
