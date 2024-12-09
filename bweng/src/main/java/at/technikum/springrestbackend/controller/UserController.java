@@ -38,17 +38,15 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("#id == authentication.principal.id or hasRole('admin')")
+    @PreAuthorize("#id == authentication.principal.id or hasAuthority('admin')")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
-        Optional<User> user = userService.findById(id);
-        if (user.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(userMapper.toDto(user.get()));
+        return userService.findById(id)
+                .map(user -> ResponseEntity.ok(userMapper.toDto(user)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userService.findAll();
         return ResponseEntity.ok(userMapper.toDto(users));
@@ -80,7 +78,7 @@ public class UserController {
     }
 
     @PutMapping("/admin/{id}")
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @Validated @RequestBody UserDto userDto) {
         Optional<User> optionalUser = userService.findById(id);
 
@@ -94,7 +92,7 @@ public class UserController {
     }
 
     @DeleteMapping("/admin/{id}")
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         Optional<User> user = userService.findById(id);
         if (user.isEmpty()) {

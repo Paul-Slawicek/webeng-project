@@ -16,7 +16,7 @@ POST http://localhost:8080/api/auth/token
 Content-Type: application/json
 
 {
-"username": "user",
+"username": "user1",
 "password": "password"
 }
 
@@ -40,9 +40,9 @@ Content-Type: application/json
 
 ###
 
-# Get user by ID (has token with ID 8) TODO: should only work with own ID
-GET http://localhost:8080/api/users/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4IiwiZXhwIjoxNzMzODU5NDM5LCJ1c2VybmFtZSI6ImVuZXNvbiIsInJvbGUiOiJ1c2VyIn0.deGge3KCeNBezbOeQlJ_JX9kAckwNdedVTbhBnYTxUY
+# Get user by ID (hat token mit ID 2)
+GET http://localhost:8080/api/users/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzMzODczMjIwLCJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6InVzZXIifQ._fSXTNdYfhichBOwDcFRSgguPEXKj4UPe4QSZfnXnns
 
 ###
 
@@ -54,7 +54,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwI
 
 # Admin: Get all users (with user token, should fail with 403)
 GET http://localhost:8080/api/users/admin
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4IiwiZXhwIjoxNzMzODU5NDM5LCJ1c2VybmFtZSI6ImVuZXNvbiIsInJvbGUiOiJ1c2VyIn0.deGge3KCeNBezbOeQlJ_JX9kAckwNdedVTbhBnYTxUY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzMzODczMjIwLCJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6InVzZXIifQ._fSXTNdYfhichBOwDcFRSgguPEXKj4UPe4QSZfnXnns
 
 ###
 
@@ -96,8 +96,8 @@ DELETE http://localhost:8080/api/users/admin/14
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4IiwiZXhwIjoxNzMzODU5NDM5LCJ1c2VybmFtZSI6ImVuZXNvbiIsInJvbGUiOiJ1c2VyIn0.deGge3KCeNBezbOeQlJ_JX9kAckwNdedVTbhBnYTxUY
 
 
-// User token
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4IiwiZXhwIjoxNzMzODU5NDM5LCJ1c2VybmFtZSI6ImVuZXNvbiIsInJvbGUiOiJ1c2VyIn0.deGge3KCeNBezbOeQlJ_JX9kAckwNdedVTbhBnYTxUY
+// User token (ID 2)
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzMzODczMjIwLCJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6InVzZXIifQ._fSXTNdYfhichBOwDcFRSgguPEXKj4UPe4QSZfnXnns
 // Admin token
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzMzODU4MDgxLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0._sGDA4xq6LprAyZFdq5wu80XfVgJy6M3sVCbpJ55Wtk
 
