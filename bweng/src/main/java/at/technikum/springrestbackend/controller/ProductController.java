@@ -30,7 +30,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> addProduct(
             @RequestPart("product") String productJson,
             @RequestPart(value = "file", required = false) MultipartFile file) {
