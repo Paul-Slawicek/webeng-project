@@ -1,5 +1,6 @@
 package at.technikum.springrestbackend.controller;
 
+import at.technikum.springrestbackend.dto.AdminUserDto;
 import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.service.UserService;
@@ -80,15 +81,23 @@ public class UserController {
 
     @PutMapping("/admin/{id}")
     @PreAuthorize("hasAuthority('admin')")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @Validated @RequestBody UserDto userDto) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @Validated @RequestBody AdminUserDto adminUserDto) {
         Optional<User> optionalUser = userService.findById(id);
 
         if (optionalUser.isEmpty()) {
             return ResponseEntity.status(404).body("User not found");
         }
 
-        User user = userMapper.toEntity(userDto);
-        userService.updateUser(user);
+        User currentUser = optionalUser.get();
+
+        userMapper.updateEntityFromAdminDto(adminUserDto, currentUser);
+
+        if (adminUserDto.newPassword() != null && !adminUserDto.newPassword().isEmpty()) {
+            currentUser.setPassword(adminUserDto.newPassword());
+        }
+
+        userService.updateUser(currentUser);
+
         return ResponseEntity.ok("User updated successfully");
     }
 

@@ -1,5 +1,6 @@
 package at.technikum.springrestbackend.controller;
 
+import at.technikum.springrestbackend.dto.AdminUserDto;
 import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
 import org.springframework.stereotype.Component;
@@ -56,4 +57,14 @@ public class UserMapper {
         user.setSalutation(userDto.salutation());
     }
 
+    public void updateEntityFromAdminDto(AdminUserDto adminUserDto, User user) {
+        user.setUsername(adminUserDto.username());
+        user.setFirstname(adminUserDto.firstname());
+        user.setLastname(adminUserDto.lastname());
+        user.setEmail(adminUserDto.email());
+        user.setAddress(adminUserDto.address());
+        user.setCity(adminUserDto.city());
+        user.setPlz(adminUserDto.plz());
+        user.setSalutation(adminUserDto.salutation());
+    }
 }

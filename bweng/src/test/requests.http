@@ -22,7 +22,7 @@ Content-Type: application/json
 
 ###
 
-# Register a new user
+# REGISTER a new user
 POST http://localhost:8080/api/users
 Content-Type: application/json
 
@@ -58,9 +58,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwI
 
 ###
 
-# Update user profile (hat Token mit ID 17)
-PUT http://localhost:8080/api/users/17
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNyIsImV4cCI6MTczMzg3NDA5NywidXNlcm5hbWUiOiJuZXdVc2VyIiwicm9sZSI6InVzZXIifQ.fCcHSy2-t6y5xstS5L2GtHPCp2OHpFbGZQpQ_MFGIlg
+# Update user profile (hat Token mit ID 19)
+PUT http://localhost:8080/api/users/19
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOSIsImV4cCI6MTczMzg3ODkxOSwidXNlcm5hbWUiOiJuZXdVc2VyIiwicm9sZSI6InVzZXIifQ.z_XrrTJVE2oEmFhlUd7yXW6hnYxLoita6WevfM7coBk
 Content-Type: application/json
 
 {
@@ -78,32 +78,30 @@ Content-Type: application/json
 
 ###
 
-# Admin: update a user TODO: fix
-PUT http://localhost:8080/api/users/admin/1
-Authorization: Bearer <JWT_TOKEN>
+# Admin: update a user
+PUT http://localhost:8080/api/users/admin/15
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzMzODU4MDgxLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0._sGDA4xq6LprAyZFdq5wu80XfVgJy6M3sVCbpJ55Wtk
 Content-Type: application/json
 
 {
   "username": "adminupdateduser",
-  "email": "adminupdated@example.com",
-  "password": "adminpassword123"
+  "email": "adminupdateduser@example.com",
+  "firstname": "adminupdatedname",
+  "lastname": "adminupdatedlastname",
+  "address": "123 Admin Updated St",
+  "city": "Admin Updated City",
+  "plz": "54321",
+  "salutation": "Mrs."
 }
 
 ###
 
 # Admin deletes a user
-DELETE http://localhost:8080/api/users/admin/14
+DELETE http://localhost:8080/api/users/admin/21
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzMzODU4MDgxLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0._sGDA4xq6LprAyZFdq5wu80XfVgJy6M3sVCbpJ55Wtk
 
 ###
 
-# Admin deletes a user (with user token, should fail with 403) TODO: shouldn't work
-DELETE http://localhost:8080/api/users/admin/14
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4IiwiZXhwIjoxNzMzODU5NDM5LCJ1c2VybmFtZSI6ImVuZXNvbiIsInJvbGUiOiJ1c2VyIn0.deGge3KCeNBezbOeQlJ_JX9kAckwNdedVTbhBnYTxUY
-
-
-// User token (ID 2)
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzMzODczMjIwLCJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6InVzZXIifQ._fSXTNdYfhichBOwDcFRSgguPEXKj4UPe4QSZfnXnns
-// Admin token
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzMzODU4MDgxLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0._sGDA4xq6LprAyZFdq5wu80XfVgJy6M3sVCbpJ55Wtk
-
+# Admin deletes a user (with user token, should fail with 403)
+DELETE http://localhost:8080/api/users/admin/21
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOSIsImV4cCI6MTczMzg3ODkxOSwidXNlcm5hbWUiOiJuZXdVc2VyIiwicm9sZSI6InVzZXIifQ.z_XrrTJVE2oEmFhlUd7yXW6hnYxLoita6WevfM7coBk
