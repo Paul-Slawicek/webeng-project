@@ -29,7 +29,7 @@ Content-Type: application/json
 {
   "username": "newUser",
   "email": "newuser@example.com",
-  "password": "securepassword",
+  "password": "password",
   "firstname": "John",
   "lastname": "Doe",
   "address": "123 Example St",
@@ -58,21 +58,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwI
 
 ###
 
-# Update user profile TODO: fix
-PUT http://localhost:8080/api/users/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4IiwiZXhwIjoxNzMzODU5NDM5LCJ1c2VybmFtZSI6ImVuZXNvbiIsInJvbGUiOiJ1c2VyIn0.deGge3KCeNBezbOeQlJ_JX9kAckwNdedVTbhBnYTxUY
+# Update user profile (hat Token mit ID 17)
+PUT http://localhost:8080/api/users/17
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNyIsImV4cCI6MTczMzg3NDA5NywidXNlcm5hbWUiOiJuZXdVc2VyIiwicm9sZSI6InVzZXIifQ.fCcHSy2-t6y5xstS5L2GtHPCp2OHpFbGZQpQ_MFGIlg
 Content-Type: application/json
 
 {
   "username": "updateduser",
   "email": "updateduser@example.com",
+  "firstname": "Updatedname",
+  "lastname": "Updatedlastname",
+  "address": "123 Updated St",
+  "city": "Updated City",
+  "plz": "54321",
+  "salutation": "Mrs.",
   "password": "password",
-  "newPassword": "newpassword"
+  "newPassword": "password"
 }
 
 ###
 
-# Admin updates a user TODO: fix
+# Admin: update a user TODO: fix
 PUT http://localhost:8080/api/users/admin/1
 Authorization: Bearer <JWT_TOKEN>
 Content-Type: application/json

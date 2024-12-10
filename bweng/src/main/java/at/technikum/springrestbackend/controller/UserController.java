@@ -67,13 +67,14 @@ public class UserController {
             return ResponseEntity.status(401).body("Incorrect current password");
         }
 
-        User user = userMapper.toEntity(userDto);
+        userMapper.updateEntityFromDto(userDto, currentUser);
 
         if (userDto.newPassword() != null && !userDto.newPassword().isEmpty()) {
-            user.setPassword(userDto.newPassword());
+            currentUser.setPassword(userDto.newPassword());
         }
 
-        userService.updateUser(user);
+        userService.updateUser(currentUser);
+
         return ResponseEntity.ok("User profile updated successfully");
     }
 

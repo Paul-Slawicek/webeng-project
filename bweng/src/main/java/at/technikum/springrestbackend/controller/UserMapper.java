@@ -44,4 +44,16 @@ public class UserMapper {
                 userDto.salutation()
         );
     }
+
+    public void updateEntityFromDto(UserDto userDto, User user) {
+        user.setUsername(userDto.username());
+        user.setFirstname(userDto.firstname());
+        user.setLastname(userDto.lastname());
+        user.setEmail(userDto.email());
+        user.setAddress(userDto.address());
+        user.setCity(userDto.city());
+        user.setPlz(userDto.plz());
+        user.setSalutation(userDto.salutation());
+    }
+
 }
