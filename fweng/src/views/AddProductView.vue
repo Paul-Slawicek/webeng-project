@@ -4,7 +4,7 @@
       <div class="text-center mb-4">
         <h1>Produkt hinzufügen</h1>
       </div>
-      <div v-if="authStore.role === 'admin'">
+      <div>
         <form @submit.prevent="addProduct">
           <div class="row justify-content-center">
             <!-- Kategorie -->
@@ -54,9 +54,6 @@
           </div>
         </form>
       </div>
-      <div v-else>
-        <p class="text-danger">Sie haben keine berechtigung auf diese Seite zuzugreifen!</p>
-      </div>
     </div>
   </div>
 </template>
@@ -74,9 +71,8 @@ export default {
         price: "",
         description: "",
         category: "",
-
       },
-      file: null, // Separate file field
+      file: null,
     };
   },
   computed: {
@@ -88,25 +84,24 @@ export default {
     handleImageUpload(event) {
       const file = event.target.files[0];
       if (file) {
-        this.file = file; // Save the file separately
+        this.file = file;
       }
     },
     async addProduct() {
       try {
         const formData = new FormData();
-        formData.append("product", JSON.stringify(this.productData)); // Send product data as JSON
+        formData.append("product", JSON.stringify(this.productData));
         if (this.file) {
-          formData.append("file", this.file); // Send file as "file"
+          formData.append("file", this.file);
         }
 
-        console.log("FormData:", [...formData]); // Debugging: Zeige den Inhalt von FormData an
+        console.log("FormData:", [...formData]); // Debugging
 
         const response = await axios.post("/products/add", formData, {
           headers: {
-            "Content-Type": "multipart/form-data", // Explicitly set content type
+            "Content-Type": "multipart/form-data",
           },
         });
-
 
         if (response.status === 201) {
           alert("Produkt erfolgreich hinzugefügt!");

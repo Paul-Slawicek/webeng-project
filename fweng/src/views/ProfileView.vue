@@ -104,13 +104,10 @@ export default {
     };
   },
   setup() {
-    const authStore = useAuthStore(); // Zugriff auf den Pinia-Store
-    return { userId: authStore.userId }; // Zur Nutzung in Methoden verfügbar machen
+    const authStore = useAuthStore();
+    return { userId: authStore.userId };
   },
   methods: {
-    /**
-     * Ruft die Profildaten des Benutzers vom Backend ab.
-     */
     async fetchProfileData() {
       console.log("Benutzer-ID:", this.userId);
       if (!this.userId) {
@@ -122,7 +119,7 @@ export default {
         const response = await axios.get(`/users/${this.userId}`);
 
         if (response.status === 200) {
-          this.profileData = response.data; // Profildaten zuweisen
+          this.profileData = response.data;
         } else {
           console.warn("Fehlerhafte API-Antwort:", response);
         }
@@ -131,22 +128,17 @@ export default {
       }
     },
 
-    /**
-     * Aktualisiert die Profildaten des Benutzers über die API.
-     */
     async updateProfile() {
       if (!this.userId) {
         console.error("Benutzer-ID fehlt!");
         return;
       }
 
-      // Validierung: Aktuelles Passwort muss angegeben werden
       if (!this.currentPassword) {
         alert("Bitte geben Sie Ihr aktuelles Passwort ein!");
         return;
       }
 
-      // Validierung: Neues Passwort und Bestätigung müssen übereinstimmen
       if (this.newPassword || this.confirmPassword) {
         if (this.newPassword !== this.confirmPassword) {
           alert("Die neuen Passwörter stimmen nicht überein!");
@@ -156,11 +148,10 @@ export default {
 
       try {
         const payload = {
-          ...this.profileData, // Profildaten aus den Eingabefeldern
-          password: this.currentPassword, // Aktuelles Passwort
+          ...this.profileData,
+          password: this.currentPassword,
         };
 
-        // Füge `newPassword` nur hinzu, wenn es eingegeben wurde
         if (this.newPassword) {
           payload.newPassword = this.newPassword;
         }
@@ -187,10 +178,9 @@ export default {
   },
 
   mounted() {
-    this.fetchProfileData(); // Profildaten laden
+    this.fetchProfileData();
   },
 };
 </script>
-
 
 <style scoped></style>
