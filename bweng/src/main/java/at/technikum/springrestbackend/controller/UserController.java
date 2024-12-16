@@ -113,11 +113,10 @@ public class UserController {
         }
 
         if (userDto.newPassword() != null && !userDto.newPassword().isEmpty()) {
-            userService.updateUser(currentUser);
+            currentUser.setPassword(passwordEncoder.encode(userDto.newPassword()));
         }
-        else{
-            userService.updateUserWithoutRehashingPassword(currentUser);
-        }
+
+        userService.updateUserWithoutRehashingPassword(currentUser);
 
         return ResponseEntity.ok("User profile updated successfully");
     }
