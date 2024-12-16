@@ -24,5 +24,6 @@ public record UserDto(
         String city,
         String plz,
         String salutation,
+        String picture,
         String status
 ) {}

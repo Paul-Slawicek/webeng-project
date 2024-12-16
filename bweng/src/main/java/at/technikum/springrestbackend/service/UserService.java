@@ -28,6 +28,9 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+    public void updateUserWithoutRehashingPassword(User user) {
+        userRepository.save(user);
+    }
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);

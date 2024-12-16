@@ -2,6 +2,8 @@ package at.technikum.springrestbackend.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -26,6 +28,12 @@ public class User {
     private String city;
     private String plz;
     private String salutation;
+    private String picture;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime created;
+
+    @Column(nullable = false)
+    private LocalDateTime updated;
 
     @Column(nullable = false)
     private String status = "active";
@@ -46,6 +54,22 @@ public class User {
         this.salutation = salutation;
     }
 
+    @PrePersist
+    protected void onCreate() {
+        this.created = LocalDateTime.now();
+        this.updated = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updated = LocalDateTime.now();
+    }
+    public String getPicture() {
+        return picture;
+    }
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
     public Long getId() {
         return id;
     }

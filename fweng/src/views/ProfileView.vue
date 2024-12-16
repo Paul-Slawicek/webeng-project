@@ -68,7 +68,13 @@
                     required />
                 </div>
               </div>
-
+              <div class="form-group mb-4">
+                <label for="file" class="form-label">Profilbild hochladen</label>
+                <input type="file" id="file" @change="handleImageUpload" class="form-control" accept="image/*" />
+              </div>
+              <div v-if="previewImage" class="text-center mb-3">
+                <img :src="previewImage" alt="Profilbild Vorschau" class="img-thumbnail" width="150" />
+              </div>
               <div class="text-center">
                 <button type="submit" class="btn btn-primary">Profil aktualisieren</button>
               </div>
@@ -128,6 +134,19 @@ export default {
       }
     },
 
+    handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.profileImage = file;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.previewImage = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    },
+
     async updateProfile() {
       if (!this.userId) {
         console.error("Benutzer-ID fehlt!");
@@ -147,16 +166,23 @@ export default {
       }
 
       try {
-        const payload = {
+        // FormData erstellen
+        const formData = new FormData();
+        formData.append("profileData", JSON.stringify({
           ...this.profileData,
           password: this.currentPassword,
-        };
+          newPassword: this.newPassword || null,
+        }));
 
-        if (this.newPassword) {
-          payload.newPassword = this.newPassword;
+        if (this.profileImage) {
+          formData.append("profileImage", this.profileImage);
         }
 
-        const response = await axios.put(`/users/${this.userId}`, payload);
+        const response = await axios.put(`/users/${this.userId}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
         if (response.status === 200) {
           alert("Profil erfolgreich aktualisiert!");
@@ -175,7 +201,9 @@ export default {
         }
       }
     }
+
   },
+
 
   mounted() {
     this.fetchProfileData();

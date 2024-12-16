@@ -3,13 +3,22 @@ package at.technikum.springrestbackend.controller;
 import at.technikum.springrestbackend.dto.AdminUserDto;
 import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
+import at.technikum.springrestbackend.service.FileService;
 import at.technikum.springrestbackend.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +29,13 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+    private final FileService fileService;
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder, UserMapper userMapper) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder, UserMapper userMapper, FileService fileService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
+        this.fileService = fileService;
     }
 
     @PostMapping
@@ -55,30 +66,80 @@ public class UserController {
 
     @PutMapping("/{id}")
     @PreAuthorize("#id == authentication.principal.id")
-    public ResponseEntity<?> updateUserProfile(@PathVariable Long id, @Validated @RequestBody UserDto userDto) {
-        Optional<User> optionalUser = userService.findById(id);
+    public ResponseEntity<?> updateUserProfile(
+            @PathVariable Long id,
+            @RequestParam(value = "profileData") String profileDataJson,
+            @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) {
 
+        // Parse JSON-Daten
+        UserDto userDto;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            userDto = objectMapper.readValue(profileDataJson, UserDto.class);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Invalid profile data format");
+        }
+
+        // Benutzer finden
+        Optional<User> optionalUser = userService.findById(id);
         if (optionalUser.isEmpty()) {
             return ResponseEntity.status(404).body("User not found");
         }
 
         User currentUser = optionalUser.get();
 
+        // Passwort validieren
         if (!passwordEncoder.matches(userDto.password(), currentUser.getPassword())) {
             return ResponseEntity.status(401).body("Incorrect current password");
         }
 
+        // Profildaten aktualisieren
         userMapper.updateEntityFromDto(userDto, currentUser);
 
-        if (userDto.newPassword() != null && !userDto.newPassword().isEmpty()) {
-            currentUser.setPassword(userDto.newPassword());
+        // Neues Passwort setzen, falls angegeben
+
+
+        // Profilbild speichern, falls hochgeladen
+        if (profileImage != null && !profileImage.isEmpty()) {
+            try {
+                // Datei mit dem FileService hochladen
+                String fileName = fileService.upload(profileImage);
+
+                // Dateiname in der Datenbank speichern
+                currentUser.setPicture(fileName);
+            } catch (IOException e) {
+                return ResponseEntity.status(500).body("Error saving profile image: " + e.getMessage());
+            }
         }
 
-        userService.updateUser(currentUser);
+        if (userDto.newPassword() != null && !userDto.newPassword().isEmpty()) {
+            userService.updateUser(currentUser);
+        }
+        else{
+            userService.updateUserWithoutRehashingPassword(currentUser);
+        }
 
         return ResponseEntity.ok("User profile updated successfully");
     }
 
+    @GetMapping("/profile-image/{fileName}")
+    public ResponseEntity<Resource> getProfileImage(@PathVariable String fileName) {
+        try {
+            File file = fileService.getFile(fileName);
+            Resource resource = new UrlResource(file.toURI());
+
+            if (!resource.exists() || !resource.isReadable()) {
+                return ResponseEntity.status(404).body(null);
+            }
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getName() + "\"")
+                    .contentType(MediaType.IMAGE_JPEG) // Passe den Medientyp je nach Bild an
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+    }
     @PutMapping("/admin/{id}")
     @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @Validated @RequestBody AdminUserDto adminUserDto) {
