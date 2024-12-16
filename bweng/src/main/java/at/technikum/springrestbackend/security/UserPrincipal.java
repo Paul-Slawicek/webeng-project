@@ -4,7 +4,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
-import java.util.UUID;
 
 public class UserPrincipal extends User {
 

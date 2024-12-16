@@ -96,6 +96,10 @@ public class UserController {
             currentUser.setPassword(adminUserDto.newPassword());
         }
 
+        if (adminUserDto.status() != null && !adminUserDto.status().isEmpty()) {
+            currentUser.setStatus(adminUserDto.status());
+        }
+
         userService.updateUser(currentUser);
 
         return ResponseEntity.ok("User updated successfully");

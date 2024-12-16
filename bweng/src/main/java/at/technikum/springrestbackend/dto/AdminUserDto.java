@@ -10,5 +10,6 @@ public record AdminUserDto(
         String address,
         String city,
         String plz,
-        String salutation
+        String salutation,
+        String status
 ) {}

@@ -27,6 +27,9 @@ public class User {
     private String plz;
     private String salutation;
 
+    @Column(nullable = false)
+    private String status = "active";
+
     public User() {
     }
 
@@ -129,5 +132,13 @@ public class User {
 
     public void setSalutation(String salutation) {
         this.salutation = salutation;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
