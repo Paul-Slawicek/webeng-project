@@ -64,13 +64,11 @@ export default {
         // Save the token in the Pinia store
         this.authStore.login(token, this.rememberMe);
         alert("Login successful");
-        this.$router.push("/"); // Redirect after successful login
+        this.$router.push("/");
       } catch (error) {
-        const errorMessage = error.response
-          ? error.response.data
-          : "Invalid username or password.";
         console.error("Login error:", error);
-        alert(`Login failed: ${errorMessage}`);
+
+        alert("Username or password is incorrect.");
       }
     },
   },
