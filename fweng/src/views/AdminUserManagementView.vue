@@ -35,11 +35,78 @@
                         </select>
                     </td>
                     <td>
+                        <button @click="openUserModal(user)" class="btn btn-primary btn-sm">Edit</button>
                         <button @click="deleteUser(user.id)" class="btn btn-danger btn-sm">Delete</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- Modal für User bearbeiten -->
+        <div v-if="showModal" class="modal-backdrop">
+            <div class="modal-content">
+                <h3>Edit User</h3>
+                <form @submit.prevent="saveUserChanges">
+                    <div class="row">
+                        <!-- Erste Spalte -->
+                        <div class="col">
+                            <div>
+                                <label>Username:</label>
+                                <input v-model="selectedUser.username" type="text" required />
+                            </div>
+                            <div>
+                                <label>Password:</label>
+                                <input v-model="selectedUser.newPassword" type="password"
+                                    placeholder="Enter new password or leave blank" />
+                            </div>
+                            <div>
+                                <label>Email:</label>
+                                <input v-model="selectedUser.email" type="email" required />
+                            </div>
+                            <div>
+                                <label>Role:</label>
+                                <select v-model="selectedUser.role">
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Salutation:</label>
+                                <input v-model="selectedUser.salutation" type="text" placeholder="Enter salutation" />
+                            </div>
+                        </div>
+
+                        <!-- Zweite Spalte -->
+                        <div class="col">
+                            <div>
+                                <label>First Name:</label>
+                                <input v-model="selectedUser.firstname" type="text" />
+                            </div>
+                            <div>
+                                <label>Last Name:</label>
+                                <input v-model="selectedUser.lastname" type="text" />
+                            </div>
+                            <div>
+                                <label>Address:</label>
+                                <input v-model="selectedUser.address" type="text" />
+                            </div>
+                            <div>
+                                <label>City:</label>
+                                <input v-model="selectedUser.city" type="text" />
+                            </div>
+                            <div>
+                                <label>PLZ:</label>
+                                <input v-model="selectedUser.plz" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" @click="showModal = false" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -52,6 +119,8 @@ export default {
         return {
             users: [],
             searchQuery: "",
+            selectedUser: null, // Aktuell ausgewählter User für das Modal
+            showModal: false,   // Steuerung des Modals
         };
     },
     computed: {
@@ -89,6 +158,21 @@ export default {
                 console.error("Error deleting user:", error);
             }
         },
+        openUserModal(user) {
+            this.selectedUser = { ...user };
+            this.showModal = true;
+        },
+        async saveUserChanges() {
+            try {
+                await axios.put(`/users/admin/${this.selectedUser.id}`, this.selectedUser);
+                this.showModal = false;
+                this.fetchUsers();
+                alert("User updated successfully!");
+            } catch (error) {
+                console.error("Error updating user:", error);
+                alert("Failed to update user.");
+            }
+        },
     },
     mounted() {
         this.fetchUsers();
@@ -104,5 +188,86 @@ export default {
 .input-group {
     max-width: 500px;
     margin: auto;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 600px;
+    /* Breiter für zwei Spalten */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    /* Scrollbar aktivieren */
+    max-height: 90vh;
+    /* Maximale Höhe des Modals auf 90% der Viewport-Höhe begrenzen */
+    overflow-y: auto;
+    /* Vertikales Scrollen erlauben, falls Inhalte zu lang sind */
+}
+
+.modal-content form .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-content form .col {
+    flex: 1;
+    /* Spalten gleichmäßig aufteilen */
+    margin-right: 10px;
+    /* Abstand zwischen den Spalten */
+}
+
+.modal-content form .col:last-child {
+    margin-right: 0;
+    /* Letzte Spalte hat keinen rechten Abstand */
+}
+
+.modal-content form div {
+    margin-bottom: 15px;
+    /* Abstand zwischen den Eingabefeldern */
+}
+
+.modal-content label {
+    display: block;
+    font-weight: bold;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    /* Buttons am rechten Rand ausrichten */
+    margin-top: 20px;
+    /* Abstand nach oben */
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+.btn:last-child {
+    margin-right: 0;
+    /* Letzter Button hat keinen rechten Abstand */
 }
 </style>
