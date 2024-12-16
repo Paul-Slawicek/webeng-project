@@ -23,7 +23,8 @@ public class UserMapper {
                 user.getAddress(),
                 user.getCity(),
                 user.getPlz(),
-                user.getSalutation()
+                user.getSalutation(),
+                user.getStatus()
         );
     }
 

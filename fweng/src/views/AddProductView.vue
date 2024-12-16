@@ -2,7 +2,7 @@
   <div class="container mt-5 d-flex justify-content-center align-items-center">
     <div>
       <div class="text-center mb-4">
-        <h1>Produkt hinzufügen</h1>
+        <h1>Add Product</h1>
       </div>
       <div>
         <form @submit.prevent="addProduct">
@@ -11,7 +11,7 @@
             <div class="col-md-6 mb-2">
               <label for="category" class="form-label">Kategorie</label>
               <select id="category" v-model="productData.category" class="form-select" required>
-                <option value="" disabled>Kategorie auswählen</option>
+                <option value="" disabled>Select category</option>
                 <option value="TV">TV</option>
                 <option value="Laptop">Laptop</option>
                 <option value="Sound">Sound</option>
@@ -21,35 +21,35 @@
           <div class="row">
             <!-- Titel -->
             <div class="col-md-6 mb-2">
-              <label for="title" class="form-label">Titel</label>
+              <label for="title" class="form-label">Title</label>
               <input type="text" id="title" v-model="productData.title" class="form-control"
-                placeholder="Titel eingeben" required />
+                placeholder="Enter title" required />
             </div>
 
             <!-- Preis -->
             <div class="col-md-6 mb-2">
-              <label for="price" class="form-label">Preis (€)</label>
+              <label for="price" class="form-label">Price (€)</label>
               <input type="number" id="price" v-model="productData.price" class="form-control"
-                placeholder="Preis eingeben" step="0.01" required />
+                placeholder="Enter price" step="0.01" required />
             </div>
           </div>
 
           <!-- Beschreibung -->
           <div class="form-group mb-2">
-            <label for="description" class="form-label">Beschreibung</label>
+            <label for="description" class="form-label">Description</label>
             <textarea id="description" v-model="productData.description" class="form-control"
-              placeholder="Produktbeschreibung eingeben" rows="4" required></textarea>
+              placeholder="Enter product description" rows="4" required></textarea>
           </div>
 
           <!-- Bild hochladen -->
           <div class="form-group mb-4">
-            <label for="file" class="form-label">Bild hochladen</label>
+            <label for="file" class="form-label">Upload Image</label>
             <input type="file" id="file" @change="handleImageUpload" class="form-control" accept="image/*" />
           </div>
 
           <div class="text-center">
             <button type="submit" class="btn btn-primary">
-              Produkt hinzufügen
+              Add Product
             </button>
           </div>
         </form>

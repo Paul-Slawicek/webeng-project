@@ -20,7 +20,7 @@
         </li>
       </ul>
       <li class="nav-item" v-if="authStore.role === 'admin'">
-        <router-link class="nav-link" to="/addproduct">Produkt hinzufügen</router-link>
+        <router-link class="nav-link" to="/addproduct">Add new products</router-link>
       </li>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item" v-if="!authStore.isLoggedIn">
@@ -29,8 +29,11 @@
         <li class="nav-item" v-if="!authStore.isLoggedIn">
           <router-link class="nav-link" to="/register">Register</router-link>
         </li>
-        <li class="nav-item" v-if="authStore.isLoggedIn">
+        <li class="nav-item" v-if="authStore.isLoggedIn && authStore.role !== 'admin'">
           <router-link class="nav-link" to="/profile">Profile</router-link>
+        </li>
+        <li class="nav-item" v-if="authStore.isLoggedIn && authStore.role === 'admin'">
+          <router-link class="nav-link" to="/admin/users">User Management</router-link>
         </li>
         <li class="nav-item" v-if="authStore.isLoggedIn">
           <button class="btn btn-link nav-link" to="/" @click="logout">Logout</button>
