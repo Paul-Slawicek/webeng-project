@@ -25,7 +25,8 @@ public class UserMapper {
                 user.getPlz(),
                 user.getSalutation(),
                 user.getPicture(),
-                user.getStatus()
+                user.getStatus(),
+                user.getCountry()
         );
     }
 
@@ -44,7 +45,8 @@ public class UserMapper {
                 userDto.address(),
                 userDto.city(),
                 userDto.plz(),
-                userDto.salutation()
+                userDto.salutation(),
+                userDto.country()
         );
     }
 
@@ -58,6 +60,7 @@ public class UserMapper {
         user.setPlz(userDto.plz());
         user.setSalutation(userDto.salutation());
         user.setPicture(userDto.picture());
+        user.setCountry(userDto.country());
     }
 
     public void updateEntityFromAdminDto(AdminUserDto adminUserDto, User user) {
@@ -70,5 +73,6 @@ public class UserMapper {
         user.setPlz(adminUserDto.plz());
         user.setSalutation(adminUserDto.salutation());
         user.setPicture(adminUserDto.picture());
+        user.setCountry(adminUserDto.country());
     }
 }

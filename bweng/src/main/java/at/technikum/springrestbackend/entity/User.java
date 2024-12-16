@@ -38,10 +38,13 @@ public class User {
     @Column(nullable = false)
     private String status = "active";
 
+    @Column(length = 150)
+    private String country;
+
     public User() {
     }
 
-    public User(Long id, String username, String email, String password, String firstname, String lastname, String address, String city, String plz, String salutation) {
+    public User(Long id, String username, String email, String password, String firstname, String lastname, String address, String city, String plz, String salutation, String country) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -52,6 +55,7 @@ public class User {
         this.city = city;
         this.plz = plz;
         this.salutation = salutation;
+        this.country = country;
     }
 
     @PrePersist
@@ -164,5 +168,13 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS public.users
     plz        numeric(10, 0),
     city       character varying(100) COLLATE pg_catalog."default",
     salutation character varying(150) COLLATE pg_catalog."default",
-    status     character varying(20) COLLATE pg_catalog."default" NOT NULL DEFAULT 'active'
+    status     character varying(20) COLLATE pg_catalog."default" NOT NULL DEFAULT 'active',
+    country    character varying(150) COLLATE pg_catalog."default"
 )
     TABLESPACE pg_default;
 
