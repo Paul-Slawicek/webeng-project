@@ -160,7 +160,7 @@ public class UserController {
             currentUser.setStatus(adminUserDto.status());
         }
 
-        userService.updateUser(currentUser);
+        userService.updateUserWithoutRehashingPassword(currentUser);
 
         return ResponseEntity.ok("User updated successfully");
     }

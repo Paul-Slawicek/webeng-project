@@ -35,7 +35,8 @@ Content-Type: application/json
   "address": "123 Example St",
   "city": "Example City",
   "plz": "12345",
-  "salutation": "Mr."
+  "salutation": "Mr.",
+  "country": "Austria"
 }
 
 ###
