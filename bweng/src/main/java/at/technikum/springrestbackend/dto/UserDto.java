@@ -6,17 +6,10 @@ import jakarta.validation.constraints.Size;
 
 public record UserDto(
         Long id,
-        @NotBlank(message = "Username is required")
-        @Size(min = 5, message = "Username must be at least 5 characters")
-        String username,
-        @NotBlank(message = "Email is required")
-        @Email(message = "Email should be valid")
-        String email,
-        @NotBlank(message = "Password is required")
-        @Size(min = 8, message = "Password must be at least 8 characters")
-        String password,
-        @Size(min = 8, message = "New password must be at least 8 characters")
-        String newPassword,
+        @NotBlank(message = "Username is required") @Size(min = 5, message = "Username must be at least 5 characters") String username,
+        @NotBlank(message = "Email is required") @Email(message = "Email should be valid") String email,
+        @NotBlank(message = "Password is required") @Size(min = 8, message = "Password must be at least 8 characters") String password,
+        @Size(min = 8, message = "New password must be at least 8 characters") String newPassword,
         String role,
         String firstname,
         String lastname,
@@ -25,5 +18,7 @@ public record UserDto(
         String plz,
         String salutation,
         String picture,
-        String status
-) {}
+        String status,
+        String country // Neues Feld
+) {
+}

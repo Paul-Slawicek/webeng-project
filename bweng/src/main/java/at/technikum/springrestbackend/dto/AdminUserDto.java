@@ -12,5 +12,7 @@ public record AdminUserDto(
         String plz,
         String salutation,
         String status,
-        String picture
-) {}
+        String picture,
+        String country // Neues Feld
+) {
+}
