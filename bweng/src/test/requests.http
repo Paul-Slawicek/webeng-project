@@ -16,7 +16,7 @@ POST http://localhost:8080/api/auth/token
 Content-Type: application/json
 
 {
-"username": "newUser",
+"username": "user1",
 "password": "password"
 }
 
@@ -40,27 +40,27 @@ Content-Type: application/json
 
 ###
 
-# Get user by ID (hat token mit ID 22)
-GET http://localhost:8080/api/users/22
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMiIsImV4cCI6MTczMzkyOTg2OCwidXNlcm5hbWUiOiJuZXdVc2VyIiwicm9sZSI6InVzZXIifQ.eunFXHgzyTx7ov9be7b8lmSaq6u_oashHTWHUoQsmpg
+# Get user by ID (hat token mit ID 2)
+GET http://localhost:8080/api/users/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzM0MDI1OTIxLCJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6InVzZXIifQ.1W6MW7rV-I-yvEFn3MB-JcJ46NVCvy_Fiip-SSTvfGQ
 
 ###
 
 # Admin: Get all users
 GET http://localhost:8080/api/users/admin
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzMzOTI5ODA1LCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0.WnzeWRlzL62kivFT3dWYP-STY8ds6N_WPkgqChd7cU8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzM0MDI1NTI2LCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0.d2xwkjLVqtQ3qCCSjTiPLnYD5xCX2vFQ_BKW5rjt7dI
 
 ###
 
 # Admin: Get all users (with user token, should fail with 403)
 GET http://localhost:8080/api/users/admin
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMiIsImV4cCI6MTczMzkyOTg2OCwidXNlcm5hbWUiOiJuZXdVc2VyIiwicm9sZSI6InVzZXIifQ.eunFXHgzyTx7ov9be7b8lmSaq6u_oashHTWHUoQsmpg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzM0MDI1OTIxLCJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6InVzZXIifQ.1W6MW7rV-I-yvEFn3MB-JcJ46NVCvy_Fiip-SSTvfGQ
 
 ###
 
-# Update user profile (hat Token mit ID 22)
-PUT http://localhost:8080/api/users/22
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMiIsImV4cCI6MTczMzkyOTg2OCwidXNlcm5hbWUiOiJuZXdVc2VyIiwicm9sZSI6InVzZXIifQ.eunFXHgzyTx7ov9be7b8lmSaq6u_oashHTWHUoQsmpg
+# Update user profile (User Token)
+PUT http://localhost:8080/api/users/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzM0MDI1OTIxLCJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6InVzZXIifQ.1W6MW7rV-I-yvEFn3MB-JcJ46NVCvy_Fiip-SSTvfGQ
 Content-Type: application/json
 
 {
@@ -79,8 +79,8 @@ Content-Type: application/json
 ###
 
 # Admin: update a user
-PUT http://localhost:8080/api/users/admin/22
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzMzOTI5ODA1LCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0.WnzeWRlzL62kivFT3dWYP-STY8ds6N_WPkgqChd7cU8
+PUT http://localhost:8080/api/users/admin/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzM0MDI1NTI2LCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0.d2xwkjLVqtQ3qCCSjTiPLnYD5xCX2vFQ_BKW5rjt7dI
 Content-Type: application/json
 
 {
@@ -97,11 +97,14 @@ Content-Type: application/json
 ###
 
 # Admin deletes a user
-DELETE http://localhost:8080/api/users/admin/22
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzMzOTI5ODA1LCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0.WnzeWRlzL62kivFT3dWYP-STY8ds6N_WPkgqChd7cU8
+DELETE http://localhost:8080/api/users/admin/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzM0MDI1NTI2LCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0.d2xwkjLVqtQ3qCCSjTiPLnYD5xCX2vFQ_BKW5rjt7dI
 
 ###
 
 # Admin deletes a user (with user token, should fail with 403)
-DELETE http://localhost:8080/api/users/admin/22
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMiIsImV4cCI6MTczMzkyOTg2OCwidXNlcm5hbWUiOiJuZXdVc2VyIiwicm9sZSI6InVzZXIifQ.eunFXHgzyTx7ov9be7b8lmSaq6u_oashHTWHUoQsmpg
+DELETE http://localhost:8080/api/users/admin/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzM0MDI1OTIxLCJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6InVzZXIifQ.1W6MW7rV-I-yvEFn3MB-JcJ46NVCvy_Fiip-SSTvfGQ
+
+###
+
