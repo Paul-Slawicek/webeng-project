@@ -6,7 +6,8 @@
     <div class="form-container">
       <form @submit.prevent="submitLogin">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="username" v-model="username" placeholder="Username" required />
+          <input type="text" class="form-control" id="username" v-model="username" placeholder="Username" required
+            ref="usernameInput" />
           <label for="username">Username</label>
         </div>
 
@@ -43,6 +44,9 @@ export default {
   setup() {
     const authStore = useAuthStore();
     return { authStore };
+  },
+  mounted() {
+    this.$refs.usernameInput.focus();
   },
   methods: {
     async submitLogin() {
