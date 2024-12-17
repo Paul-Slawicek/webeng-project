@@ -12,8 +12,7 @@ export const useAuthStore = defineStore('auth', {
           return;
         }
         const decoded = jwtDecode(state.token);
-        console.debug("Decoded Token:", decoded); // Nur für Debugging
-        return decoded.role || "user"; // Extrahiere Benutzerrolle
+        return decoded.role || "user";
       } catch (error) {
         console.error("Fehler beim Dekodieren des Tokens:", error);
       }
@@ -26,17 +25,15 @@ export const useAuthStore = defineStore('auth', {
         }
         console.log(state.token);
         const decoded = jwtDecode(state.token);
-        console.debug("Decoded Token:", decoded); // Nur für Debugging
-        return decoded.sub || decoded.id; // Extrahiere Benutzer-ID
+        return decoded.sub || decoded.id;
       } catch (error) {
         console.error("Fehler beim Dekodieren des Tokens:", error);
       }
-    }
+    },
   },
   actions: {
-    login(token, rememberMe) {
+    login(token) {
       this.token = token;
-      console.log('rememberMe', rememberMe);
     },
     logout() {
       this.token = null;

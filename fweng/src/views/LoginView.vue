@@ -16,11 +16,6 @@
           <label for="password">Password</label>
         </div>
 
-        <div class="mb-3 text-start">
-          <input type="checkbox" id="remember" v-model="rememberMe" />
-          <label for="remember" class="ms-2">Remember me</label>
-        </div>
-
         <div class="text-center">
           <button type="submit" class="btn btn-primary">Login</button>
         </div>
@@ -43,7 +38,6 @@ export default {
     return {
       username: "",
       password: "",
-      rememberMe: false,
     };
   },
   setup() {
@@ -62,12 +56,11 @@ export default {
         console.log("Received Token:", token);
 
         // Save the token in the Pinia store
-        this.authStore.login(token, this.rememberMe);
+        this.authStore.login(token);
         alert("Login successful");
         this.$router.push("/");
       } catch (error) {
         console.error("Login error:", error);
-
         alert("Username or password is incorrect.");
       }
     },
