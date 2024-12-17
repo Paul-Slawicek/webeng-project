@@ -36,7 +36,7 @@ export default {
             "Experience a new dimension of TV with our 4K smart TVs. Enjoy stunning clarity and intelligent features bringing versatile entertainment to your living room."
         },
         {
-          query: "laptops",
+          query: "laptop",
           img: require('@/assets/img/Laptop1.webp'),
           title: "High-Performance Laptops",
           description:

@@ -11,10 +11,10 @@
             <div class="col-md-6 mb-2">
               <label for="category" class="form-label">Kategorie</label>
               <select id="category" v-model="productData.category" class="form-select" required>
-                <option value="" disabled>Select category</option>
+                <option value="" disabled selected hidden>Select category</option>
                 <option value="TV">TV</option>
                 <option value="Laptop">Laptop</option>
-                <option value="Sound">Sound</option>
+                <option value="Speakers">Speakers</option>
               </select>
             </div>
           </div>
@@ -30,7 +30,7 @@
             <div class="col-md-6 mb-2">
               <label for="price" class="form-label">Price (€)</label>
               <input type="number" id="price" v-model="productData.price" class="form-control"
-                placeholder="Enter price" step="0.01" required />
+                placeholder="Enter price" step="1" required />
             </div>
           </div>
 

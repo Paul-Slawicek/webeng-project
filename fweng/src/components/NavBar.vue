@@ -19,10 +19,10 @@
           <router-link class="nav-link" to="/help">Help</router-link>
         </li>
       </ul>
-      <li class="nav-item" v-if="authStore.role === 'admin'">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" v-if="authStore.role === 'admin'">
         <router-link class="nav-link" to="/addproduct">Add new products</router-link>
       </li>
-      <ul class="navbar-nav ms-auto">
         <li class="nav-item" v-if="!authStore.isLoggedIn">
           <router-link class="nav-link" to="/login">Login</router-link>
         </li>
