@@ -13,10 +13,8 @@
               <div class="form-group row mb-2">
                 <label for="anrede" class="col-sm-3 col-form-label">Anrede:</label>
                 <div class="col-sm-9">
-                  <select id="anrede" v-model="profileData.salutation" class="form-control">
-                    <option value="Herr">Herr</option>
-                    <option value="Frau">Frau</option>
-                  </select>
+                  <input type="text" id="anrede" v-model="profileData.salutation" class="form-control"
+                    placeholder="Enter salutation" />
                 </div>
               </div>
               <!-- Vorname -->
@@ -47,20 +45,21 @@
                   <input type="email" id="email" v-model="profileData.email" class="form-control" />
                 </div>
               </div>
+              <!-- Neues Passwort -->
               <div class="form-group row mb-2 align-items-center">
                 <label for="new-password" class="col-sm-3 col-form-label">Neues Passwort:</label>
                 <div class="col-sm-9">
                   <input type="password" id="new-password" v-model="newPassword" class="form-control" />
                 </div>
               </div>
-
+              <!-- Passwort Bestätigen -->
               <div class="form-group row mb-2 align-items-center">
                 <label for="confirm-password" class="col-sm-3 col-form-label">Passwort bestätigen:</label>
                 <div class="col-sm-9">
                   <input type="password" id="confirm-password" v-model="confirmPassword" class="form-control" />
                 </div>
               </div>
-
+              <!-- Aktuelles Passwort -->
               <div class="form-group row mb-2 align-items-center">
                 <label for="current-password" class="col-sm-3 col-form-label">Aktuelles Passwort:</label>
                 <div class="col-sm-9">
@@ -68,6 +67,7 @@
                     required />
                 </div>
               </div>
+              <!-- Profilbild Upload -->
               <div class="form-group mb-4">
                 <label for="file" class="form-label">Profilbild hochladen</label>
                 <input type="file" id="file" @change="handleImageUpload" class="form-control" accept="image/*" />
@@ -75,6 +75,7 @@
               <div v-if="previewImage" class="text-center mb-3">
                 <img :src="previewImage" alt="Profilbild Vorschau" class="img-thumbnail" width="150" />
               </div>
+              <!-- Submit Button -->
               <div class="text-center">
                 <button type="submit" class="btn btn-primary">Profil aktualisieren</button>
               </div>
@@ -123,7 +124,6 @@ export default {
 
       try {
         const response = await axios.get(`/users/${this.userId}`);
-
         if (response.status === 200) {
           this.profileData = response.data;
         } else {
@@ -133,12 +133,10 @@ export default {
         console.error("Fehler beim Abrufen der Profildaten:", error);
       }
     },
-
     handleImageUpload(event) {
       const file = event.target.files[0];
       if (file) {
         this.profileImage = file;
-
         const reader = new FileReader();
         reader.onload = (e) => {
           this.previewImage = e.target.result;
@@ -146,7 +144,6 @@ export default {
         reader.readAsDataURL(file);
       }
     },
-
     async updateProfile() {
       if (!this.userId) {
         console.error("Benutzer-ID fehlt!");
@@ -158,30 +155,26 @@ export default {
         return;
       }
 
-      if (this.newPassword || this.confirmPassword) {
-        if (this.newPassword !== this.confirmPassword) {
-          alert("Die neuen Passwörter stimmen nicht überein!");
-          return;
-        }
+      if (this.newPassword && this.newPassword !== this.confirmPassword) {
+        alert("Die neuen Passwörter stimmen nicht überein!");
+        return;
       }
 
       try {
-        // FormData erstellen
         const formData = new FormData();
         formData.append("profileData", JSON.stringify({
-          ...this.profileData,
-          password: this.currentPassword,
-          newPassword: this.newPassword || null,
-        }));
+            ...this.profileData,
+            password: this.currentPassword,
+            newPassword: this.newPassword || null,
+          })
+        );
 
         if (this.profileImage) {
           formData.append("profileImage", this.profileImage);
         }
 
         const response = await axios.put(`/users/${this.userId}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "multipart/form-data" },
         });
 
         if (response.status === 200) {
@@ -204,11 +197,15 @@ export default {
 
   },
 
-
   mounted() {
     this.fetchProfileData();
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container-wrapper {
+  margin: 0 auto;
+  max-width: 800px;
+}
+</style>
