@@ -9,14 +9,30 @@
     margin: 0 auto;
     padding: 20px;
     border-radius: 10px;
+    text-align: left;
 }
 
 .register-container {
-    width: 70%;
+    width: 100%;
+    max-width: 1000px;
     margin: auto;
     padding: 20px;
-    text-align: center;
-    max-width: 1000px;
+    text-align: left;
+}
+
+.register-container .form-floating {
+    position: relative;
+    text-align: left;
+}
+
+.register-container .form-floating > .form-control {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    text-align: left;
+}
+
+.register-container .form-floating > label {
+    margin-left: 0.75rem;
 }
 
 .form-floating .form-control,

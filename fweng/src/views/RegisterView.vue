@@ -57,14 +57,6 @@
         <!-- Postal Code, City, and Country -->
         <div class="row mb-2">
           <div class="col-md-4 form-floating">
-            <input type="text" class="form-control" id="plz" v-model="plz" placeholder="Postal Code" required />
-            <label for="plz">Postal Code</label>
-          </div>
-          <div class="col-md-4 form-floating">
-            <input type="text" class="form-control" id="city" v-model="city" placeholder="City" required />
-            <label for="city">City</label>
-          </div>
-          <div class="col-md-4 form-floating">
             <select class="form-select dropdown-toggle" id="country" v-model="country" required>
               <option value="" disabled selected hidden>Select Country</option>
               <option v-for="(countryItem, index) in countries" :key="index" :value="countryItem.name">
@@ -73,17 +65,25 @@
             </select>
             <label for="country">Country</label>
           </div>
+          <div class="col-md-4 form-floating">
+            <input type="text" class="form-control" id="plz" v-model="plz" placeholder="Postal Code" required />
+            <label for="plz">Postal Code</label>
+          </div>
+          <div class="col-md-4 form-floating">
+            <input type="text" class="form-control" id="city" v-model="city" placeholder="City" required />
+            <label for="city">City</label>
+          </div>
         </div>
 
         <!-- Email and Username -->
         <div class="row mb-2">
           <div class="col-md-6 form-floating">
-            <input type="email" class="form-control" id="email" v-model="email" placeholder="Email Address" required />
-            <label for="email">Email Address</label>
-          </div>
-          <div class="col-md-6 form-floating">
             <input type="text" class="form-control" id="username" v-model="username" placeholder="Username" required />
             <label for="username">Username</label>
+          </div>
+          <div class="col-md-6 form-floating">
+            <input type="email" class="form-control" id="email" v-model="email" placeholder="Email Address" required />
+            <label for="email">Email Address</label>
           </div>
         </div>
 
@@ -221,13 +221,13 @@ export default {
 
 <style scoped>
 .form-floating {
-  margin-bottom: 0.75rem; /* Weniger Abstand */
+  margin-bottom: 0.75rem;
 }
 
 .form-select,
 .form-control {
   box-sizing: border-box;
-  overflow: visible; /* Verhindert Dropdown-Probleme */
+  overflow: visible;
 }
 
 .dropdown-toggle {
