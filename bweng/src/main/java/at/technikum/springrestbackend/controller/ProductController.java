@@ -54,7 +54,7 @@ public class ProductController {
 
             Product product = productService.createProduct(productDto);
 
-            return ResponseEntity.ok(product);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed: " + e.getMessage());

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-wrapper">
+  <div class="container-wrapper mb-4">
     <div class="text-center mb-4 mt-3">
       <h1>Mein Account</h1>
     </div>

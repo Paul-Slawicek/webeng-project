@@ -21,7 +21,7 @@
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item" v-if="authStore.role === 'admin'">
-        <router-link class="nav-link" to="/addproduct">Add new products</router-link>
+        <router-link class="nav-link" to="/addproduct">Add new product</router-link>
       </li>
         <li class="nav-item" v-if="!authStore.isLoggedIn">
           <router-link class="nav-link" to="/login">Login</router-link>
@@ -59,10 +59,8 @@ import { useAuthStore } from "@/stores/authStore";
 export default {
   name: "NavBar",
   setup() {
-    // Zugriff auf den authStore
     const authStore = useAuthStore();
 
-    // Logout-Methode
     const logout = () => {
       authStore.logout();
       router.push("/");

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-3 text-center">
+  <div class="container mt-3 text-center mb-4">
     <h1>Products</h1>
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-2" id="product-container">
       <div v-for="product in products" :key="product.id" class="col">
@@ -37,7 +37,7 @@ export default {
         alert("Failed to load products. Please try again later.");
       }
     },
-    // Construct image URL for uploaded images
+
     getImageUrl(picture) {
       if (picture) {
         return `http://localhost:8080/uploads/${picture}`;
