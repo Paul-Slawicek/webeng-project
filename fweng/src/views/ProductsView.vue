@@ -22,11 +22,10 @@ export default {
   name: "ProductsView",
   data() {
     return {
-      products: [], // Initialize as an empty array
+      products: [],
     };
   },
   methods: {
-    // Fetch products from the backend API
     async fetchProducts() {
       try {
         const response = await axios.get("/products/loadAll");
@@ -42,7 +41,7 @@ export default {
       if (picture) {
         return `http://localhost:8080/uploads/${picture}`;
       }
-      return require("@/assets/img/default.jpg"); // Fallback image
+      return require("@/assets/img/default.jpg");
     },
   },
   mounted() {

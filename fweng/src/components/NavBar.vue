@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark pl-1 pr-1">
     <router-link to="/" class="navbar-brand">
-      <img src="../assets/img/basseno.png" class="bassenoBild" />
+      <img src="../assets/img/basseno.png" class="bassenoBild" alt="Basseno Home Logo" />
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,8 +21,8 @@
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item" v-if="authStore.role === 'admin'">
-        <router-link class="nav-link" to="/addproduct">Add new product</router-link>
-      </li>
+          <router-link class="nav-link" to="/addproduct">Add new product</router-link>
+        </li>
         <li class="nav-item" v-if="!authStore.isLoggedIn">
           <router-link class="nav-link" to="/login">Login</router-link>
         </li>

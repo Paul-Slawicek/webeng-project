@@ -13,7 +13,7 @@ import java.util.UUID;
 @Service
 public class FileService {
 
-    private final String uploadDir = System.getProperty("user.dir") + "/upload";
+    private final String uploadDir = System.getProperty("user.dir") + "/src/main/resources/public/uploads";
 
     public String upload(MultipartFile file) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
@@ -21,15 +21,12 @@ public class FileService {
             Files.createDirectories(uploadPath);
         }
 
-        // Generate a unique file name
         String fileExtension = getFileExtension(file.getOriginalFilename());
         String uniqueFileName = UUID.randomUUID() + (fileExtension.isEmpty() ? "" : "." + fileExtension);
 
-        // Save the file
         Path filePath = uploadPath.resolve(uniqueFileName);
         file.transferTo(filePath.toFile());
 
-        // Return the file reference (e.g., file name or full path)
         return uniqueFileName;
     }
     private String getFileExtension(String originalFileName) {

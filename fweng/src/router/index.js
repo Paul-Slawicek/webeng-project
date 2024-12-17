@@ -34,11 +34,9 @@ router.beforeEach((to, from, next) => {
   // Überprüfen, ob Authentifizierung benötigt wird
   if (to.meta.requiresAuth) {
     if (!authStore.isLoggedIn) {
-      // Umleiten zur Login-Seite, falls nicht eingeloggt
       return next({ name: 'Login' });
     }
     if (to.meta.roles && !to.meta.roles.includes(authStore.role)) {
-      // Benutzer hat nicht die erforderliche Rolle
       return next({ name: 'Home' });
     }
   }
