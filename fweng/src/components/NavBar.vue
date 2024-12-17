@@ -39,7 +39,7 @@
           <button class="btn btn-link nav-link" to="/" @click="logout">Logout</button>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link position-relative" to="/cart" data-bs-toggle="tooltip" title="Shopping Cart">
+          <router-link class="nav-link position-relative" to="" data-bs-toggle="tooltip" title="Shopping Cart">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart"
               viewBox="0 0 16 16">
               <path

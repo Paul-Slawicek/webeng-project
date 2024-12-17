@@ -36,7 +36,7 @@
     </p>
     <p>
       <strong>Privacy Policy:</strong> <br>
-      Further information on data protection can be found in our <router-link to="/privacy">Privacy
+      Further information on data protection can be found in our <router-link to="">Privacy
         Policy</router-link>.
     </p>
   </div>

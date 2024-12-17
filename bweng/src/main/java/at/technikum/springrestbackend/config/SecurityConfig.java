@@ -49,7 +49,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/token").permitAll()
                         .requestMatchers(POST, "/api/users").permitAll()
                         .requestMatchers(POST, "/api/products").hasAuthority("admin")
-                        .requestMatchers(GET, "/api/products").permitAll()
+                        .requestMatchers(GET, "/api/products/**").permitAll()
                         .requestMatchers("/api/users/admin").hasAuthority("admin")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
