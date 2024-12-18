@@ -32,7 +32,7 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.error("API Error:", error.response || error.message); // Fehler loggen
+    console.error("API Error:", error.response || error.message);
     return Promise.reject(error); // Fehler für spezifische Behandlung weitergeben
   }
 );

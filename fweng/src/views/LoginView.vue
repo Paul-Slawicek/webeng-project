@@ -59,13 +59,17 @@ export default {
         const token = response.data.token;
         console.log("Received Token:", token);
 
-        // Save the token in the Pinia store
         this.authStore.login(token);
-        alert("Login successful");
+
         this.$router.push("/");
+
+        this.$nextTick(() => {
+          this.$root.showMessage("Login successful!", 2000, "success");
+        });
       } catch (error) {
         console.error("Login error:", error);
-        alert("Username or password is incorrect.");
+
+        this.$root.showMessage("Username or password is incorrect.", 2000, "error");
       }
     },
   },

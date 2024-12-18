@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { jwtDecode } from "jwt-decode"; // JWT-Dekodierung
+import { jwtDecode } from "jwt-decode";
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({ token: undefined }),

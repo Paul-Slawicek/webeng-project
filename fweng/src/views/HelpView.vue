@@ -43,7 +43,7 @@
     <section>
       <h2 class="mb-3 mt-5">Need Further Assistance?</h2>
       <p>
-        If you need additional help, feel free to <router-link to="/contact">contact us</router-link>. Our support team
+        If you need additional help, feel free to <router-link to="">contact us</router-link>. Our support team
         is available to assist you with any questions or issues.
       </p>
     </section>
