@@ -7,10 +7,11 @@ import RegisterView from '../views/RegisterView.vue';
 import ProductsView from '../views/ProductsView.vue';
 import ImprintView from '../views/ImprintView.vue';
 import HelpView from '../views/HelpView.vue';
-import ProfileView from '../views/ProfileView.vue';
+import ProfileEditView from '../views/ProfileEditView.vue';
 import AddProductView from '../views/AddProductView.vue';
 import AdminUserManagementView from '../views/AdminUserManagementView.vue';
 import ProductDetailsView from "@/views/ProductDetailsView.vue";
+import ProfileView from '../views/ProfileView.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
@@ -23,6 +24,7 @@ const routes = [
   { path: '/addproduct', name: 'AddProduct', component: AddProductView, meta: { requiresAuth: true, roles: ['admin'] }, },
   { path: "/admin/users", name: 'AdminUserManagement' , component: AdminUserManagementView, meta: { requiresAuth: true, roles: "admin" } },
   { path: "/productdetails", name: "ProductDetails", component: ProductDetailsView },
+  { path: '/profileEdit', name: 'ProfileEdit', component: ProfileEditView, meta: { requiresAuth: true, roles: ['user', 'admin'] }, },
 ];
 
 const router = createRouter({
