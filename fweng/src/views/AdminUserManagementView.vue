@@ -126,7 +126,8 @@ export default {
     computed: {
         filteredUsers() {
             return this.users.filter((user) =>
-                user.username.toLowerCase().includes(this.searchQuery.toLowerCase())
+                user.username.toLowerCase().includes(this.searchQuery.toLowerCase())  ||
+                user.email.toLowerCase().includes(this.searchQuery.toLowerCase())
             );
         },
     },
@@ -208,14 +209,9 @@ export default {
     padding: 20px;
     border-radius: 5px;
     width: 600px;
-    /* Breiter für zwei Spalten */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    /* Scrollbar aktivieren */
     max-height: 90vh;
-    /* Maximale Höhe des Modals auf 90% der Viewport-Höhe begrenzen */
     overflow-y: auto;
-    /* Vertikales Scrollen erlauben, falls Inhalte zu lang sind */
 }
 
 .modal-content form .row {
@@ -225,19 +221,15 @@ export default {
 
 .modal-content form .col {
     flex: 1;
-    /* Spalten gleichmäßig aufteilen */
     margin-right: 10px;
-    /* Abstand zwischen den Spalten */
 }
 
 .modal-content form .col:last-child {
     margin-right: 0;
-    /* Letzte Spalte hat keinen rechten Abstand */
 }
 
 .modal-content form div {
     margin-bottom: 15px;
-    /* Abstand zwischen den Eingabefeldern */
 }
 
 .modal-content label {
@@ -257,9 +249,7 @@ export default {
 .modal-footer {
     display: flex;
     justify-content: flex-end;
-    /* Buttons am rechten Rand ausrichten */
     margin-top: 20px;
-    /* Abstand nach oben */
 }
 
 .btn {
@@ -268,6 +258,5 @@ export default {
 
 .btn:last-child {
     margin-right: 0;
-    /* Letzter Button hat keinen rechten Abstand */
 }
 </style>
