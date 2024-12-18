@@ -3,7 +3,7 @@
         <div class="text-center mb-4 mt-3">
             <h1>User Management</h1>
         </div>
-        <!-- Suchfeld -->
+        <!-- Search Field -->
         <div class="row justify-content-center mb-3">
             <div class="col-6">
                 <div class="input-group">
@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <!-- Benutzerliste -->
+        <!-- User List -->
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -42,13 +42,13 @@
             </tbody>
         </table>
 
-        <!-- Modal für User bearbeiten -->
+        <!-- User Edit Modal -->
         <div v-if="showModal" class="modal-backdrop">
             <div class="modal-content">
                 <h3>Edit User</h3>
                 <form @submit.prevent="saveUserChanges">
                     <div class="row">
-                        <!-- Erste Spalte -->
+                        <!-- Column 1 -->
                         <div class="col">
                             <div>
                                 <label>Username:</label>
@@ -76,7 +76,7 @@
                             </div>
                         </div>
 
-                        <!-- Zweite Spalte -->
+                        <!-- Column 2 -->
                         <div class="col">
                             <div>
                                 <label>First Name:</label>
@@ -119,15 +119,15 @@ export default {
         return {
             users: [],
             searchQuery: "",
-            selectedUser: null, // Aktuell ausgewählter User für das Modal
-            showModal: false,   // Steuerung des Modals
+            selectedUser: null, // Currently selected user for editing
+            showModal: false, // Modal visibility control
         };
     },
     computed: {
         filteredUsers() {
             return this.users.filter((user) =>
-                user.username.toLowerCase().includes(this.searchQuery.toLowerCase())  ||
-                user.email.toLowerCase().includes(this.searchQuery.toLowerCase())
+                    user.username.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                    user.email.toLowerCase().includes(this.searchQuery.toLowerCase())
             );
         },
     },
@@ -138,14 +138,16 @@ export default {
                 this.users = response.data;
             } catch (error) {
                 console.error("Error fetching users:", error);
+                this.$root.showMessage("Failed to fetch users. Please try again.", 2000, "error");
             }
         },
         async updateStatus(user) {
             try {
                 await axios.put(`/users/admin/${user.id}`, { ...user });
-                alert("Status updated successfully!");
+                this.$root.showMessage("Status updated successfully!", 2000, "success");
             } catch (error) {
                 console.error("Error updating status:", error);
+                this.$root.showMessage("Failed to update user status. Please try again.", 2000, "error");
             }
         },
         async deleteUser(userId) {
@@ -154,9 +156,10 @@ export default {
             try {
                 await axios.delete(`/users/admin/${userId}`);
                 this.fetchUsers();
-                alert("User deleted successfully!");
+                this.$root.showMessage("User deleted successfully!", 2000, "success");
             } catch (error) {
                 console.error("Error deleting user:", error);
+                this.$root.showMessage("Failed to delete user. Please try again.", 2000, "error");
             }
         },
         openUserModal(user) {
@@ -168,10 +171,10 @@ export default {
                 await axios.put(`/users/admin/${this.selectedUser.id}`, this.selectedUser);
                 this.showModal = false;
                 this.fetchUsers();
-                alert("User updated successfully!");
+                this.$root.showMessage("User updated successfully!", 2000, "success");
             } catch (error) {
                 console.error("Error updating user:", error);
-                alert("Failed to update user.");
+                this.$root.showMessage("Failed to update user. Please try again.", 2000, "error");
             }
         },
     },

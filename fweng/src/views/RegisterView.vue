@@ -21,15 +21,8 @@
         <!-- Additional Input for "Other" Title -->
         <div v-if="salutation === 'Other'" class="row mb-2">
           <div class="col-md-12 form-floating">
-            <input
-              type="text"
-              class="form-control"
-              id="otherSalutation"
-              v-model="otherSalutation"
-              placeholder="Please specify"
-              maxlength="30"
-              required
-            />
+            <input type="text" class="form-control" id="otherSalutation" v-model="otherSalutation"
+              placeholder="Please specify" maxlength="30" required />
             <label for="otherSalutation">Please specify</label>
           </div>
         </div>
@@ -37,7 +30,8 @@
         <!-- First Name and Last Name -->
         <div class="row mb-2">
           <div class="col-md-6 form-floating">
-            <input type="text" class="form-control" id="firstname" v-model="firstname" placeholder="First Name" required />
+            <input type="text" class="form-control" id="firstname" v-model="firstname" placeholder="First Name"
+              required />
             <label for="firstname">First Name</label>
           </div>
           <div class="col-md-6 form-floating">
@@ -90,18 +84,13 @@
         <!-- Password and Repeat Password -->
         <div class="row mb-2">
           <div class="col-md-6 form-floating">
-            <input type="password" class="form-control" id="password" v-model="password" placeholder="Password" required />
+            <input type="password" class="form-control" id="password" v-model="password" placeholder="Password"
+              required />
             <label for="password">Password</label>
           </div>
           <div class="col-md-6 form-floating">
-            <input
-              type="password"
-              class="form-control"
-              id="password2"
-              v-model="password2"
-              placeholder="Repeat Password"
-              required
-            />
+            <input type="password" class="form-control" id="password2" v-model="password2" placeholder="Repeat Password"
+              required />
             <label for="password2">Repeat Password</label>
           </div>
         </div>
@@ -121,7 +110,7 @@
 </template>
 
 <script>
-import axios from '@/services/api';
+import axios from "@/services/api";
 
 export default {
   data() {
@@ -143,22 +132,8 @@ export default {
   },
   methods: {
     async submitRegistration() {
-      console.log({
-        salutation: this.salutation,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        address: this.address,
-        plz: this.plz,
-        city: this.city,
-        email: this.email,
-        username: this.username,
-        password: this.password,
-        otherSalutation: this.otherSalutation,
-        country: this.country
-      });
-      // Überprüfen, ob die Passwörter übereinstimmen
       if (this.password !== this.password2) {
-        alert("Passwords do not match!");
+        this.$root.showMessage("Passwords do not match!", 2000, "error");
         return;
       }
       if (this.salutation === "Other") {
@@ -166,7 +141,7 @@ export default {
       }
 
       try {
-        const response = await axios.post('/users', {
+        const response = await axios.post("/users", {
           salutation: this.salutation,
           firstname: this.firstname,
           lastname: this.lastname,
@@ -176,16 +151,16 @@ export default {
           email: this.email,
           username: this.username,
           password: this.password,
-          country: this.country
+          country: this.country,
         });
-        alert(response.data); // Zeigt "User registered successfully" an
-        this.$router.push('/login');
+
+        this.$root.showMessage(response.data, 2000, "success");
+        this.$router.push("/login");
       } catch (error) {
         console.log(error.response);
-        alert(error?.response?.data?.errors?.join('\r\n') ?? error?.response?.data ?? "An error occurred during registration.");
+        this.$root.showMessage(error?.response?.data?.errors?.join("\r\n") ?? error?.response?.data ?? "An error occurred during registration.", 2000, "error");
       }
     },
-    // Fetch countries and prioritize DACH countries
     async loadCountries() {
       try {
         const response = await axios.get("https://restcountries.com/v3.1/all");
@@ -216,7 +191,6 @@ export default {
     this.loadCountries();
   },
 };
-
 </script>
 
 <style scoped>
