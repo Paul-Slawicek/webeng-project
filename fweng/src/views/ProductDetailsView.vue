@@ -23,7 +23,7 @@
                             <strong>Category:</strong> {{ product.category }}
                         </p>
 
-                        <p class="text-muted mb-4" style="line-height: 1.8;">
+                        <p class="text-muted mb-4 text-justify" style="line-height: 1.8; text-align: justify;">
                             {{ product.description }}
                         </p>
 
