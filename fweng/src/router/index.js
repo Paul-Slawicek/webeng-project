@@ -10,6 +10,7 @@ import HelpView from '../views/HelpView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import AddProductView from '../views/AddProductView.vue';
 import AdminUserManagementView from '../views/AdminUserManagementView.vue';
+import ProductDetailsView from "@/views/ProductDetailsView.vue";
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
@@ -21,6 +22,7 @@ const routes = [
   { path: '/profile', name: 'Profile', component: ProfileView, meta: { requiresAuth: true, roles: ['user', 'admin'] }, },
   { path: '/addproduct', name: 'AddProduct', component: AddProductView, meta: { requiresAuth: true, roles: ['admin'] }, },
   { path: "/admin/users", name: 'AdminUserManagement' , component: AdminUserManagementView, meta: { requiresAuth: true, roles: "admin" } },
+  { path: "/productdetails", name: "ProductDetails", component: ProductDetailsView },
 ];
 
 const router = createRouter({
