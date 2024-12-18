@@ -5,10 +5,10 @@
     </div>
     <div class="form-container register-container">
       <form @submit.prevent="submitRegistration" method="post" id="registrationForm">
-
+        <!-- Title -->
         <div class="row mb-2">
           <div class="col-md-12 form-floating">
-            <select class="form-select" id="salutation" v-model="salutation" @change="handleSalutationChange">
+            <select class="form-select" id="salutation" v-model="salutation" @change="handleSalutationChange" required>
               <option value="" disabled selected hidden>Select Title</option>
               <option value="Herr">Mr.</option>
               <option value="Frau">Ms.</option>
@@ -18,6 +18,7 @@
           </div>
         </div>
 
+        <!-- Additional Input for "Other" Title -->
         <div v-if="salutation === 'Other'" class="row mb-2">
           <div class="col-md-12 form-floating">
             <input type="text" class="form-control" id="otherSalutation" v-model="otherSalutation"
@@ -26,27 +27,31 @@
           </div>
         </div>
 
+        <!-- First Name and Last Name -->
         <div class="row mb-2">
           <div class="col-md-6 form-floating">
-            <input type="text" class="form-control" id="firstname" v-model="firstname" placeholder="First Name" />
+            <input type="text" class="form-control" id="firstname" v-model="firstname" placeholder="First Name"
+              required />
             <label for="firstname">First Name</label>
           </div>
           <div class="col-md-6 form-floating">
-            <input type="text" class="form-control" id="lastname" v-model="lastname" placeholder="Last Name" />
+            <input type="text" class="form-control" id="lastname" v-model="lastname" placeholder="Last Name" required />
             <label for="lastname">Last Name</label>
           </div>
         </div>
 
+        <!-- Address -->
         <div class="row mb-2">
           <div class="col-md-12 form-floating">
-            <input type="text" class="form-control" id="address" v-model="address" placeholder="Address" />
+            <input type="text" class="form-control" id="address" v-model="address" placeholder="Address" required />
             <label for="address">Address</label>
           </div>
         </div>
 
+        <!-- Postal Code, City, and Country -->
         <div class="row mb-2">
           <div class="col-md-4 form-floating">
-            <select class="form-select dropdown-toggle" id="country" v-model="country">
+            <select class="form-select dropdown-toggle" id="country" v-model="country" required>
               <option value="" disabled selected hidden>Select Country</option>
               <option v-for="(countryItem, index) in countries" :key="index" :value="countryItem.name">
                 {{ countryItem.name }}
@@ -55,44 +60,49 @@
             <label for="country">Country</label>
           </div>
           <div class="col-md-4 form-floating">
-            <input type="text" class="form-control" id="plz" v-model="plz" placeholder="Postal Code" />
+            <input type="text" class="form-control" id="plz" v-model="plz" placeholder="Postal Code" required />
             <label for="plz">Postal Code</label>
           </div>
           <div class="col-md-4 form-floating">
-            <input type="text" class="form-control" id="city" v-model="city" placeholder="City" />
+            <input type="text" class="form-control" id="city" v-model="city" placeholder="City" required />
             <label for="city">City</label>
           </div>
         </div>
 
+        <!-- Email and Username -->
         <div class="row mb-2">
           <div class="col-md-6 form-floating">
-            <input type="text" class="form-control" id="username" v-model="username" placeholder="Username" />
+            <input type="text" class="form-control" id="username" v-model="username" placeholder="Username" required />
             <label for="username">Username</label>
           </div>
           <div class="col-md-6 form-floating">
-            <input type="email" class="form-control" id="email" v-model="email" placeholder="Email Address" />
+            <input type="email" class="form-control" id="email" v-model="email" placeholder="Email Address" required />
             <label for="email">Email Address</label>
           </div>
         </div>
 
+        <!-- Password and Repeat Password -->
         <div class="row mb-2">
           <div class="col-md-6 form-floating">
-            <input type="password" class="form-control" id="password" v-model="password" placeholder="Password" />
+            <input type="password" class="form-control" id="password" v-model="password" placeholder="Password"
+              required />
             <label for="password">Password</label>
           </div>
           <div class="col-md-6 form-floating">
-            <input type="password" class="form-control" id="password2" v-model="password2"
-              placeholder="Repeat Password" />
+            <input type="password" class="form-control" id="password2" v-model="password2" placeholder="Repeat Password"
+              required />
             <label for="password2">Repeat Password</label>
           </div>
         </div>
 
+        <!-- Submit Button -->
         <div class="text-center">
           <button type="submit" class="btn btn-primary" name="reg-submit">Register</button>
         </div>
       </form>
     </div>
 
+    <!-- Login Link -->
     <div class="container mt-3 mb-2 text-center">
       Already have an account? <router-link to="/login">Log in here</router-link>
     </div>
@@ -100,7 +110,7 @@
 </template>
 
 <script>
-import axios from '@/services/api';
+import axios from "@/services/api";
 import * as Yup from "yup";
 
 export default {
@@ -194,25 +204,26 @@ export default {
           password: this.password,
         });
 
-        alert(response.data); // Erfolgsmeldung anzeigen
+        // Erfolgsmeldung anzeigen
+        this.$root.showMessage(response.data, 2000, "success");
         this.$router.push("/login");
       } catch (error) {
-        // Yup-Validierungsfehler abfangen und anzeigen
         if (error.name === "ValidationError") {
+          // Yup-Validierungsfehler abfangen und anzeigen
           const errorMessages = error.inner.map((err) => err.message).join("\n");
           alert("Validation Errors:\n" + errorMessages);
         } else {
           console.error("Registration failed:", error.response);
-          alert(
+          this.$root.showMessage(
             error?.response?.data?.errors?.join("\r\n") ??
             error?.response?.data ??
-            "An error occurred during registration."
+            "An error occurred during registration.",
+            2000,
+            "error"
           );
         }
       }
     },
-
-    // Fetch countries and prioritize DACH countries
     async loadCountries() {
       try {
         const response = await axios.get("https://restcountries.com/v3.1/all");
@@ -243,7 +254,6 @@ export default {
     this.loadCountries();
   },
 };
-
 </script>
 
 <style scoped>
