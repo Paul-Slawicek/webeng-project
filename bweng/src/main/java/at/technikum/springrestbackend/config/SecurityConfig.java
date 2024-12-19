@@ -54,6 +54,8 @@ public class SecurityConfig {
                         .requestMatchers(POST, "api/orders/place").permitAll()
                         .requestMatchers(PUT, "api/products/**").hasAuthority("admin")
                         .requestMatchers(DELETE, "api/products/**").hasAuthority("admin")
+                        .requestMatchers(POST, "/api/orders/place").permitAll()
+                        .requestMatchers(GET, "/api/orders/my-orders").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

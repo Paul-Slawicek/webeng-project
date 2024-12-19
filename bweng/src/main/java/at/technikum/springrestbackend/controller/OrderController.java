@@ -9,6 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
@@ -26,6 +28,16 @@ public class OrderController {
             Long userId = userPrincipal.getId(); // Extract the user ID
             Order order = orderService.createOrder(orderDTO.getProductId(), orderDTO.getQuantity(), userId);
             return ResponseEntity.ok("Order placed successfully with ID: " + order.getId());
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+    }
+    @GetMapping("/my-orders")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> getMyOrders() {
+        try {
+            List<Order> orders = orderService.getOrdersForCurrentUser();
+            return ResponseEntity.ok(orders);
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
