@@ -30,13 +30,15 @@
                         <!-- Horizontal Rule -->
                         <hr />
 
-                        <!-- Price and Order Button -->
+                        <!-- Price, Quantity, and Order Button -->
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="price-box">
                                 <p class="fs-4 fw-bold text-success mb-0">
                                     Price: <span class="text-dark">{{ product.price }} €</span>
                                 </p>
                             </div>
+                            <input type="number" v-model="quantity" min="1" class="form-control me-3"
+                                style="width: 100px;" />
                             <button @click="orderProduct" class="btn btn-lg btn-success px-4 rounded-pill shadow-sm">
                                 Place Order
                             </button>
@@ -50,13 +52,19 @@
 
 <script>
 import axios from "@/services/api";
+import { useAuthStore } from "@/stores/authStore";
 
 export default {
     name: "ProductDetailsView",
     data() {
         return {
             product: {},
+            quantity: 1,
         };
+    },
+    setup() {
+        const authStore = useAuthStore();
+        return { authStore };
     },
     methods: {
         async fetchProductDetails() {
@@ -65,7 +73,6 @@ export default {
                 console.error("Product ID is missing.");
                 return;
             }
-
             try {
                 const response = await axios.get(`/products/${productId}`);
                 this.product = response.data;
@@ -79,8 +86,41 @@ export default {
                 ? `http://localhost:8080/uploads/${picture}`
                 : require("@/assets/img/default.jpg");
         },
-        orderProduct() {
-            alert(`Order placed for: ${this.product.title}`);
+        async orderProduct() {
+            if (this.quantity < 1) {
+                alert("Please enter a valid quantity.");
+                return;
+            }
+
+            // Check if the user is logged in
+            if (!this.authStore.isLoggedIn) {
+                alert("You must be logged in to place an order.");
+                return;
+            }
+
+            const orderPayload = {
+                productId: this.product.id,
+                quantity: this.quantity,
+            };
+
+            try {
+                // Access the token from authStore
+                const token = this.authStore.token;
+
+                const response = await axios.post("/orders/place", orderPayload, {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Use token from authStore
+                    },
+                });
+                alert(response.data); // Show success message
+            } catch (error) {
+                console.error("Error placing order:", error);
+                if (error.response?.status === 403) {
+                    alert("You must be logged in to place an order.");
+                } else {
+                    alert("Failed to place the order. Please try again.");
+                }
+            }
         },
     },
     mounted() {
