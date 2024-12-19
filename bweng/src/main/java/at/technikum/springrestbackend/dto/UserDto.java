@@ -19,6 +19,6 @@ public record UserDto(
         String salutation,
         String picture,
         String status,
-        String country // Neues Feld
+        String country
 ) {
 }

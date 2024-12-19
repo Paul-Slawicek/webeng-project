@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-
     private final ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {
@@ -21,9 +20,9 @@ public class ProductService {
         Product product = new Product();
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
-        product.setCategory(productDto.getCategory());
         product.setDescription(productDto.getDescription());
         product.setPicture(productDto.getPicture());
+        product.setCategory(productDto.getCategory());
         return productRepository.save(product);
     }
 
@@ -35,4 +34,20 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
+    public Product updateProduct(Long id, ProductDTO productDto) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        product.setDescription(productDto.getDescription());
+        product.setPicture(productDto.getPicture());
+        product.setCategory(productDto.getCategory());
+        return productRepository.save(product);
+    }
+
+    public void deleteProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        productRepository.delete(product);
+    }
 }

@@ -32,6 +32,9 @@
         <li class="nav-item" v-if="authStore.isLoggedIn && authStore.role !== 'admin'">
           <router-link class="nav-link" to="/profile">Profile</router-link>
         </li>
+        <li class="nav-item" v-if="authStore.role === 'admin'">
+          <router-link class="nav-link" to="/admin/products">Product Management</router-link>
+        </li>
         <li class="nav-item" v-if="authStore.isLoggedIn && authStore.role === 'admin'">
           <router-link class="nav-link" to="/admin/users">User Management</router-link>
         </li>

@@ -19,8 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.List;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
@@ -53,6 +52,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/admin").hasAuthority("admin")
                         .requestMatchers(GET, "/uploads/**").permitAll()
                         .requestMatchers(POST, "api/orders/place").permitAll()
+                        .requestMatchers(PUT, "api/products/**").hasAuthority("admin")
+                        .requestMatchers(DELETE, "api/products/**").hasAuthority("admin")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

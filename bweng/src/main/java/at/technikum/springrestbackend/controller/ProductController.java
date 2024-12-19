@@ -68,11 +68,33 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('admin')")
+    public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDto) {
+        try {
+            Product updatedProduct = productService.updateProduct(id, productDto);
+            return ResponseEntity.ok(updatedProduct);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Optional<Product> product = productService.getProductById(id);
         return product.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('admin')")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+        try {
+            productService.deleteProduct(id);
+            return ResponseEntity.ok("Product deleted successfully.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
 }
