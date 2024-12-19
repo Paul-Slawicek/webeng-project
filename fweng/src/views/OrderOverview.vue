@@ -43,7 +43,7 @@
         const authStore = useAuthStore();
         const response = await axios.get("/orders/my-orders", {
           headers: {
-            Authorization: `Bearer ${authStore.token}`, // Add JWT token to the header
+            Authorization: `Bearer ${authStore.token}`,
           },
         });
         this.orders = response.data;

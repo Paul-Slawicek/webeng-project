@@ -14,6 +14,7 @@ import ProductDetailsView from "@/views/ProductDetailsView.vue";
 import ProfileView from '../views/ProfileView.vue';
 import AdminProductManagementView from '../views/AdminProductManagementView.vue';
 import OrderOverview from '../views/OrderOverview.vue';
+import AdminOrderManagementView from '../views/AdminOrderManagementView.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
@@ -29,6 +30,7 @@ const routes = [
   { path: '/profileEdit', name: 'ProfileEdit', component: ProfileEditView, meta: { requiresAuth: true, roles: ['user', 'admin'] }, },
   { path: '/admin/products', name: 'AdminProductManagement', component: AdminProductManagementView, meta: { requiresAuth: true, roles: 'admin' }, },
   { path: '/orderOverview', name: 'OrderOverview', component: OrderOverview, meta: { requiresAuth: true, roles: ['user', 'admin'] }, },
+  { path: '/admin/orders', name: 'AdminOrderManagement', component: AdminOrderManagementView, meta: { requiresAuth: true, roles: ['admin'] } },
 ];
 
 const router = createRouter({

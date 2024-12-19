@@ -119,15 +119,16 @@ export default {
         return {
             users: [],
             searchQuery: "",
-            selectedUser: null, // Currently selected user for editing
-            showModal: false, // Modal visibility control
+            selectedUser: null,
+            showModal: false,
         };
     },
     computed: {
         filteredUsers() {
             return this.users.filter((user) =>
-                    user.username.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                    user.email.toLowerCase().includes(this.searchQuery.toLowerCase())
+                user.id.toString().includes(this.searchQuery) ||
+                user.username.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                user.email.toLowerCase().includes(this.searchQuery.toLowerCase())
             );
         },
     },

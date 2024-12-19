@@ -92,7 +92,6 @@ export default {
                 return;
             }
 
-            // Check if the user is logged in
             if (!this.authStore.isLoggedIn) {
                 alert("You must be logged in to place an order.");
                 return;
@@ -104,15 +103,14 @@ export default {
             };
 
             try {
-                // Access the token from authStore
                 const token = this.authStore.token;
 
                 const response = await axios.post("/orders/place", orderPayload, {
                     headers: {
-                        Authorization: `Bearer ${token}`, // Use token from authStore
+                        Authorization: `Bearer ${token}`,
                     },
                 });
-                alert(response.data); // Show success message
+                this.$root.showMessage(response.data, 2000, "success");
             } catch (error) {
                 console.error("Error placing order:", error);
                 if (error.response?.status === 403) {

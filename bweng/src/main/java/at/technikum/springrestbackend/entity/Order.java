@@ -1,6 +1,5 @@
 package at.technikum.springrestbackend.entity;
 
-
 import jakarta.persistence.*;
 
 @Entity
@@ -22,6 +21,9 @@ public class Order {
     @Column(name = "total_price", nullable = false)
     private double totalPrice;
 
+    @Column(name = "status", nullable = false)
+    private String status = "pending";
+
     public Order() {
     }
 
@@ -30,6 +32,7 @@ public class Order {
         this.productId = productId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
+        this.status = "pending";
     }
 
     public Long getId() {
@@ -71,5 +74,12 @@ public class Order {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
-}
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}

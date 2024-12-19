@@ -148,7 +148,7 @@ export default {
           .min(2, "Last name must be at least 2 characters"),
         address: Yup.string().required("Address is required"),
         plz: Yup.string()
-          .matches(/^\d{4}$/, "Postal Code must be exactly 5 digits")
+          .matches(/^\d{4}$/, "Postal Code must be exactly 4 digits")
           .required("Postal Code is required"),
         city: Yup.string().required("City is required"),
         country: Yup.string().required("Country is required"),
@@ -204,7 +204,6 @@ export default {
           password: this.password,
         });
 
-        // Erfolgsmeldung anzeigen
         this.$root.showMessage(response.data, 2000, "success");
         this.$router.push("/login");
       } catch (error) {

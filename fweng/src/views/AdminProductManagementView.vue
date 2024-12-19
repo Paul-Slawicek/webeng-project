@@ -88,6 +88,7 @@ export default {
     computed: {
         filteredProducts() {
             return this.products.filter((product) =>
+                product.id.toString().includes(this.searchQuery) ||
                 product.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                 product.category.toLowerCase().includes(this.searchQuery.toLowerCase())
             );

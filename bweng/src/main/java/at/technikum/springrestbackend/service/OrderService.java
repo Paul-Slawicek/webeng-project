@@ -1,6 +1,5 @@
 package at.technikum.springrestbackend.service;
 
-
 import at.technikum.springrestbackend.entity.Order;
 import at.technikum.springrestbackend.entity.Product;
 import at.technikum.springrestbackend.repository.OrderRepository;
@@ -21,25 +20,40 @@ public class OrderService {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
     }
+
     public List<Order> getOrdersForCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal(); // Cast to UserPrincipal
-        Long userId = userPrincipal.getId(); // Get the user ID
-        System.out.println("User ID: " + userId); // Debug log
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        Long userId = userPrincipal.getId();
+        System.out.println("User ID: " + userId);
         return orderRepository.findByUserId(userId);
     }
 
-
     public Order createOrder(Long productId, Integer quantity, Long userId) {
-        // Validate product existence
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
-        // Calculate total price
         double totalPrice = product.getPrice() * quantity;
 
-        // Create and save order
         Order order = new Order(userId, productId, quantity, totalPrice);
+        order.setStatus("pending");
         return orderRepository.save(order);
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    public void updateOrderStatus(Long orderId, String status) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        order.setStatus(status);
+        orderRepository.save(order);
+    }
+
+    public void deleteOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        orderRepository.delete(order);
     }
 }
