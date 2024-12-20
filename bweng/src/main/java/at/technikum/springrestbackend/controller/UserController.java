@@ -139,6 +139,7 @@ public class UserController {
             return ResponseEntity.status(500).body(null);
         }
     }
+
     @PutMapping("/admin/{id}")
     @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @Validated @RequestBody AdminUserDto adminUserDto) {

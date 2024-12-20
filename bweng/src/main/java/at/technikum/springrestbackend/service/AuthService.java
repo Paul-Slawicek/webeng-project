@@ -35,7 +35,7 @@ public class AuthService {
 
         Optional<User> user = userRepository.findByUsername(userPrincipal.getUsername());
         if (user.isPresent() && !user.get().getStatus().equalsIgnoreCase("active")) {
-            throw new RuntimeException("User account is inactive. Please contact the administrator.");
+            return new TokenResponseDto(null);
         }
 
         String token = tokenIssuer.issue(userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRole());

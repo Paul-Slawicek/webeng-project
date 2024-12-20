@@ -57,10 +57,13 @@ export default {
         });
 
         const token = response.data.token;
-        console.log("Received Token:", token);
+
+        if (!token) {
+          this.$root.showMessage("Your account is inactive. Please contact the administrator.", 2000, "error");
+          return;
+        }
 
         this.authStore.login(token);
-
         this.$router.push("/");
 
         this.$nextTick(() => {
@@ -69,7 +72,11 @@ export default {
       } catch (error) {
         console.error("Login error:", error);
 
-        this.$root.showMessage("Username or password is incorrect.", 2000, "error");
+        if (error.response?.status === 403) {
+          this.$root.showMessage("Username or password is incorrect.", 2000, "error");
+        } else {
+          this.$root.showMessage("An unexpected error occurred. Please try again later.", 2000, "error");
+        }
       }
     },
   },
