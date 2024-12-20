@@ -1,20 +1,29 @@
 <template>
+    <div class="mb-6">
+      <BadgeElement :htmlFor="id" :text="labelText" />
       <input
-        :id="htmlFor"
-        type="text"
+        :id="id"
+        class="form-control"
+        type="password"
         :placeholder="placeholder"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
       />
+    </div>
   </template>
   
   <script>
+  import BadgeElement from "@/components/atoms/BadgeElement.vue";
+  
   export default {
-    name: "TextinputElement",
+    name: "FormPasswordElement",
+    components: {
+      BadgeElement,
+    },
     props: {
-      htmlFor: {
+      id: {
         type: String,
-        required: true, // Ensure this prop is passed
+        required: true,
       },
       modelValue: {
         type: String,
@@ -23,6 +32,10 @@
       placeholder: {
         type: String,
         default: "",
+      },
+      labelText: {
+        type: String,
+        required: true,
       },
     },
   };

@@ -1,18 +1,26 @@
 <template>
-    <input :for="htmlFor" type="password">{{
-        text
-    }}</input>
+    <input
+        :id="htmlFor"
+        type="password"
+        :placeholder="text"
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
+    />
 </template>
 
 <script>
 export default {
-    name: 'PasswordElement',
+    name: "PasswordElement",
     props: {
         htmlFor: {
             type: String,
             required: true,
         },
         text: {
+            type: String,
+            required: true,
+        },
+        modelValue: {
             type: String,
             required: true,
         },

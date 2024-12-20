@@ -1,26 +1,15 @@
 <template>
   <div>
-    <div class="text-center mb-4 mt-3">
-      <h1>Login</h1>
-    </div>
+    <HeaderElement text="Login" /> 
+
     <div class="form-container">
-      <form @submit.prevent="submitLogin">
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="username" v-model="username" placeholder="Username" required
-            ref="usernameInput" />
-          <label for="username">Username</label>
-        </div>
-
-        <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="password" v-model="password" placeholder="Password"
-            required />
-          <label for="password">Password</label>
-        </div>
-
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary">Login</button>
-        </div>
-      </form>
+      <LoginForm
+        :username="username"
+        :password="password"
+        @submitLogin="submitLogin"
+        @update:username="username = $event"
+        @update:password="password = $event"
+      />
     </div>
 
     <div class="container mt-3 mb-2 text-center">
@@ -30,11 +19,17 @@
 </template>
 
 <script>
+import HeaderElement from "@/components/atoms/HeaderElement.vue";
+import LoginForm from "@/components/organisms/LoginForm.vue";
 import axios from "@/services/api";
 import { useAuthStore } from "@/stores/authStore";
 
 export default {
   name: "LoginView",
+  components: {
+    HeaderElement,
+    LoginForm,
+  },
   data() {
     return {
       username: "",
@@ -44,9 +39,6 @@ export default {
   setup() {
     const authStore = useAuthStore();
     return { authStore };
-  },
-  mounted() {
-    this.$refs.usernameInput.focus();
   },
   methods: {
     async submitLogin() {
