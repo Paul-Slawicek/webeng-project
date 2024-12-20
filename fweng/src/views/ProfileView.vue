@@ -11,8 +11,8 @@
                         <h3 class="text-center">Profile Details</h3>
                         <div class="profile-details text-center mb-4">
                             <div class="mb-3">
-                                <img :src="getImageUrl(profileData.picture)"
-                                    alt="Profile Picture" class="img-thumbnail" width="150" />
+                                <img :src="getImageUrl(profileData.picture)" alt="Profile Picture" class="img-thumbnail"
+                                    width="150" />
                             </div>
                             <p><strong>Salutation:</strong> {{ profileData.salutation }}</p>
                             <p><strong>First Name:</strong> {{ profileData.firstname }}</p>

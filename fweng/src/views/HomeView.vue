@@ -61,7 +61,6 @@ export default {
 </script>
 
 <style scoped>
-
 .card-img-top {
   height: 250px;
   width: 100%;

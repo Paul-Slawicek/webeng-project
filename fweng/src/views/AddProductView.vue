@@ -7,12 +7,7 @@
       <!-- Category -->
       <div class="mb-4">
         <label for="category" class="form-label fw-bold">Category</label>
-        <select
-          id="category"
-          v-model="productData.category"
-          class="form-select form-control-lg"
-          required
-        >
+        <select id="category" v-model="productData.category" class="form-select form-control-lg" required>
           <option value="" disabled selected hidden>Select a category</option>
           <option value="TV">TV</option>
           <option value="Laptop">Laptop</option>
@@ -24,52 +19,28 @@
       <div class="row g-4 mb-4">
         <div class="col-md-6">
           <label for="title" class="form-label fw-bold">Title</label>
-          <input
-            type="text"
-            id="title"
-            v-model="productData.title"
-            class="form-control form-control-lg"
-            placeholder="Enter title"
-            required
-          />
+          <input type="text" id="title" v-model="productData.title" class="form-control form-control-lg"
+            placeholder="Enter title" required />
         </div>
         <div class="col-md-6">
           <label for="price" class="form-label fw-bold">Price (€)</label>
-          <input
-            type="number"
-            id="price"
-            v-model="productData.price"
-            class="form-control form-control-lg"
-            placeholder="Enter price"
-            step="1"
-            required
-          />
+          <input type="number" id="price" v-model="productData.price" class="form-control form-control-lg"
+            placeholder="Enter price" step="1" required />
         </div>
       </div>
 
       <!-- Description -->
       <div class="mb-4">
         <label for="description" class="form-label fw-bold">Description</label>
-        <textarea
-          id="description"
-          v-model="productData.description"
-          class="form-control form-control-lg"
-          placeholder="Enter product description"
-          rows="5"
-          required
-        ></textarea>
+        <textarea id="description" v-model="productData.description" class="form-control form-control-lg"
+          placeholder="Enter product description" rows="5" required></textarea>
       </div>
 
       <!-- File Upload -->
       <div class="mb-5">
         <label for="file" class="form-label fw-bold">Upload Image</label>
-        <input
-          type="file"
-          id="file"
-          @change="handleImageUpload"
-          class="form-control form-control-lg"
-          accept="image/*"
-        />
+        <input type="file" id="file" @change="handleImageUpload" class="form-control form-control-lg"
+          accept="image/*" />
       </div>
 
       <!-- Submit Button -->

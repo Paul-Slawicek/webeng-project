@@ -81,8 +81,17 @@ export default {
   background: linear-gradient(to bottom, lightblue, ghostwhite);
 }
 
+.navbar-brand {
+  transition: transform 0.3s ease;
+  padding-left: calc((180px * 0.1) / 2);
+}
+
+.navbar-brand:hover {
+  transform: scale(1.1);
+}
+
 .bassenoBild {
-  width: 200px;
+  width: 180px;
 }
 
 .nav-item {
