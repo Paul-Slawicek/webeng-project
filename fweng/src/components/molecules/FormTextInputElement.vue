@@ -1,7 +1,7 @@
 <template>
   <div class="mb-6">
     <BadgeElement :htmlFor="id" :text="labelText" />
-    <input
+    <Input
       :id="id"
       class="form-control"
       type="text"
@@ -14,11 +14,13 @@
 
 <script>
 import BadgeElement from "@/components/atoms/BadgeElement.vue";
+import Input from '@/components/atoms/TextinputElement.vue';
 
 export default {
   name: "FormTextInputElement",
   components: {
     BadgeElement,
+    Input,
   },
   props: {
     id: {
