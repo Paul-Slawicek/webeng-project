@@ -29,7 +29,7 @@ public class FileService {
 
         return uniqueFileName;
     }
-    private String getFileExtension(String originalFileName) {
+    public String getFileExtension(String originalFileName) {
         if (originalFileName == null || originalFileName.isEmpty()) {
             return "";
         }
