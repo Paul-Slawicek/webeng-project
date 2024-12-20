@@ -10,13 +10,13 @@
     <div class="container mt-4">
       <div class="row">
         <div class="col-md-4" v-for="category in categories" :key="category.query">
-          <div class="card category-card" @click="navigateToProducts(category.query)">
-            <img :src="category.img" class="card-img-top" :alt="category.title">
-            <div class="card-body">
-              <h4 class="card-title">{{ category.title }}</h4>
-              <div class="card-text mb-2">{{ category.description }}</div>
-            </div>
-          </div>
+          <CategoryCard
+            :query="category.query"
+            :img="category.img"
+            :title="category.title"
+            :description="category.description"
+            @navigate="navigateToProducts"
+          />
         </div>
       </div>
     </div>
@@ -24,7 +24,12 @@
 </template>
 
 <script>
+import CategoryCard from "@/components/molecules/CategoryCard.vue";
+
 export default {
+  components: {
+    CategoryCard,
+  },
   data() {
     return {
       categories: [

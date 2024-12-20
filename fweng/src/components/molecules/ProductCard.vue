@@ -14,8 +14,12 @@
   <script>
 import ImageElement from '../atoms/ImageElement.vue';
 
+
   export default {
     name: "ProductCard",
+    components: {
+      ImageElement,
+    },
     props: {
       productId: {
         type: [String, Number],

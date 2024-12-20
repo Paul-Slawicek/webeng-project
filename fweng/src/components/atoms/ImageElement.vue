@@ -1,23 +1,26 @@
 <template>
-    <img :for="htmlFor" >{{
-        text
-    }}</input>
-</template>
-
-<script>
-export default {
-    name: 'ImageElement',
+    <img :src="src" :alt="alt" :class="className" />
+  </template>
+  
+  <script>
+  export default {
+    name: "ImageElement",
     props: {
-        htmlFor: {
-            type: String,
-            required: true,
-        },
-        text: {
-            type: String,
-            required: true,
-        },
+      src: {
+        type: String,
+        required: true,
+      },
+      alt: {
+        type: String,
+        required: true,
+      },
+      className: {
+        type: String,
+        default: "",
+      },
     },
-};
-</script>
-
-<style scoped></style>
+  };
+  </script>
+  
+  <style scoped></style>
+  
