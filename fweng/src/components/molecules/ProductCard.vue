@@ -1,5 +1,5 @@
 <template>
-    <div class="card product-card" @click="navigateToProductDetails">
+    <CardAtom @cardClick="navigateToProductDetails">
         <div class="product-overview-container">
             <ImageElement :src="imageUrl" :alt="product.title" className="card-img-top product-overview" />
         </div>
@@ -8,15 +8,16 @@
             <p class="card-text"><strong>Price:</strong> {{ product.price }} €</p>
             <p class="card-text"><strong>Category:</strong> {{ product.category }}</p>
         </div>
-    </div>
+    </CardAtom>
 </template>
 
 <script>
+import CardAtom from "@/components/atoms/CardElement.vue";
 import ImageElement from "@/components/atoms/ImageElement.vue";
 
 export default {
     name: "ProductCard",
-    components: { ImageElement },
+    components: { CardAtom, ImageElement },
     props: {
         product: {
             type: Object,
