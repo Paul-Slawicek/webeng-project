@@ -8,8 +8,8 @@
 
 <script>
 import './assets/css/override.css';
-import NavBar from './components/NavBar.vue';
-import MessageBanner from './components/MessageBanner.vue';
+import NavBar from './components/organisms/NavBar.vue';
+import MessageBanner from './components/molecules/MessageBanner.vue';
 
 export default {
   name: "App",

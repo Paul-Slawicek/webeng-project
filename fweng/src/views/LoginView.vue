@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import LoginForm from "@/components/molecules/LoginForm.vue";
+import LoginForm from "@/components/organisms/LoginForm.vue";
 import { useAuthStore } from "@/stores/authStore";
 import axios from "@/services/api";
 

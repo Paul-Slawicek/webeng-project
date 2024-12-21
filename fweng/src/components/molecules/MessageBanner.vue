@@ -16,7 +16,7 @@ export default {
       isVisible: false,
       isHiding: false,
       message: "",
-      type: "success", // Default to success
+      type: "success", // Default
       duration: 2000,
     };
   },
@@ -24,16 +24,15 @@ export default {
     show(message, duration = 2000, type = "success") {
       this.message = message;
       this.duration = duration;
-      this.type = type; // Set the type (success, error, etc.)
+      this.type = type;
       this.isVisible = true;
       this.isHiding = false;
 
-      // Automatically hide the banner after the duration
       setTimeout(() => {
         this.isHiding = true;
         setTimeout(() => {
           this.isVisible = false;
-        }, 500); // Matches the CSS transition time
+        }, 500);
       }, this.duration);
     },
   },
