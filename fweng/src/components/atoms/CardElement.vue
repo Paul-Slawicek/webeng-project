@@ -7,7 +7,7 @@
   <script>
   export default {
     name: "CardAtom",
-    emits: ["cardClick"], // Emit-Event für Klick-Interaktionen
+    emits: ["cardClick"],
   };
   </script>
   

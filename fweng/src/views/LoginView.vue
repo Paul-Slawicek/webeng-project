@@ -1,17 +1,17 @@
 <template>
   <div>
-    <HeaderElement text="Login" /> 
-
+    <div class="text-center mb-4 mt-3">
+      <h1>Login</h1>
+    </div>
     <div class="form-container">
       <LoginForm
         :username="username"
         :password="password"
-        @submitLogin="submitLogin"
         @update:username="username = $event"
         @update:password="password = $event"
+        @submitLogin="submitLogin"
       />
     </div>
-
     <div class="container mt-3 mb-2 text-center">
       Don't have an account yet? <router-link to="/register">Register now</router-link>
     </div>
@@ -19,17 +19,13 @@
 </template>
 
 <script>
-import HeaderElement from "@/components/atoms/HeaderElement.vue";
-import LoginForm from "@/components/organisms/LoginForm.vue";
-import axios from "@/services/api";
+import LoginForm from "@/components/molecules/LoginForm.vue";
 import { useAuthStore } from "@/stores/authStore";
+import axios from "@/services/api";
 
 export default {
   name: "LoginView",
-  components: {
-    HeaderElement,
-    LoginForm,
-  },
+  components: { LoginForm },
   data() {
     return {
       username: "",
