@@ -64,29 +64,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.card-img-top {
-  height: 250px;
-  width: 100%;
-  object-fit: cover;
-  margin: 0;
-  padding: 0;
-}
-
-.category-card .card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 1.5rem;
-}
-
-.category-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-</style>
