@@ -40,11 +40,11 @@
       },
       maxlength: {
         type: Number,
-        default: null, // Standardmäßig kein maxlength
+        default: null,
       },
       required: {
         type: Boolean,
-        default: true, // Standardmäßig erforderlich
+        default: true,
       },
     },
   };

@@ -1,36 +1,34 @@
 <template>
-    <div class="input-group">
-      <InputField
-        v-model="internalQuery"
-        placeholder="Search products..."
-      />
-    </div>
-  </template>
-  
-  <script>
-  import InputField from "@/components/atoms/InputField.vue";
-  
-  
-  export default {
-    name: "SearchBar",
-    components: {InputField},
-    props: {
-      searchQuery: {
-        type: String,
-        required: true,
+  <div>
+    <SearchField v-model="internalQuery" :placeholder="placeholder" />
+  </div>
+</template>
+
+<script>
+import SearchField from "@/components/atoms/SearchField.vue";
+
+export default {
+  name: "SearchBar",
+  components: { SearchField },
+  props: {
+    searchQuery: {
+      type: String,
+      default: "Search...",
+    },
+    placeholder: {
+      type: String,
+    },
+  },
+  emits: ["update:searchQuery", "search"],
+  computed: {
+    internalQuery: {
+      get() {
+        return this.searchQuery;
+      },
+      set(value) {
+        this.$emit("update:searchQuery", value);
       },
     },
-    emits: ["update:searchQuery", "search"],
-    computed: {
-      internalQuery: {
-        get() {
-          return this.searchQuery;
-        },
-        set(value) {
-          this.$emit("update:searchQuery", value);
-        },
-      },
-    },
-  };
-  </script>
-  
+  },
+};
+</script>

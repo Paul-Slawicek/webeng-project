@@ -2,21 +2,13 @@
   <div class="container mt-3 text-center mb-4">
     <h1>Products</h1>
 
-    <!-- Search Bar -->
     <div class="row justify-content-center mb-3">
       <div class="col-6">
-        <SearchBar
-          v-model:searchQuery="searchQuery"
-          @search="fetchProducts"
-        />
+        <SearchBar v-model:searchQuery="searchQuery" placeholder="Search products..." @search="fetchProducts" />
       </div>
     </div>
 
-    <!-- Product Cards -->
-    <ProductList
-      :products="filteredProducts"
-      @navigate="navigateToProductDetails"
-    />
+    <ProductList :products="filteredProducts" @navigate="navigateToProductDetails" />
   </div>
 </template>
 
@@ -65,4 +57,3 @@ export default {
   },
 };
 </script>
-
