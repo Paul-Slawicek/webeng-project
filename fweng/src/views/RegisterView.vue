@@ -97,8 +97,6 @@ export default {
 
         const finalSalutation =
           this.salutation === "Other" ? this.otherSalutation : this.salutation;
-
-        // Registrierung absenden
         try {
           await axios.post("/users", {
             salutation: finalSalutation,

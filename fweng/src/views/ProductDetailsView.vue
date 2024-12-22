@@ -1,11 +1,9 @@
 <template>
     <div class="container mt-3 mb-5">
-        <!-- Page Header -->
         <div class="text-center mb-4">
             <h1 class="text-dark">Product Details</h1>
         </div>
 
-        <!-- Product Section -->
         <div class="product-details p-4 rounded shadow-sm">
             <div class="row g-4 align-items-center">
                 <!-- Product Image -->

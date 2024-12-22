@@ -48,7 +48,6 @@
                 <h3>Edit User</h3>
                 <form @submit.prevent="saveUserChanges">
                     <div class="row">
-                        <!-- Column 1 -->
                         <div class="col">
                             <div>
                                 <label>Username:</label>
@@ -75,8 +74,6 @@
                                 <input v-model="selectedUser.salutation" type="text" placeholder="Enter salutation" />
                             </div>
                         </div>
-
-                        <!-- Column 2 -->
                         <div class="col">
                             <div>
                                 <label>First Name:</label>

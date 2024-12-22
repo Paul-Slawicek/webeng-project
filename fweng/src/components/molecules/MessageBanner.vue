@@ -16,7 +16,7 @@ export default {
       isVisible: false,
       isHiding: false,
       message: "",
-      type: "success", // Default
+      type: "success",
       duration: 2000,
     };
   },

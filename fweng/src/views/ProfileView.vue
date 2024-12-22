@@ -45,7 +45,7 @@ export default {
                 lastname: "",
                 username: "",
                 email: "",
-                picture: "", // Dateiname des Profilbilds
+                picture: "",
             },
         };
     },

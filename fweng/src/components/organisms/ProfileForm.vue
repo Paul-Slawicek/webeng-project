@@ -38,20 +38,20 @@ export default {
     data() {
         return {
             localForm: { ...this.form },
-            localCurrentPassword: this.currentPassword, // Lokale Kopie initialisieren
+            localCurrentPassword: this.currentPassword,
         };
     },
     watch: {
         form: {
             immediate: true,
             handler(newForm) {
-                this.localForm = { ...newForm }; // Form-Daten laden
+                this.localForm = { ...newForm }; 
             },
         },
         currentPassword: {
             immediate: true,
             handler(newPassword) {
-                this.localCurrentPassword = newPassword; // Synchronisation bei Änderung der Prop
+                this.localCurrentPassword = newPassword; 
             },
         },
         localForm: {
@@ -65,7 +65,7 @@ export default {
         },
         localCurrentPassword: {
             handler(newPassword) {
-                this.$emit("update:currentPassword", newPassword); // Änderungen an den Parent senden
+                this.$emit("update:currentPassword", newPassword); 
             },
         },
     },

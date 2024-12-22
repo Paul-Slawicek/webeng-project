@@ -65,12 +65,12 @@ export default {
       }
     },
     updateProfileData(newData) {
-      this.profileData = { ...newData }; // Synchronisiert die Form-Daten
+      this.profileData = { ...newData };
     },
     handleImageUpload(event) {
       const file = event.target.files[0];
       if (file) {
-        this.previewImage = file; // Speichert die Datei direkt
+        this.previewImage = file;
       }
     },
     async updateProfile() {
@@ -97,12 +97,10 @@ export default {
         console.log("JSON, das an das Backend gesendet wird:", JSON.stringify(requestData));
 
         const formData = new FormData();
-        formData.append("profileData", JSON.stringify(requestData)); // Profile-Daten als JSON
+        formData.append("profileData", JSON.stringify(requestData)); 
         if (this.previewImage) {
-          formData.append("profileImage", this.previewImage); // Profilbild hinzufügen
+          formData.append("profileImage", this.previewImage); 
         }
-
-        // PUT-Request senden
         const response = await axios.put(`/users/${this.userId}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });

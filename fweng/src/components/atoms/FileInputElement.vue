@@ -42,7 +42,4 @@
   };
   </script>
   
-  <style scoped>
-  /* Add any necessary styles */
-  </style>
   

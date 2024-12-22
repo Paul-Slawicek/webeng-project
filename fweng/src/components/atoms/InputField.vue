@@ -41,15 +41,15 @@ export default {
     },
     maxlength: {
       type: Number,
-      default: null, // Standardmäßig kein maxlength
+      default: null,
     },
     required: {
       type: Boolean,
-      default: false, // Standardmäßig erforderlich
+      default: false, 
     },
     customClass: {
       type: String,
-      default: "", // Benutzerdefinierte Klassen für die Eingabe
+      default: "", 
     },
   },
 };

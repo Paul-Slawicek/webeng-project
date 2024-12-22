@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- Title Dropdown -->
         <div class="row mb-2">
             <div class="col-md-12">
                 <DropdownField :id="id" :label="label" :placeholder="placeholder" :options="options"
@@ -8,7 +7,6 @@
             </div>
         </div>
 
-        <!-- Additional Title Input for "Other" -->
         <div v-if="localSalutation === 'Other'" class="row mb-2">
             <div class="col-md-12">
                 <InputField type="text" id="otherInputId" label="Please specify" placeholder="Specify your title"
@@ -26,8 +24,8 @@ export default {
     name: "SalutationField",
     components: { DropdownField, InputField },
     props: {
-        id: { type: String, required: true }, // ID for the dropdown
-        otherInputId: { type: String, required: true }, // ID for the "Other" input field
+        id: { type: String, required: true }, 
+        otherInputId: { type: String, required: true }, 
         label: { type: String, required: true },
         placeholder: { type: String, required: true },
         options: { type: Array, required: true },
@@ -45,7 +43,6 @@ export default {
             this.localSalutation = value;
             this.$emit("update:salutation", value);
 
-            // Clear the "Other" field when not selected
             if (value !== "Other") {
                 this.localOtherSalutation = "";
                 this.$emit("update:otherSalutation", "");
