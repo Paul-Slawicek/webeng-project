@@ -10,13 +10,8 @@
     <div class="container mt-4">
       <div class="row">
         <div class="col-md-4" v-for="category in categories" :key="category.query">
-          <CategoryCard
-            :query="category.query"
-            :img="category.img"
-            :title="category.title"
-            :description="category.description"
-            @navigate="navigateToProducts"
-          />
+          <CategoryCard :query="category.query" :img="category.img" :title="category.title"
+            :description="category.description" @navigate="navigateToProducts" />
         </div>
       </div>
     </div>
