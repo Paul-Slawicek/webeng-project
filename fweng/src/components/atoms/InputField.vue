@@ -4,6 +4,7 @@
         :type="type"
         class="form-control"
         :id="id"
+        :class="customClass"
         :placeholder="placeholder"
         :value="modelValue"
         :maxlength="maxlength"
@@ -44,8 +45,12 @@
       },
       required: {
         type: Boolean,
-        default: true, // Standardmäßig erforderlich
+        default: false, // Standardmäßig erforderlich
       },
+      customClass: {
+      type: String,
+      default: "", // Benutzerdefinierte Klassen für die Eingabe
+    },
     },
   };
   </script>
