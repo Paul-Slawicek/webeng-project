@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-center mb-4 mt-3">
+    <div class="text-center mb-2 mt-3">
       <h1>Create Account</h1>
     </div>
     <div class="form-container register-container">
@@ -135,12 +135,14 @@ export default {
     async loadCountries() {
       try {
         const response = await axios.get("https://restcountries.com/v3.1/all");
-        this.countries = response.data
-          .map((country) => ({
-            value: country.name.common,
-            label: country.name.common,
-          }))
-          .sort((a, b) => a.label.localeCompare(b.label));
+        const allCountries = response.data
+          .map((country) => country.name.common)
+          .sort((a, b) => a.localeCompare(b));
+        const dachCountries = ["Germany", "Austria", "Switzerland"];
+        this.countries = [
+          ...dachCountries,
+          ...allCountries.filter((country) => !dachCountries.includes(country)),
+        ];
       } catch (error) {
         console.error("Failed to load countries:", error);
       }

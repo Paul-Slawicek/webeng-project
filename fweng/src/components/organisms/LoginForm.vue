@@ -1,6 +1,7 @@
 <template>
     <form @submit.prevent="$emit('submitLogin')">
       <InputField
+        class="mb-3"
         type="text"
         id="username"
         :modelValue="username"
@@ -9,6 +10,7 @@
         label="Username"
       />
       <InputField
+        class="mb-3"
         type="password"
         id="password"
         :modelValue="password"
