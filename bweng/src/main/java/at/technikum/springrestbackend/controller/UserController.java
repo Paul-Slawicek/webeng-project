@@ -80,7 +80,6 @@ public class UserController {
             return ResponseEntity.badRequest().body("Invalid profile data format");
         }
 
-        // Benutzer finden
         Optional<User> optionalUser = userService.findById(id);
         if (optionalUser.isEmpty()) {
             return ResponseEntity.status(404).body("User not found");
@@ -95,8 +94,6 @@ public class UserController {
 
         // Profildaten aktualisieren
         userMapper.updateEntityFromDto(userDto, currentUser);
-
-        // Neues Passwort setzen, falls angegeben
 
 
         // Profilbild speichern, falls hochgeladen
