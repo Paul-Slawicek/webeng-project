@@ -126,8 +126,8 @@ export default {
   computed: {
     salutationOptions() {
       return [
-        { value: "Herr", label: "Mr." },
-        { value: "Frau", label: "Ms." },
+        { value: "Mr.", label: "Mr." },
+        { value: "Ms.", label: "Ms." },
         { value: "Other", label: "Other" },
       ];
     },
