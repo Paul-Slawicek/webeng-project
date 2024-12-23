@@ -133,7 +133,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @Validated @RequestBody AdminUserDto adminUserDto) {
         Optional<User> optionalUser = userService.findById(id);
-
+        ;
         if (optionalUser.isEmpty()) {
             return ResponseEntity.status(404).body("User not found");
         }
@@ -142,16 +142,15 @@ public class UserController {
 
         userMapper.updateEntityFromAdminDto(adminUserDto, currentUser);
 
-        if (adminUserDto.newPassword() != null && !adminUserDto.newPassword().isEmpty()) {
-            currentUser.setPassword(adminUserDto.newPassword());
-        }
-
         if (adminUserDto.status() != null && !adminUserDto.status().isEmpty()) {
             currentUser.setStatus(adminUserDto.status());
         }
 
-        userService.updateUser(currentUser);
+        if (adminUserDto.newPassword() != null && !adminUserDto.newPassword().isEmpty()) {
+            currentUser.setPassword(passwordEncoder.encode(adminUserDto.newPassword()));
+        }
 
+        userService.updateUserWithoutRehashingPassword(currentUser);
         return ResponseEntity.ok("User updated successfully");
     }
 
