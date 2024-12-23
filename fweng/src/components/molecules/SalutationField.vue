@@ -24,8 +24,8 @@ export default {
     name: "SalutationField",
     components: { DropdownField, InputField },
     props: {
-        id: { type: String, required: true }, 
-        otherInputId: { type: String, required: true }, 
+        id: { type: String, required: true },
+        otherInputId: { type: String, required: true },
         label: { type: String, required: true },
         placeholder: { type: String, required: true },
         options: { type: Array, required: true },

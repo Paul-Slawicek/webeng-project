@@ -1,16 +1,19 @@
 <template>
     <div class="container">
-        <div class="text-center mb-4 mt-3">
+        <div class="text-center my-4">
             <h1>User Management</h1>
         </div>
 
         <div class="row justify-content-center mb-3">
-            <div class="col-6">
+            <div class="col-md-6">
                 <SearchBar v-model:searchQuery="searchQuery" @search="fetchUsers" placeholder="Search users..." />
             </div>
         </div>
 
-        <UserTable :users="filteredUsers" @edit="openUserModal" @delete="deleteUser" @update-status="updateStatus" @update-role="updateRole" />
+        <div class="table-responsive">
+            <UserTable :users="filteredUsers" @edit="openUserModal" @delete="deleteUser" @update-status="updateStatus"
+                @update-role="updateRole" />
+        </div>
 
         <UserEditModal v-if="showModal" :user="selectedUser" @save="saveUserChanges" @close="closeUserModal" />
     </div>

@@ -108,7 +108,10 @@ export default {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+
                 this.$root.showMessage(response.data, 2000, "success");
+
+                this.$router.push("/orders");
             } catch (error) {
                 console.error("Error placing order:", error);
                 if (error.response?.status === 403) {

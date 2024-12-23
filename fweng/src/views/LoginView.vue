@@ -4,13 +4,8 @@
       <h1>Login</h1>
     </div>
     <div class="form-container">
-      <LoginForm
-        :username="username"
-        :password="password"
-        @update:username="username = $event"
-        @update:password="password = $event"
-        @submitLogin="submitLogin"
-      />
+      <LoginForm :username="username" :password="password" @update:username="username = $event"
+        @update:password="password = $event" @submitLogin="submitLogin" />
     </div>
     <div class="container mt-3 mb-2 text-center">
       Don't have an account yet? <router-link to="/register">Register now</router-link>

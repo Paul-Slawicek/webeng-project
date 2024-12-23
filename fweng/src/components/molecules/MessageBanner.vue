@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="isVisible"
-    class="message-banner"
-    :class="[type, { hide: isHiding }]"
-  >
+  <div v-if="isVisible" class="message-banner" :class="[type, { hide: isHiding }]">
     {{ message }}
   </div>
 </template>
@@ -57,17 +53,14 @@ export default {
   opacity: 1;
 }
 
-/* Success Style */
 .message-banner.success {
   background-color: #28a745;
 }
 
-/* Error Style */
 .message-banner.error {
   background-color: #dc3545;
 }
 
-/* Transition Hide */
 .message-banner.hide {
   opacity: 0;
 }

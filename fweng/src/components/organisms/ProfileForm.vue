@@ -2,28 +2,22 @@
     <form @submit.prevent="onSubmit">
         <InputGroup v-for="field in fields" :key="field.id" :label="field.label" :id="field.id" :type="field.type"
             v-model="localForm[field.id]" :placeholder="field.placeholder" />
-        <!-- Aktuelles Passwort -->
+
         <div class="form-floating mb-3">
-      <input
-        type="password"
-        id="current-password"
-        v-model="localCurrentPassword"
-        class="form-control"
-        placeholder="Enter Current Password"
-        required
-      />
-      <label for="current-password">Current Password</label>
-    </div>
-        <!-- Bild-Upload -->
+            <input type="password" id="current-password" v-model="localCurrentPassword" class="form-control"
+                placeholder="Enter Current Password" required />
+            <label for="current-password">Current Password</label>
+        </div>
+
         <div class="form-group mb-4">
             <label for="file" class="form-label">Upload Profile Picture</label>
             <input type="file" id="file" @change="onImageUpload" class="form-control" accept="image/*" />
         </div>
-        <!-- Bild-Vorschau -->
+
         <div v-if="previewImage" class="text-center mb-3">
             <img :src="previewImage" alt="Profilbild Vorschau" class="img-thumbnail" width="150" />
         </div>
-        <!-- Submit-Button -->
+
         <div class="text-center">
             <Button type="submit">Update Profile</Button>
         </div>
@@ -53,13 +47,13 @@ export default {
         form: {
             immediate: true,
             handler(newForm) {
-                this.localForm = { ...newForm }; 
+                this.localForm = { ...newForm };
             },
         },
         currentPassword: {
             immediate: true,
             handler(newPassword) {
-                this.localCurrentPassword = newPassword; 
+                this.localCurrentPassword = newPassword;
             },
         },
         localForm: {
@@ -72,7 +66,7 @@ export default {
         },
         localCurrentPassword: {
             handler(newPassword) {
-                this.$emit("update:currentPassword", newPassword); 
+                this.$emit("update:currentPassword", newPassword);
             },
         },
     },

@@ -1,59 +1,63 @@
 <template>
     <div class="container">
-        <div class="text-center mb-4 mt-3">
+        <div class="text-center my-4">
             <h1>Order Management</h1>
         </div>
-        <!-- Search Field -->
+
         <div class="row justify-content-center mb-3">
-            <div class="col-6">
-                <div class="input-group">
-                    <input v-model="searchQuery" type="text" class="form-control" placeholder="Search orders..." />
-                    <button @click="fetchOrders" class="btn btn-outline-secondary">Search</button>
-                </div>
+            <div class="col-md-6">
+                <SearchBar v-model:searchQuery="searchQuery" @search="fetchOrders" placeholder="Search orders..." />
             </div>
         </div>
-        <!-- Order List -->
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User ID</th>
-                    <th>Product ID</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="order in filteredOrders" :key="order.id">
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.userId }}</td>
-                    <td>{{ order.productId }}</td>
-                    <td>{{ order.quantity }}</td>
-                    <td>{{ order.totalPrice }} €</td>
-                    <td>
-                        <select v-model="order.status" @change="updateOrderStatus(order)">
-                            <option value="pending">Pending</option>
-                            <option value="shipped">Shipped</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="cancelled">Cancelled</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button @click="deleteOrder(order.id)" class="btn btn-danger btn-sm">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>Product ID</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="order in filteredOrders" :key="order.id">
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.userId }}</td>
+                        <td>{{ order.productId }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.totalPrice }} €</td>
+                        <td>
+                            <select v-model="order.status" @change="updateOrderStatus(order)"
+                                class="form-select form-select-sm">
+                                <option value="pending">Pending</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button @click="deleteOrder(order.id)" class="btn btn-danger btn-sm">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
 <script>
 import axios from "@/services/api";
+import SearchBar from "@/components/molecules/SearchBar.vue";
 
 export default {
     name: "AdminOrderManagementView",
+    components: { SearchBar },
     data() {
         return {
             orders: [],
@@ -107,20 +111,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-.table {
-    margin-top: 20px;
-}
-
-.input-group {
-    max-width: 500px;
-    margin: auto;
-}
-
-select {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-</style>

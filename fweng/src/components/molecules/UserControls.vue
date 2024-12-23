@@ -53,20 +53,14 @@ export default {
 </script>
 
 <style scoped>
-.nav-item {
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .nav-link {
     color: black;
     font-size: 16px;
     text-decoration: none;
 }
 
-.btn-link {
-    cursor: pointer;
+.nav-link:focus,
+.nav-link:active {
+    color: black;
 }
 </style>

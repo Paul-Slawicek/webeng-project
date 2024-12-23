@@ -1,6 +1,6 @@
 <template>
-    <table class="table table-striped">
-        <thead>
+    <table class="table table-striped table-hover">
+        <thead class="table-light">
             <tr>
                 <th>ID</th>
                 <th>Title</th>
@@ -16,8 +16,12 @@
                 <td>{{ product.price }}</td>
                 <td>{{ product.category }}</td>
                 <td>
-                    <ButtonField @click="$emit('edit', product)" class="btn btn-primary btn-sm me-2">Edit</ButtonField>
-                    <ButtonField @click="$emit('delete', product.id)" class="btn btn-danger btn-sm">Delete</ButtonField>
+                    <ButtonField @click="$emit('edit', product)" class="btn btn-primary btn-sm me-2">
+                        Edit
+                    </ButtonField>
+                    <ButtonField @click="$emit('delete', product.id)" class="btn btn-danger btn-sm">
+                        Delete
+                    </ButtonField>
                 </td>
             </tr>
         </tbody>

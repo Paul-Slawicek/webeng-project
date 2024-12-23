@@ -1,16 +1,18 @@
 <template>
     <div class="container">
-        <div class="text-center mb-4 mt-3">
+        <div class="text-center my-4">
             <h1>Product Management</h1>
         </div>
 
         <div class="row justify-content-center mb-3">
-            <div class="col-6">
+            <div class="col-md-6">
                 <SearchBar v-model:searchQuery="searchQuery" @search="fetchProducts" placeholder="Search products..." />
             </div>
         </div>
 
-        <ProductTable :products="filteredProducts" @edit="openProductModal" @delete="deleteProduct" />
+        <div class="table-responsive">
+            <ProductTable :products="filteredProducts" @edit="openProductModal" @delete="deleteProduct" />
+        </div>
 
         <ProductEditModal v-if="showModal" :product="selectedProduct" @save="saveProductChanges"
             @close="closeProductModal" />

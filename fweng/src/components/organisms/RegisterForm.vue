@@ -6,7 +6,6 @@
         @update:salutation="$emit('update:salutation', $event)"
         @update:otherSalutation="$emit('update:otherSalutation', $event)" />
 
-      <!-- First Name and Last Name -->
       <div class="row mb-2">
         <div class="col-md-6">
           <InputField type="text" id="firstname" label="First Name" placeholder="First Name"
@@ -18,7 +17,6 @@
         </div>
       </div>
 
-      <!-- Address -->
       <div class="row mb-2">
         <div class="col-md-12">
           <InputField type="text" id="address" label="Address" placeholder="Address" :modelValue="localAddress"
@@ -26,7 +24,6 @@
         </div>
       </div>
 
-      <!-- Postal Code, City, and Country -->
       <div class="row mb-2">
         <div class="col-md-4">
           <DropdownField id="country" label="Country" placeholder="Select Country" :options="countryOptions"
@@ -42,7 +39,6 @@
         </div>
       </div>
 
-      <!-- Username and Email -->
       <div class="row mb-2">
         <div class="col-md-6">
           <InputField type="text" id="username" label="Username" placeholder="Username" :modelValue="localUsername"
@@ -54,7 +50,6 @@
         </div>
       </div>
 
-      <!-- Password and Repeat Password -->
       <div class="row mb-2">
         <div class="col-md-6">
           <InputField type="password" id="password" label="Password" placeholder="Password" :modelValue="localPassword"
@@ -66,7 +61,6 @@
         </div>
       </div>
 
-      <!-- Submit Button -->
       <div class="text-center mt-4">
         <ButtonField>Register</ButtonField>
       </div>

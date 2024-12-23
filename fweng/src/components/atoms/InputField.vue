@@ -1,16 +1,8 @@
 <template>
   <div class="form-floating mb-3">
-    <input
-        :type="type"
-        class="form-control"
-        :id="id"
-        :class="customClass"
-        :placeholder="placeholder"
-        :value="modelValue"
-        :maxlength="maxlength"
-        :required="required"
-        @input="$emit('update:modelValue', $event.target.value)"
-    />
+    <input :type="type" class="form-control" :id="id" :class="customClass" :placeholder="placeholder"
+      :value="modelValue" :maxlength="maxlength" :required="required"
+      @input="$emit('update:modelValue', $event.target.value)" />
     <label :for="id">{{ label }}</label>
   </div>
 </template>
@@ -45,11 +37,11 @@ export default {
     },
     required: {
       type: Boolean,
-      default: false, 
+      default: false,
     },
     customClass: {
       type: String,
-      default: "", 
+      default: "",
     },
   },
 };
@@ -61,4 +53,3 @@ export default {
   margin-left: 0;
 }
 </style>
-  

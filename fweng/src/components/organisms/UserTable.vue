@@ -1,6 +1,6 @@
 <template>
-    <table class="table table-striped">
-        <thead>
+    <table class="table table-striped table-hover">
+        <thead class="table-light">
             <tr>
                 <th>ID</th>
                 <th>Username</th>
@@ -16,20 +16,25 @@
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                    <select v-model="user.status" @change="$emit('update-status', user)">
+                    <select v-model="user.status" @change="$emit('update-status', user)"
+                        class="form-select form-select-sm">
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
                     </select>
                 </td>
                 <td>
-                    <select v-model="user.role" @change="$emit('update-role', user)">
+                    <select v-model="user.role" @change="$emit('update-role', user)" class="form-select form-select-sm">
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
                     </select>
                 </td>
                 <td>
-                    <ButtonField @click="$emit('edit', user)" class="btn btn-primary btn-sm me-2">Edit</ButtonField>
-                    <ButtonField @click="$emit('delete', user.id)" class="btn btn-danger btn-sm">Delete</ButtonField>
+                    <ButtonField @click="$emit('edit', user)" class="btn btn-primary btn-sm me-2">
+                        Edit
+                    </ButtonField>
+                    <ButtonField @click="$emit('delete', user.id)" class="btn btn-danger btn-sm">
+                        Delete
+                    </ButtonField>
                 </td>
             </tr>
         </tbody>
@@ -51,9 +56,3 @@ export default {
     emits: ["edit", "delete", "update-status", "update-role"],
 };
 </script>
-
-<style scoped>
-.btn:last-child {
-    margin-right: 0;
-}
-</style>

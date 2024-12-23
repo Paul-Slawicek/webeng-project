@@ -3,12 +3,8 @@
     <div class="text-center mb-4">
       <h1>Add Product</h1>
     </div>
-    <AddProductForm
-      :form="productData"
-      @submit="addProduct"
-      @updateForm="updateProductData"
-      @fileUpload="handleImageUpload"
-    />
+    <AddProductForm :form="productData" @submit="addProduct" @updateForm="updateProductData"
+      @fileUpload="handleImageUpload" />
   </div>
 </template>
 

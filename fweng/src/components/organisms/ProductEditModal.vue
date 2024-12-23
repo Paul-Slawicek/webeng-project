@@ -22,8 +22,8 @@
             placeholder="Enter picture URL" />
         </div>
         <div class="modal-footer">
-          <ButtonField type="submit" class="btn-save">Save</ButtonField>
-          <ButtonField @click="$emit('close')" class="btn-cancel">Cancel</ButtonField>
+          <ButtonField type="submit" class="btn-success btn-lg">Save</ButtonField>
+          <ButtonField @click="$emit('close')" class="btn-secondary btn-lg">Cancel</ButtonField>
         </div>
       </form>
     </div>
@@ -110,31 +110,5 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-}
-
-.btn-save {
-  background-color: #28a745;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-save:hover {
-  background-color: #218838;
-}
-
-.btn-cancel {
-  background-color: #6c757d;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-cancel:hover {
-  background-color: #5a6268;
 }
 </style>

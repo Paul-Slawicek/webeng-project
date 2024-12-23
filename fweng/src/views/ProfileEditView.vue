@@ -42,7 +42,7 @@ export default {
   computed: {
     fields() {
       return [
-        { label: "Salutation", id: "salutation", type: "text", placeholder: "Enter salutation"},
+        { label: "Salutation", id: "salutation", type: "text", placeholder: "Enter salutation" },
         { label: "First Name", id: "firstname", type: "text", placeholder: "Enter first name" },
         { label: "Last Name", id: "lastname", type: "text", placeholder: "Enter last name" },
         { label: "Username", id: "username", type: "text", placeholder: "Enter username" },
@@ -95,9 +95,9 @@ export default {
         delete requestData.confirmPassword;
 
         const formData = new FormData();
-        formData.append("profileData", JSON.stringify(requestData)); 
+        formData.append("profileData", JSON.stringify(requestData));
         if (this.previewImage) {
-          formData.append("profileImage", this.previewImage); 
+          formData.append("profileImage", this.previewImage);
         }
         const response = await axios.put(`/users/${this.userId}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
