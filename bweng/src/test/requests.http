@@ -16,7 +16,7 @@ POST http://localhost:8080/api/auth/token
 Content-Type: application/json
 
 {
-"username": "user1",
+"username": "User1",
 "password": "password"
 }
 
@@ -44,6 +44,12 @@ Content-Type: application/json
 # Get user by ID (hat token mit ID 2)
 GET http://localhost:8080/api/users/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzM0MDI1OTIxLCJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6InVzZXIifQ.1W6MW7rV-I-yvEFn3MB-JcJ46NVCvy_Fiip-SSTvfGQ
+
+###
+
+# Get orders for user with ID 2
+GET http://localhost:8080/api/orders/my-orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzM1MDE1OTU5LCJ1c2VybmFtZSI6IlVzZXIxIiwicm9sZSI6InVzZXIifQ.fbCnyk6CoeYtPGaWRFb3jZcaWnd7CCtVxVGqAJ95Tig
 
 ###
 
