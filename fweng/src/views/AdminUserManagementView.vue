@@ -49,7 +49,7 @@ export default {
         async fetchUsers() {
             try {
                 const response = await axios.get("/users/admin");
-                this.users = response.data;
+                this.users = response.data.sort((a, b) => a.id - b.id); // Sort by ID
             } catch (error) {
                 console.error("Error fetching users:", error);
                 this.$root.showMessage("Failed to fetch users. Please try again.", 2000, "error");
