@@ -13,6 +13,9 @@
         @update:email="email = $event" @update:username="username = $event" @update:password="password = $event"
         @update:password2="password2 = $event" @submitRegistration="submitRegistration" />
     </div>
+    <div class="container mt-3 mb-2 text-center">
+      Already have an account? <router-link to="/login">Login now</router-link>
+    </div>
   </div>
 </template>
 
