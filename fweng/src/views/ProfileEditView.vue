@@ -42,13 +42,13 @@ export default {
   computed: {
     fields() {
       return [
-        { label: "Anrede", id: "salutation", type: "text", placeholder: "Enter salutation"},
-        { label: "Vorname", id: "firstname", type: "text", placeholder: "Enter first name" },
-        { label: "Nachname", id: "lastname", type: "text", placeholder: "Enter last name" },
+        { label: "Salutation", id: "salutation", type: "text", placeholder: "Enter salutation"},
+        { label: "First Name", id: "firstname", type: "text", placeholder: "Enter first name" },
+        { label: "Last Name", id: "lastname", type: "text", placeholder: "Enter last name" },
         { label: "Username", id: "username", type: "text", placeholder: "Enter username" },
         { label: "Email", id: "email", type: "email", placeholder: "Enter email" },
-        { label: "Neues Passwort", id: "newPassword", type: "password", placeholder: "Enter new password" },
-        { label: "Passwort bestätigen", id: "confirmPassword", type: "password", placeholder: "Confirm password" },
+        { label: "New Password", id: "newPassword", type: "password", placeholder: "Enter new password" },
+        { label: "Confirm Password", id: "confirmPassword", type: "password", placeholder: "Confirm password" },
       ];
     },
   },

@@ -16,7 +16,7 @@
     </div>
         <!-- Bild-Upload -->
         <div class="form-group mb-4">
-            <label for="file" class="form-label">Profilbild hochladen</label>
+            <label for="file" class="form-label">Upload Profile Picture</label>
             <input type="file" id="file" @change="onImageUpload" class="form-control" accept="image/*" />
         </div>
         <!-- Bild-Vorschau -->
@@ -25,7 +25,7 @@
         </div>
         <!-- Submit-Button -->
         <div class="text-center">
-            <Button type="submit">Profil aktualisieren</Button>
+            <Button type="submit">Update Profile</Button>
         </div>
     </form>
 </template>
