@@ -49,11 +49,9 @@
 .btn-primary:hover,
 .form-control:hover,
 .form-check-label:hover {
-    transform: scale(1.01);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Card styles */
 .container {
     margin-top: 3rem;
     text-align: center;

@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="$emit('submitLogin')">
-    <InputField class="mb-3" type="text" id="username" :modelValue="username"
+    <InputField ref="usernameField" class="mb-3" type="text" id="username" :modelValue="username"
       @update:modelValue="$emit('update:username', $event)" placeholder="Username" label="Username" />
     <InputField class="mb-3" type="password" id="password" :modelValue="password"
       @update:modelValue="$emit('update:password', $event)" placeholder="Password" label="Password" />
@@ -25,5 +25,10 @@ export default {
     password: String,
   },
   emits: ["update:username", "update:password", "submitLogin"],
+  methods: {
+    focusUsernameField() {
+      this.$refs.usernameField.focus();
+    },
+  },
 };
 </script>

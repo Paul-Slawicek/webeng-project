@@ -1,6 +1,6 @@
 <template>
   <div class="form-floating mb-3">
-    <input :type="type" class="form-control" :id="id" :class="customClass" :placeholder="placeholder"
+    <input ref="inputRef" :type="type" class="form-control" :id="id" :class="customClass" :placeholder="placeholder"
       :value="modelValue" :maxlength="maxlength" :required="required"
       @input="$emit('update:modelValue', $event.target.value)" />
     <label :for="id">{{ label }}</label>
@@ -42,6 +42,11 @@ export default {
     customClass: {
       type: String,
       default: "",
+    },
+  },
+  methods: {
+    focus() {
+      this.$refs.inputRef.focus();
     },
   },
 };

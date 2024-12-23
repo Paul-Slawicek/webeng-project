@@ -4,7 +4,7 @@
       <h1>Login</h1>
     </div>
     <div class="form-container">
-      <LoginForm :username="username" :password="password" @update:username="username = $event"
+      <LoginForm ref="loginForm" :username="username" :password="password" @update:username="username = $event"
         @update:password="password = $event" @submitLogin="submitLogin" />
     </div>
     <div class="container mt-3 mb-2 text-center">
@@ -30,6 +30,9 @@ export default {
   setup() {
     const authStore = useAuthStore();
     return { authStore };
+  },
+  mounted() {
+    this.$refs.loginForm.focusUsernameField();
   },
   methods: {
     async submitLogin() {

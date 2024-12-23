@@ -29,21 +29,21 @@ export default {
     return {
       categories: [
         {
-          query: "tv",
+          query: "Tv",
           img: require('@/assets/img/SmartTV1.webp'),
           title: "4K Smart TVs",
           description:
             "Experience a new dimension of TV with our 4K smart TVs. Enjoy stunning clarity and intelligent features bringing versatile entertainment to your living room."
         },
         {
-          query: "laptop",
+          query: "Laptop",
           img: require('@/assets/img/Laptop1.webp'),
           title: "High-Performance Laptops",
           description:
             "Browse our selection of high-performance laptops, perfect for both work and leisure. Whether you're a professional or student, find the ideal laptop for your needs."
         },
         {
-          query: "speakers",
+          query: "Speakers",
           img: require('@/assets/img/Speakers1.webp'),
           title: "Wireless Sound Systems",
           description:
