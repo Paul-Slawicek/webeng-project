@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <UserTable :users="filteredUsers" @edit="openUserModal" @delete="deleteUser" @update-status="updateStatus" />
+        <UserTable :users="filteredUsers" @edit="openUserModal" @delete="deleteUser" @update-status="updateStatus" @update-role="updateRole" />
 
         <UserEditModal v-if="showModal" :user="selectedUser" @save="saveUserChanges" @close="closeUserModal" />
     </div>
@@ -59,6 +59,15 @@ export default {
             } catch (error) {
                 console.error("Error updating status:", error);
                 this.$root.showMessage("Failed to update user status. Please try again.", 2000, "error");
+            }
+        },
+        async updateRole(user) {
+            try {
+                await axios.put(`/users/admin/${user.id}`, { ...user });
+                this.$root.showMessage("Role updated successfully!", 2000, "success");
+            } catch (error) {
+                console.error("Error updating role:", error);
+                this.$root.showMessage("Failed to update user role. Please try again.", 2000, "error");
             }
         },
         async deleteUser(userId) {

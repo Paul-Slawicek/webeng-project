@@ -9,13 +9,13 @@
                         <InputField type="password" id="password" label="Password" v-model="localUser.newPassword"
                             placeholder="Enter new password or leave blank" />
                         <InputField type="email" id="email" label="Email" v-model="localUser.email" required />
-                        <InputField type="text" id="salutation" label="Salutation" v-model="localUser.salutation" />
-                        <DropdownField id="role" label="Role" placeholder="Select a role" :options="roleOptions"
-                            v-model="localUser.role" required />
                     </div>
                     <div class="col">
+                        <InputField type="text" id="salutation" label="Salutation" v-model="localUser.salutation" />
                         <InputField type="text" id="firstname" label="First Name" v-model="localUser.firstname" />
                         <InputField type="text" id="lastname" label="Last Name" v-model="localUser.lastname" />
+                    </div>
+                    <div class="col">
                         <InputField type="text" id="address" label="Address" v-model="localUser.address" />
                         <InputField type="text" id="city" label="City" v-model="localUser.city" />
                         <InputField type="text" id="plz" label="PLZ" v-model="localUser.plz" />
@@ -33,11 +33,10 @@
 <script>
 import InputField from "@/components/atoms/InputField.vue";
 import ButtonField from "@/components/atoms/ButtonField.vue";
-import DropdownField from "@/components/atoms/DropdownField.vue";
 
 export default {
     name: "UserEditModal",
-    components: { InputField, ButtonField, DropdownField },
+    components: { InputField, ButtonField },
     props: {
         user: {
             type: Object,
@@ -91,28 +90,28 @@ export default {
 }
 
 .btn-save {
-  background-color: #28a745;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-save:hover {
-  background-color: #218838;
+    background-color: #218838;
 }
 
 .btn-cancel {
-  background-color: #6c757d;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-cancel:hover {
-  background-color: #5a6268;
+    background-color: #5a6268;
 }
 </style>

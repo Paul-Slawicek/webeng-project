@@ -6,6 +6,7 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Status</th>
+                <th>Role</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,6 +19,12 @@
                     <select v-model="user.status" @change="$emit('update-status', user)">
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
+                    </select>
+                </td>
+                <td>
+                    <select v-model="user.role" @change="$emit('update-role', user)">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
                     </select>
                 </td>
                 <td>
@@ -41,7 +48,7 @@ export default {
             required: true,
         },
     },
-    emits: ["edit", "delete", "update-status"],
+    emits: ["edit", "delete", "update-status", "update-role"],
 };
 </script>
 

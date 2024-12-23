@@ -146,6 +146,10 @@ public class UserController {
             currentUser.setStatus(adminUserDto.status());
         }
 
+        if (adminUserDto.role() != null && !adminUserDto.role().isEmpty()) {
+            currentUser.setRole(adminUserDto.role());
+        }
+
         if (adminUserDto.newPassword() != null && !adminUserDto.newPassword().isEmpty()) {
             currentUser.setPassword(passwordEncoder.encode(adminUserDto.newPassword()));
         }
