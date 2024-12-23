@@ -74,7 +74,7 @@ export default {
                 price: product.price || "",
                 category: product.category || "",
                 description: product.description || "",
-                picture: product.picture || "", // Sicherstellen, dass `picture` immer einen Wert hat
+                picture: product.picture || "",
             };
             this.showModal = true;
         },
