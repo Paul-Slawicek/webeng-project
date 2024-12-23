@@ -21,7 +21,6 @@ import java.util.Optional;
 @RequestMapping("/api/products")
 public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
-
     private final ProductService productService;
     private final FileService fileService;
 

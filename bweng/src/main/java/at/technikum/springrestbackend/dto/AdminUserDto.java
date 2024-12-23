@@ -13,6 +13,6 @@ public record AdminUserDto(
         String salutation,
         String status,
         String picture,
-        String country // Neues Feld
+        String country
 ) {
 }

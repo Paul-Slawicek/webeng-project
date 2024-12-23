@@ -71,7 +71,6 @@ public class UserController {
             @RequestParam(value = "profileData") String profileDataJson,
             @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) {
 
-        // Parse JSON-Daten
         UserDto userDto;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -87,22 +86,15 @@ public class UserController {
 
         User currentUser = optionalUser.get();
 
-        // Passwort validieren
         if (!passwordEncoder.matches(userDto.password(), currentUser.getPassword())) {
             return ResponseEntity.status(401).body("Incorrect current password");
         }
 
-        // Profildaten aktualisieren
         userMapper.updateEntityFromDto(userDto, currentUser);
 
-
-        // Profilbild speichern, falls hochgeladen
         if (profileImage != null && !profileImage.isEmpty()) {
             try {
-                // Datei mit dem FileService hochladen
                 String fileName = fileService.upload(profileImage);
-
-                // Dateiname in der Datenbank speichern
                 currentUser.setPicture(fileName);
             } catch (IOException e) {
                 return ResponseEntity.status(500).body("Error saving profile image: " + e.getMessage());
@@ -130,7 +122,7 @@ public class UserController {
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getName() + "\"")
-                    .contentType(MediaType.IMAGE_JPEG) // Passe den Medientyp je nach Bild an
+                    .contentType(MediaType.IMAGE_JPEG)
                     .body(resource);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);

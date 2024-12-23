@@ -15,16 +15,14 @@ import java.util.List;
 @RequestMapping("/api/orders")
 public class OrderController {
     private final OrderService orderService;
-
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
-
     @PostMapping("/place")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> placeOrder(@RequestBody OrderDTO orderDTO, @AuthenticationPrincipal UserPrincipal userPrincipal) {
         try {
-            Long userId = userPrincipal.getId(); // Extract the user ID
+            Long userId = userPrincipal.getId();
             Order order = orderService.createOrder(orderDTO.getProductId(), orderDTO.getQuantity(), userId);
             return ResponseEntity.ok("Order placed successfully with ID: " + order.getId());
         } catch (Exception e) {

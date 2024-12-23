@@ -32,7 +32,6 @@ export default {
         confirmPassword: "",
       },
       currentPassword: "",
-
       previewImage: null,
     };
   },
@@ -43,13 +42,13 @@ export default {
   computed: {
     fields() {
       return [
-        { label: "Anrede", id: "salutation", type: "text" },
-        { label: "Vorname", id: "firstname", type: "text" },
-        { label: "Nachname", id: "lastname", type: "text" },
-        { label: "Username", id: "username", type: "text" },
-        { label: "Email", id: "email", type: "email" },
-        { label: "Neues Passwort", id: "newPassword", type: "password" },
-        { label: "Passwort bestätigen", id: "confirmPassword", type: "password" },
+        { label: "Anrede", id: "salutation", type: "text", placeholder: "Enter salutation"},
+        { label: "Vorname", id: "firstname", type: "text", placeholder: "Enter first name" },
+        { label: "Nachname", id: "lastname", type: "text", placeholder: "Enter last name" },
+        { label: "Username", id: "username", type: "text", placeholder: "Enter username" },
+        { label: "Email", id: "email", type: "email", placeholder: "Enter email" },
+        { label: "Neues Passwort", id: "newPassword", type: "password", placeholder: "Enter new password" },
+        { label: "Passwort bestätigen", id: "confirmPassword", type: "password", placeholder: "Confirm password" },
       ];
     },
   },
@@ -94,7 +93,6 @@ export default {
           newPassword: this.profileData.newPassword || null,
         };
         delete requestData.confirmPassword;
-        console.log("JSON, das an das Backend gesendet wird:", JSON.stringify(requestData));
 
         const formData = new FormData();
         formData.append("profileData", JSON.stringify(requestData)); 

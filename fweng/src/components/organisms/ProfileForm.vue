@@ -3,9 +3,17 @@
         <InputGroup v-for="field in fields" :key="field.id" :label="field.label" :id="field.id" :type="field.type"
             v-model="localForm[field.id]" :placeholder="field.placeholder" />
         <!-- Aktuelles Passwort -->
-        <div class="col-sm-9 mb-2">
-            <input type="password" id="current-password" v-model="localCurrentPassword" class="form-control" required />
-        </div>
+        <div class="form-floating mb-3">
+      <input
+        type="password"
+        id="current-password"
+        v-model="localCurrentPassword"
+        class="form-control"
+        placeholder="Enter Current Password"
+        required
+      />
+      <label for="current-password">Current Password</label>
+    </div>
         <!-- Bild-Upload -->
         <div class="form-group mb-4">
             <label for="file" class="form-label">Profilbild hochladen</label>
@@ -56,7 +64,6 @@ export default {
         },
         localForm: {
             handler(newData) {
-                console.log("localForm aktualisiert:", newData);
                 if (JSON.stringify(newData) !== JSON.stringify(this.form)) {
                     this.$emit("update:form", newData);
                 }
