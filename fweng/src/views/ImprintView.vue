@@ -19,7 +19,7 @@
     <p>
       <strong>Contact:</strong> <br>
       Phone: +43 123 456 789 <br>
-      Email: info@basseno.com
+      Email: <a href="mailto:info@basseno.com">info@basseno.com</a>
     </p>
     <p>
       <strong>VAT Identification Number:</strong> <br>

@@ -26,7 +26,7 @@
         <div class="mb-3">
           <h3 class="h5">How can I track my order?</h3>
           <p>
-            After logging in, go to "Order History" under your account dashboard to see the status of your orders.
+            After logging in, go to "Orders" under your account dashboard to see the status of your orders.
           </p>
         </div>
 

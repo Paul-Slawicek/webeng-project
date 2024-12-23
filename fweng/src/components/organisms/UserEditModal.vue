@@ -83,6 +83,30 @@ export default {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.modal-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
 .modal-footer {
     display: flex;
     justify-content: space-between;
