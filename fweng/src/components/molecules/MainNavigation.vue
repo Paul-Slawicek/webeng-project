@@ -4,7 +4,7 @@
             <router-link class="nav-link" to="/products">Products</router-link>
         </li>
         <li class="nav-item">
-            <router-link class="nav-link" to="/impressum">Imprint</router-link>
+            <router-link class="nav-link" to="/imprint">Imprint</router-link>
         </li>
         <li class="nav-item">
             <router-link class="nav-link" to="/help">Help</router-link>

@@ -21,16 +21,16 @@ const routes = [
   { path: '/login', name: 'Login', component: LoginView },
   { path: '/register', name: 'Register', component: RegisterView },
   { path: '/products', name: 'Products', component: ProductsView },
-  { path: '/impressum', name: 'Impressum', component: ImprintView },
+  { path: '/imprint', name: 'Imprint', component: ImprintView },
   { path: '/help', name: 'Help', component: HelpView },
   { path: '/profile', name: 'Profile', component: ProfileView, meta: { requiresAuth: true, roles: ['user', 'admin'] }, },
-  { path: '/addproduct', name: 'AddProduct', component: AddProductView, meta: { requiresAuth: true, roles: ['admin'] }, },
-  { path: "/admin/users", name: 'AdminUserManagement', component: AdminUserManagementView, meta: { requiresAuth: true, roles: "admin" } },
-  { path: "/productdetails", name: "ProductDetails", component: ProductDetailsView },
-  { path: '/profileEdit', name: 'ProfileEdit', component: ProfileEditView, meta: { requiresAuth: true, roles: ['user', 'admin'] }, },
-  { path: '/admin/products', name: 'AdminProductManagement', component: AdminProductManagementView, meta: { requiresAuth: true, roles: 'admin' }, },
-  { path: '/orderOverview', name: 'OrderOverview', component: OrderOverview, meta: { requiresAuth: true, roles: ['user', 'admin'] }, },
-  { path: '/admin/orders', name: 'AdminOrderManagement', component: AdminOrderManagementView, meta: { requiresAuth: true, roles: ['admin'] } },
+  { path: '/addproduct', name: 'Add Product', component: AddProductView, meta: { requiresAuth: true, roles: ['admin'] }, },
+  { path: "/admin/users", name: 'Admin User Management', component: AdminUserManagementView, meta: { requiresAuth: true, roles: "admin" } },
+  { path: "/productdetails", name: "Product Details", component: ProductDetailsView },
+  { path: '/profileEdit', name: 'Edit Profile', component: ProfileEditView, meta: { requiresAuth: true, roles: ['user', 'admin'] }, },
+  { path: '/admin/products', name: 'Admin Product Management', component: AdminProductManagementView, meta: { requiresAuth: true, roles: 'admin' }, },
+  { path: '/orders', name: 'Orders', component: OrderOverview, meta: { requiresAuth: true, roles: ['user', 'admin'] }, },
+  { path: '/admin/orders', name: 'Admin Order Management', component: AdminOrderManagementView, meta: { requiresAuth: true, roles: ['admin'] } },
 ];
 
 const router = createRouter({
@@ -41,7 +41,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
-  // Überprüfen, ob Authentifizierung benötigt wird
+  const baseTitle = 'Basseno';
+  const routeTitle = to.name || 'Default Title';
+
+  document.title = `${routeTitle} | ${baseTitle}`;
+
   if (to.meta.requiresAuth) {
     if (!authStore.isLoggedIn) {
       return next({ name: 'Login' });
@@ -50,7 +54,7 @@ router.beforeEach((to, from, next) => {
       return next({ name: 'Home' });
     }
   }
-  next(); // Zulassen, wenn alles passt
+  next();
 });
 
 export default router;
