@@ -6,14 +6,12 @@
 
         <div class="row justify-content-center mb-3">
             <div class="col-6">
-                <SearchBar v-model:searchQuery="searchQuery" @search="fetchProducts" placeholder="Search products..."/>
+                <SearchBar v-model:searchQuery="searchQuery" @search="fetchProducts" placeholder="Search products..." />
             </div>
         </div>
 
-        <!-- Product List -->
         <ProductTable :products="filteredProducts" @edit="openProductModal" @delete="deleteProduct" />
 
-        <!-- Product Edit Modal -->
         <ProductEditModal v-if="showModal" :product="selectedProduct" @save="saveProductChanges"
             @close="closeProductModal" />
     </div>

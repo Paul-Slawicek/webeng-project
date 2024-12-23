@@ -4,49 +4,22 @@
       <h3 class="modal-title">Edit Product</h3>
       <form @submit.prevent="handleSave">
         <div class="form-group">
-          <InputField
-            type="text"
-            id="title"
-            label="Title"
-            v-model="localProduct.title"
-            placeholder="Enter title"
-          />
+          <InputField type="text" id="title" label="Title" v-model="localProduct.title" placeholder="Enter title" />
         </div>
         <div class="form-group">
-          <InputField
-            type="number"
-            id="price"
-            label="Price"
-            v-model="localProduct.price"
-            placeholder="Enter price"
-          />
+          <InputField type="number" id="price" label="Price" v-model="localProduct.price" placeholder="Enter price" />
         </div>
         <div class="form-group">
-          <InputField
-            type="text"
-            id="category"
-            label="Category"
-            v-model="localProduct.category"
-            placeholder="Enter category"
-          />
+          <InputField type="text" id="category" label="Category" v-model="localProduct.category"
+            placeholder="Enter category" />
         </div>
         <div class="form-group">
-          <InputField
-            type="textarea"
-            id="description"
-            label="Description"
-            v-model="localProduct.description"
-            placeholder="Enter description"
-          />
+          <InputField type="textarea" id="description" label="Description" v-model="localProduct.description"
+            placeholder="Enter description" />
         </div>
         <div class="form-group">
-          <InputField
-            type="text"
-            id="picture"
-            label="Picture URL"
-            v-model="localProduct.picture"
-            placeholder="Enter picture URL"
-          />
+          <InputField type="text" id="picture" label="Picture URL" v-model="localProduct.picture"
+            placeholder="Enter picture URL" />
         </div>
         <div class="modal-footer">
           <ButtonField type="submit" class="btn-save">Save</ButtonField>
@@ -73,7 +46,7 @@ export default {
   emits: ["save", "close"],
   data() {
     return {
-      localProduct: { ...this.product }, // Lokale Kopie des Produkts
+      localProduct: { ...this.product },
     };
   },
   methods: {
@@ -105,7 +78,7 @@ export default {
   background: #ffffff;
   padding: 20px;
   border-radius: 10px;
-  width: 600px; /* Modal-Breite erhöht */
+  width: 600px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
