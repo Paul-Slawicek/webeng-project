@@ -2,7 +2,6 @@ package at.technikum.springrestbackend.security;
 
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.service.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

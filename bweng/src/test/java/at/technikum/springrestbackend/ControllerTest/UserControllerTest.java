@@ -114,6 +114,7 @@ class UserControllerTest {
         assertNotNull(response.getBody());
         verify(fileService, times(1)).getFile(fileName);
     }
+
     @Test
     void testUpdateUser() {
         Long userId = 1L;
@@ -126,10 +127,12 @@ class UserControllerTest {
 
         when(userService.findById(userId)).thenReturn(Optional.of(currentUser));
 
+        // Call the controller method
         var response = userController.updateUser(userId, adminUserDto);
 
+        // Verify the response and interactions
         assertEquals("User updated successfully", response.getBody());
-        verify(userService, times(1)).updateUser(currentUser);
+        verify(userService, times(1)).updateUserWithoutRehashingPassword(currentUser);
     }
 
     @Test

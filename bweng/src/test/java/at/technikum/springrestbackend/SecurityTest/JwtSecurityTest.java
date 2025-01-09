@@ -1,10 +1,10 @@
 package at.technikum.springrestbackend.SecurityTest;
 
 import at.technikum.springrestbackend.config.JwtProperties;
-import at.technikum.springrestbackend.config.SecurityConfig;
 import at.technikum.springrestbackend.security.CustomUserDetailService;
 import at.technikum.springrestbackend.security.UserPrincipal;
 import at.technikum.springrestbackend.security.jwt.*;
+import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.service.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -21,14 +21,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
-
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -122,16 +120,35 @@ class JwtSecurityTest {
 
     @Test
     void testCustomUserDetailService() {
-        CustomUserDetailService customUserDetailService = new CustomUserDetailService(mock(UserService.class));
-        UserPrincipal principal = new UserPrincipal(1L, "testuser", "password", "ROLE_USER");
+        // Mock the UserService
+        UserService userService = mock(UserService.class);
 
-        when(customUserDetailService.loadUserByUsername("testuser"))
-                .thenReturn(principal);
+        // Create a mock User entity
+        User mockUser = new User();
+        mockUser.setId(1L);
+        mockUser.setUsername("testuser");
+        mockUser.setPassword("password");
+        mockUser.setRole("ROLE_USER");
 
+        // Define the behavior of the mock UserService
+        when(userService.findByUsername("testuser")).thenReturn(Optional.of(mockUser));
+
+        // Create an instance of CustomUserDetailService with the mocked UserService
+        CustomUserDetailService customUserDetailService = new CustomUserDetailService(userService);
+
+        // Call loadUserByUsername
+        UserPrincipal principal = (UserPrincipal) customUserDetailService.loadUserByUsername("testuser");
+
+        // Assert the returned UserPrincipal contains the expected values
+        assertNotNull(principal);
+        assertEquals(1L, principal.getId());
         assertEquals("testuser", principal.getUsername());
+        assertEquals("password", principal.getPassword());
         assertEquals("ROLE_USER", principal.getRole());
-    }
 
+        // Verify the interaction with the mock UserService
+        verify(userService).findByUsername("testuser");
+    }
 
     @Test
     void testJwtProperties() {
@@ -141,4 +158,3 @@ class JwtSecurityTest {
         assertEquals("newsecret", jwtProperties.getSecret());
     }
 }
-
