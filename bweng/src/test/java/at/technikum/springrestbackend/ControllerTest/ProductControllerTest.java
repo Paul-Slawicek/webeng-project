@@ -12,9 +12,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -123,5 +125,67 @@ class ProductControllerTest {
         assertEquals(404, response.getStatusCodeValue());
         verify(productService, times(1)).getProductById(productId);
     }
+    @Test
+    void testAddProductWithInvalidJson() throws IOException {
+        String invalidJson = "invalid-json";
+        MockMultipartFile file = new MockMultipartFile("file", "test-image.png", "image/png", "Dummy Image Content".getBytes());
+
+        var response = productController.addProduct(invalidJson, file);
+
+        assertEquals(500, response.getStatusCodeValue(), "Response status should be 500 for invalid JSON");
+        verify(fileService, never()).upload(file);
+        verify(productService, never()).createProduct(any());
+    }
+    @Test
+    void testAddProductWithoutFileUpload() throws Exception {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setTitle("Test Product");
+        productDTO.setPrice(19.99);
+
+        Product product = new Product();
+        product.setTitle("Test Product");
+
+        when(productService.createProduct(any(ProductDTO.class))).thenReturn(product);
+
+        var response = productController.addProduct("{\"title\":\"Test Product\",\"price\":19.99}", null);
+
+        assertEquals(201, response.getStatusCodeValue(), "Response status should be 201");
+        verify(fileService, never()).upload(any());
+        verify(productService, times(1)).createProduct(any(ProductDTO.class));
+    }
+    @Test
+    void testUpdateProductWithInvalidId() {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setTitle("Updated Product");
+
+        when(productService.updateProduct(anyLong(), any())).thenThrow(new IllegalArgumentException("Invalid product ID"));
+
+        var response = productController.updateProduct(999L, productDTO);
+
+        assertEquals(400, response.getStatusCodeValue(), "Response status should be 400 for invalid ID");
+        assertEquals("Invalid product ID", response.getBody());
+        verify(productService, times(1)).updateProduct(999L, productDTO);
+    }
+    @Test
+    void testDeleteProductWithInvalidId() {
+        doThrow(new IllegalArgumentException("Product not found")).when(productService).deleteProduct(anyLong());
+
+        var response = productController.deleteProduct(999L);
+
+        assertEquals(404, response.getStatusCodeValue(), "Response status should be 404 for invalid product ID");
+        assertEquals("Product not found", response.getBody());
+        verify(productService, times(1)).deleteProduct(999L);
+    }
+    @Test
+    void testGetAllProductsEmptyList() {
+        when(productService.getAllProducts()).thenReturn(List.of());
+
+        var response = productController.getAllProducts();
+
+        assertEquals(200, response.getStatusCodeValue(), "Response status should be 200");
+        assertTrue(response.getBody().isEmpty(), "Response body should be an empty list");
+        verify(productService, times(1)).getAllProducts();
+    }
+
 
 }

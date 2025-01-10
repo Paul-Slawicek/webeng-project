@@ -40,6 +40,9 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> registerUser(@Validated @RequestBody UserDto userDto) {
+        if (userDto == null) {
+            return ResponseEntity.badRequest().body("Invalid user data");
+        }
         User user = userMapper.toEntity(userDto);
         if (userService.findByUsername(user.getUsername()).isPresent() ||
                 userService.findByEmail(user.getEmail()).isPresent()) {
@@ -133,7 +136,6 @@ public class UserController {
     @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @Validated @RequestBody AdminUserDto adminUserDto) {
         Optional<User> optionalUser = userService.findById(id);
-        ;
         if (optionalUser.isEmpty()) {
             return ResponseEntity.status(404).body("User not found");
         }

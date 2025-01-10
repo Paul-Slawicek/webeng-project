@@ -157,4 +157,28 @@ class JwtSecurityTest {
 
         assertEquals("newsecret", jwtProperties.getSecret());
     }
+
+    @Test
+    void testJwtAuthenticationFilterWithValidToken() throws Exception {
+        String token = jwtIssuer.issue(1L, "testuser", "ROLE_USER");
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        FilterChain filterChain = mock(FilterChain.class);
+
+        when(jwtVerifier.verify(anyString())).thenReturn(JWT.decode(token));
+        when(jwtToPrincipalConverter.convert(any(DecodedJWT.class)))
+                .thenReturn(new UserPrincipal(1L, "testuser", "ROLE_USER", Collections.emptyList().toString()));
+
+        // Indirekt doFilterInternal testen
+        jwtAuthenticationFilter.doFilter(request, response, filterChain);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        assertNotNull(authentication, "Authentication should not be null for valid token");
+        assertEquals("testuser", ((UserPrincipal) authentication.getPrincipal()).getUsername());
+
+        verify(filterChain, times(1)).doFilter(request, response);
+    }
+
 }

@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class FileServiceTest {
 
@@ -82,4 +83,94 @@ class FileServiceTest {
         // Assert
         assertEquals("", extension, "The file extension should be an empty string for null input");
     }
+    @Test
+    void testUploadFileWithExistingDirectory() throws IOException {
+        MockMultipartFile mockFile = new MockMultipartFile(
+                "file",
+                "test.txt",
+                "text/plain",
+                "This is a test".getBytes()
+        );
+
+        Path tempDir = Paths.get(System.getProperty("user.dir"), "src/main/resources/public/uploads");
+        Files.createDirectories(tempDir);
+
+        String uploadedFileName = fileService.upload(mockFile);
+
+        assertNotNull(uploadedFileName, "Uploaded file name should not be null");
+        assertTrue(Files.exists(tempDir.resolve(uploadedFileName)), "Uploaded file should exist");
+
+        // Cleanup
+        Files.deleteIfExists(tempDir.resolve(uploadedFileName));
+    }
+    @Test
+    void testUploadFileWithNonExistingDirectory() throws IOException {
+        MockMultipartFile mockFile = new MockMultipartFile(
+                "file",
+                "test.txt",
+                "text/plain",
+                "This is a test".getBytes()
+        );
+
+        Path tempDir = Paths.get(System.getProperty("user.dir"), "src/main/resources/public/uploads");
+        FileSystemUtils.deleteRecursively(tempDir);
+
+        String uploadedFileName = fileService.upload(mockFile);
+
+        assertNotNull(uploadedFileName, "Uploaded file name should not be null");
+        assertTrue(Files.exists(tempDir.resolve(uploadedFileName)), "Uploaded file should exist");
+
+        // Cleanup
+        Files.deleteIfExists(tempDir.resolve(uploadedFileName));
+        FileSystemUtils.deleteRecursively(tempDir);
+    }
+    @Test
+    void testUploadFileWithoutExtension() throws IOException {
+        MockMultipartFile mockFile = new MockMultipartFile(
+                "file",
+                "testfile",
+                "text/plain",
+                "This is a test".getBytes()
+        );
+
+        String uploadedFileName = fileService.upload(mockFile);
+
+        assertNotNull(uploadedFileName, "Uploaded file name should not be null");
+        assertFalse(uploadedFileName.contains("."), "Uploaded file name should not contain an extension");
+
+        // Cleanup
+        Path tempDir = Paths.get(System.getProperty("user.dir"), "src/main/resources/public/uploads");
+        Files.deleteIfExists(tempDir.resolve(uploadedFileName));
+    }
+    @Test
+    void testUploadThrowsIOException() {
+        MockMultipartFile mockFile = mock(MockMultipartFile.class);
+        when(mockFile.getOriginalFilename()).thenReturn("test.txt");
+
+        try {
+            doThrow(new IOException("Test exception")).when(mockFile).transferTo(any(File.class));
+        } catch (IOException e) {
+            fail("Mock setup failed");
+        }
+
+        assertThrows(IOException.class, () -> fileService.upload(mockFile));
+    }
+    @Test
+    void testResolveFilePath() {
+        String fileName = "test.txt";
+        Path resolvedPath = fileService.resolveFilePath(fileName);
+
+        assertNotNull(resolvedPath, "Resolved path should not be null");
+        assertEquals(Paths.get(System.getProperty("user.dir"), "src/main/resources/public/uploads", fileName).toAbsolutePath(), resolvedPath);
+    }
+    @Test
+    void testGetFileForNonExistingFile() {
+        String fileName = "non-existent-file.txt";
+
+        File file = fileService.getFile(fileName);
+
+        assertNotNull(file, "File object should not be null");
+        assertFalse(file.exists(), "File should not exist");
+    }
+
 }

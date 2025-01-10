@@ -9,8 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Answers.RETURNS_DEEP_STUBS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -51,6 +50,18 @@ class SecurityConfigTest {
         verify(httpSecurity, times(1)).sessionManagement(any());
         verify(httpSecurity, times(1)).authorizeHttpRequests(any());
         verify(httpSecurity, times(1)).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+    @Test
+    void testSecurityFilterChainException() throws Exception {
+        HttpSecurity httpSecurity = mock(HttpSecurity.class, RETURNS_DEEP_STUBS);
+
+        when(httpSecurity.build()).thenThrow(new RuntimeException("Test exception"));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            securityConfig.filterChain(httpSecurity);
+        });
+
+        assertEquals("Test exception", exception.getMessage(), "Exception message should match");
     }
 
     @Test
