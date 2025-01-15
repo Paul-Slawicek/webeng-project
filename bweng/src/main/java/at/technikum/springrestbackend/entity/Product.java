@@ -1,7 +1,6 @@
 package at.technikum.springrestbackend.entity;
 
 
-
 import jakarta.persistence.*;
 
 @Entity
@@ -24,7 +23,7 @@ public class Product {
     @Column(nullable = false, length = 150)
     private String category;
 
-    @Column( length = 250)
+    @Column(length = 250)
     private String picture;
 
     public Long getId() {

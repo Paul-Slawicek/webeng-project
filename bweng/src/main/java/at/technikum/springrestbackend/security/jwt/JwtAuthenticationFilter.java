@@ -28,18 +28,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        try{
-        extractBearerToken(request)
-                .map(jwtVerifier::verify)
-                .map(jwtToPrincipalConverter::convert)
-                .map(UserPrincipalAuthenticationToken::new)
-                .ifPresent(authentication -> {
-                    SecurityContextHolder.getContext()
-                            .setAuthentication(authentication);});
-    } catch (Exception e) {
-        // Log the error and continue the filter chain
-        System.err.println("JWT verification failed: " + e.getMessage());
-    }
+        try {
+            extractBearerToken(request)
+                    .map(jwtVerifier::verify)
+                    .map(jwtToPrincipalConverter::convert)
+                    .map(UserPrincipalAuthenticationToken::new)
+                    .ifPresent(authentication -> {
+                        SecurityContextHolder.getContext()
+                                .setAuthentication(authentication);
+                    });
+        } catch (Exception e) {
+            System.err.println("JWT verification failed: " + e.getMessage());
+        }
         filterChain.doFilter(request, response);
     }
 

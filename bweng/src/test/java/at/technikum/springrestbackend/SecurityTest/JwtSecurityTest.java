@@ -120,33 +120,26 @@ class JwtSecurityTest {
 
     @Test
     void testCustomUserDetailService() {
-        // Mock the UserService
         UserService userService = mock(UserService.class);
 
-        // Create a mock User entity
         User mockUser = new User();
         mockUser.setId(1L);
         mockUser.setUsername("testuser");
         mockUser.setPassword("password");
         mockUser.setRole("ROLE_USER");
 
-        // Define the behavior of the mock UserService
         when(userService.findByUsername("testuser")).thenReturn(Optional.of(mockUser));
 
-        // Create an instance of CustomUserDetailService with the mocked UserService
         CustomUserDetailService customUserDetailService = new CustomUserDetailService(userService);
 
-        // Call loadUserByUsername
         UserPrincipal principal = (UserPrincipal) customUserDetailService.loadUserByUsername("testuser");
 
-        // Assert the returned UserPrincipal contains the expected values
         assertNotNull(principal);
         assertEquals(1L, principal.getId());
         assertEquals("testuser", principal.getUsername());
         assertEquals("password", principal.getPassword());
         assertEquals("ROLE_USER", principal.getRole());
 
-        // Verify the interaction with the mock UserService
         verify(userService).findByUsername("testuser");
     }
 
@@ -171,7 +164,6 @@ class JwtSecurityTest {
         when(jwtToPrincipalConverter.convert(any(DecodedJWT.class)))
                 .thenReturn(new UserPrincipal(1L, "testuser", "ROLE_USER", Collections.emptyList().toString()));
 
-        // Indirekt doFilterInternal testen
         jwtAuthenticationFilter.doFilter(request, response, filterChain);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

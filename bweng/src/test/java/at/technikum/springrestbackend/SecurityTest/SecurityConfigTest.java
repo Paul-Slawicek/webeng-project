@@ -27,7 +27,6 @@ class SecurityConfigTest {
 
     @Test
     void testSecurityFilterChain() throws Exception {
-        // Mock HttpSecurity und seine Rückgabewerte
         HttpSecurity httpSecurity = mock(HttpSecurity.class, RETURNS_DEEP_STUBS);
 
         when(httpSecurity.csrf(any())).thenReturn(httpSecurity);
@@ -37,13 +36,10 @@ class SecurityConfigTest {
         when(httpSecurity.authorizeHttpRequests(any())).thenReturn(httpSecurity);
         when(httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)).thenReturn(httpSecurity);
 
-        // Rufe die Methode auf
         SecurityFilterChain filterChain = securityConfig.filterChain(httpSecurity);
 
-        // Assertions
         assertNotNull(filterChain);
 
-        // Verifiziere, dass alle relevanten Methoden aufgerufen wurden
         verify(httpSecurity, times(1)).csrf(any());
         verify(httpSecurity, times(1)).formLogin(any());
         verify(httpSecurity, times(1)).cors(any());

@@ -72,6 +72,7 @@ class ProductControllerTest {
         assertEquals(products, response.getBody());
         verify(productService, times(1)).getAllProducts();
     }
+
     @Test
     void testUpdateProduct() {
         ProductDTO productDTO = new ProductDTO();
@@ -97,6 +98,7 @@ class ProductControllerTest {
         assertEquals("Product deleted successfully.", response.getBody());
         verify(productService, times(1)).deleteProduct(1L);
     }
+
     @Test
     void testGetProductById() {
         Long productId = 1L;
@@ -125,6 +127,7 @@ class ProductControllerTest {
         assertEquals(404, response.getStatusCodeValue());
         verify(productService, times(1)).getProductById(productId);
     }
+
     @Test
     void testAddProductWithInvalidJson() throws IOException {
         String invalidJson = "invalid-json";
@@ -136,6 +139,7 @@ class ProductControllerTest {
         verify(fileService, never()).upload(file);
         verify(productService, never()).createProduct(any());
     }
+
     @Test
     void testAddProductWithoutFileUpload() throws Exception {
         ProductDTO productDTO = new ProductDTO();
@@ -153,6 +157,7 @@ class ProductControllerTest {
         verify(fileService, never()).upload(any());
         verify(productService, times(1)).createProduct(any(ProductDTO.class));
     }
+
     @Test
     void testUpdateProductWithInvalidId() {
         ProductDTO productDTO = new ProductDTO();
@@ -166,6 +171,7 @@ class ProductControllerTest {
         assertEquals("Invalid product ID", response.getBody());
         verify(productService, times(1)).updateProduct(999L, productDTO);
     }
+
     @Test
     void testDeleteProductWithInvalidId() {
         doThrow(new IllegalArgumentException("Product not found")).when(productService).deleteProduct(anyLong());
@@ -176,6 +182,7 @@ class ProductControllerTest {
         assertEquals("Product not found", response.getBody());
         verify(productService, times(1)).deleteProduct(999L);
     }
+
     @Test
     void testGetAllProductsEmptyList() {
         when(productService.getAllProducts()).thenReturn(List.of());
@@ -186,6 +193,5 @@ class ProductControllerTest {
         assertTrue(response.getBody().isEmpty(), "Response body should be an empty list");
         verify(productService, times(1)).getAllProducts();
     }
-
 
 }

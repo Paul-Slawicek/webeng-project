@@ -20,7 +20,7 @@ public class UserPrincipal extends User {
         return id;
     }
 
-    public String getRole(){
+    public String getRole() {
         return role;
     }
 }

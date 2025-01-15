@@ -1,6 +1,5 @@
 package at.technikum.springrestbackend.security.jwt;
 
-
 import at.technikum.springrestbackend.config.JwtProperties;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

@@ -29,6 +29,7 @@ public class FileService {
 
         return uniqueFileName;
     }
+
     public String getFileExtension(String originalFileName) {
         if (originalFileName == null || originalFileName.isEmpty()) {
             return "";
@@ -36,6 +37,7 @@ public class FileService {
         int lastIndexOfDot = originalFileName.lastIndexOf('.');
         return (lastIndexOfDot == -1) ? "" : originalFileName.substring(lastIndexOfDot + 1);
     }
+
     public Path resolveFilePath(String fileName) {
         return Paths.get(uploadDir).resolve(fileName).toAbsolutePath();
     }

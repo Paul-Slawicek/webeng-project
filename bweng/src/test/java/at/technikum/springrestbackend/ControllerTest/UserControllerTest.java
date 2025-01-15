@@ -35,7 +35,7 @@ class UserControllerTest {
     @Mock
     private PasswordEncoder passwordEncoder;
     @Mock
-    private UserMapper userMapper; // Mock für den UserMapper hinzufügen
+    private UserMapper userMapper;
 
     @InjectMocks
     private UserController userController;
@@ -68,7 +68,7 @@ class UserControllerTest {
         UserDto userDto = new UserDto(1L, "testuser", "test@example.com", "password", null, "user", null, null, null, null, null, null, null, null, null);
 
         when(userService.findById(1L)).thenReturn(Optional.of(user));
-        when(userMapper.toDto(user)).thenReturn(userDto); // Mock UserMapper
+        when(userMapper.toDto(user)).thenReturn(userDto);
 
         var response = userController.getUser(1L);
 
@@ -105,10 +105,8 @@ class UserControllerTest {
         FileService realFileService = new FileService();
         ReflectionTestUtils.setField(realFileService, "uploadDir", uploadDir);
 
-        // Create the controller with the real service
         UserController realUserController = new UserController(userService, passwordEncoder, userMapper, realFileService);
 
-        // Create a temporary file in the upload directory
         String fileName = "test-image.png";
         File tempDir = new File(uploadDir);
         if (!tempDir.exists()) {
@@ -119,16 +117,13 @@ class UserControllerTest {
             Files.write(tempFile.toPath(), "Dummy content".getBytes());
         }
 
-        // Call the method to get the profile image
         var response = realUserController.getProfileImage(fileName);
 
-        // Verify the response
         assertEquals(200, response.getStatusCodeValue(), "Response status should be 200");
         assertNotNull(response.getBody(), "Response body should not be null");
         assertTrue(response.getBody().exists(), "The returned resource should exist");
         assertEquals(tempFile.getName(), response.getBody().getFilename(), "The returned file name should match");
 
-        // Cleanup
         tempFile.delete();
         tempDir.delete();
     }
@@ -136,19 +131,14 @@ class UserControllerTest {
     void testGetProfileImageFileNotFound() throws Exception {
         String fileName = "non-existent-file.png";
 
-        // Simuliere das Verhalten von fileService.getFile() bei einem Fehler
         when(fileService.getFile(fileName)).thenThrow(new RuntimeException("File not found"));
 
-        // Führe die Controller-Methode aus
         var response = userController.getProfileImage(fileName);
 
-        // Überprüfe den Statuscode
         assertEquals(500, response.getStatusCodeValue());
 
-        // Überprüfe, dass der Body null ist (da ein Fehler aufgetreten ist)
         assertNull(response.getBody(), "Response body should be null on file not found");
 
-        // Verifiziere, dass fileService.getFile() genau einmal aufgerufen wurde
         verify(fileService, times(1)).getFile(fileName);
     }
 
@@ -166,10 +156,8 @@ class UserControllerTest {
 
         when(userService.findById(userId)).thenReturn(Optional.of(currentUser));
 
-        // Call the controller method
         var response = userController.updateUser(userId, adminUserDto);
 
-        // Verify the response and interactions
         assertEquals("User updated successfully", response.getBody());
         verify(userService, times(1)).updateUserWithoutRehashingPassword(currentUser);
     }
@@ -190,22 +178,19 @@ class UserControllerTest {
     }
     @Test
     void testRegisterUserUsernameTaken() {
-        // Arrange
+
         UserDto userDto = new UserDto(1L, "testuser", "test@example.com", "password", null, "user", null, null, null, null, null, null, null, null, null);
         User existingUser = new User();
         existingUser.setUsername("testuser");
-        User userEntity = new User(); // Create a mock User entity
+        User userEntity = new User();
         userEntity.setUsername("testuser");
         userEntity.setEmail("test@example.com");
 
-        // Mock the necessary calls
         when(userMapper.toEntity(userDto)).thenReturn(userEntity);
         when(userService.findByUsername("testuser")).thenReturn(Optional.of(existingUser));
 
-        // Act
         var response = userController.registerUser(userDto);
 
-        // Assert
         assertEquals(400, response.getStatusCodeValue());
         assertEquals("Username or email is already taken", response.getBody());
         verify(userService, never()).createUser(any());
@@ -217,11 +202,11 @@ class UserControllerTest {
         UserDto userDto = new UserDto(1L, "testuser", "test@example.com", "password", null, "user", null, null, null, null, null, null, null, null, null);
         User existingUser = new User();
         existingUser.setEmail("test@example.com");
-        User userEntity = new User(); // Create a mock entity for userMapper.toEntity()
+        User userEntity = new User();
         userEntity.setUsername("testuser");
         userEntity.setEmail("test@example.com");
 
-        when(userMapper.toEntity(userDto)).thenReturn(userEntity); // Mock the toEntity method
+        when(userMapper.toEntity(userDto)).thenReturn(userEntity);
         when(userService.findByEmail("test@example.com")).thenReturn(Optional.of(existingUser));
 
         var response = userController.registerUser(userDto);
@@ -334,12 +319,8 @@ class UserControllerTest {
     }
     @Test
     void testRegisterUserInvalidInput() {
-        // Arrange: Kein `UserDto` wird übergeben (null)
-
-        // Act: Aufruf der `registerUser`-Methode mit null
         var response = userController.registerUser(null);
 
-        // Assert: Überprüfung des Ergebnisses
         assertEquals(400, response.getStatusCodeValue(), "Response status should be 400");
         assertEquals("Invalid user data", response.getBody(), "Response body should indicate invalid data");
         verify(userService, never()).createUser(any());
