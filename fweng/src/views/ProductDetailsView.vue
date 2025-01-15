@@ -25,7 +25,6 @@
                             {{ product.description }}
                         </p>
 
-                        <!-- Horizontal Rule -->
                         <hr />
 
                         <!-- Price, Quantity, and Order Button -->
