@@ -48,13 +48,25 @@ class OrderServiceTest {
         UserPrincipal userPrincipal = new UserPrincipal(1L, "testuser", "password", "user");
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(userPrincipal);
-        when(orderRepository.findByUserId(1L)).thenReturn(List.of(new Order(1L, 2L, 1, 100.0)));
-
+        Order mockOrder = new Order(1L, 1L, 1, 100.0); // userId, productId, quantity, totalPrice
+        when(orderRepository.findByUserId(1L)).thenReturn(List.of(mockOrder));
+        Product mockProduct = new Product();
+        mockProduct.setId(1L);
+        mockProduct.setTitle("Test Product");
+        mockProduct.setPrice(100.0);
+        mockProduct.setDescription("This is a test product description.");
+        mockProduct.setCategory("Test Category");
+        mockProduct.setPicture("https://example.com/test-product.jpg");
+        when(productRepository.findById(1L)).thenReturn(Optional.of(mockProduct));
         List<Order> orders = orderService.getOrdersForCurrentUser();
-
-        assertEquals(1, orders.size());
-        verify(orderRepository, times(1)).findByUserId(1L);
+        assertEquals(1, orders.size()); // Ensure one order is returned
+        verify(orderRepository, times(1)).findByUserId(1L); // Verify repository call
+        verify(productRepository, times(1)).findById(1L); // Verify product lookup
+        assertEquals("Test Product", orders.get(0).getProductTitle()); // Optional: If you map product title in order
+        assertEquals(100.0, orders.get(0).getTotalPrice()); // Optional: If total price is correctly calculated
     }
+
+
 
     @Test
     void testCreateOrder() {
