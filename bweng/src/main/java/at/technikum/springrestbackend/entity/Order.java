@@ -24,6 +24,9 @@ public class Order {
     @Column(name = "status", nullable = false)
     private String status = "pending";
 
+    @Transient
+    private String productTitle;
+
     public Order() {
     }
 
@@ -33,6 +36,13 @@ public class Order {
         this.quantity = quantity;
         this.totalPrice = totalPrice;
         this.status = "pending";
+    }
+
+    public String getProductTitle() {
+        return productTitle;
+    }
+    public void setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
     }
 
     public Long getId() {

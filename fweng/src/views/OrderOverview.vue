@@ -8,16 +8,14 @@
       <table class="table table-bordered">
         <thead class="table-light">
           <tr>
-            <th>Order ID</th>
-            <th>Product ID</th>
+            <th>Product</th>
             <th>Quantity</th>
             <th>Total Price (€)</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="order in orders" :key="order.id">
-            <td>{{ order.id }}</td>
-            <td>{{ order.productId }}</td>
+            <td>{{ order.productTitle }}</td>
             <td>{{ order.quantity }}</td>
             <td>{{ order.totalPrice.toFixed(2) }}</td>
           </tr>
@@ -47,6 +45,7 @@ export default {
         },
       });
       this.orders = response.data;
+
     } catch (error) {
       console.error("Error fetching orders:", error);
       alert("Failed to fetch orders. Please try again.");

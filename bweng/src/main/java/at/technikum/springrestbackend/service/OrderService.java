@@ -25,8 +25,16 @@ public class OrderService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Long userId = userPrincipal.getId();
-        System.out.println("User ID: " + userId);
-        return orderRepository.findByUserId(userId);
+
+        List<Order> orders = orderRepository.findByUserId(userId);
+
+        orders.forEach(order -> {
+            Product product = productRepository.findById(order.getProductId())
+                    .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+            order.setProductTitle(product.getTitle());
+        });
+
+        return orders;
     }
 
     public Order createOrder(Long productId, Integer quantity, Long userId) {
