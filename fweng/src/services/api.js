@@ -8,7 +8,6 @@ const apiClient = axios.create({
   },
 });
 
-// Request-Interceptor: JWT-Token automatisch hinzufügen
 apiClient.interceptors.request.use(
   (config) => {
 
@@ -26,14 +25,13 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response-Interceptor: Globale Fehlerbehandlung
 apiClient.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
     console.error("API Error:", error.response || error.message);
-    return Promise.reject(error); // Fehler für spezifische Behandlung weitergeben
+    return Promise.reject(error);
   }
 );
 

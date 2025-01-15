@@ -56,6 +56,7 @@ class OrderControllerTest {
         assertEquals(orders, response.getBody());
         verify(orderService, times(1)).getOrdersForCurrentUser();
     }
+
     @Test
     void testPlaceOrderWithException() {
         OrderDTO orderDTO = new OrderDTO();
@@ -80,6 +81,7 @@ class OrderControllerTest {
         assertEquals("Order deleted successfully.", response.getBody());
         verify(orderService, times(1)).deleteOrder(1L);
     }
+
     @Test
     void testGetAllOrders() {
         List<Order> orders = List.of(new Order());
@@ -87,8 +89,8 @@ class OrderControllerTest {
 
         var response = orderController.getAllOrders();
 
-        assertEquals(200, response.getStatusCodeValue()); // Überprüft den Statuscode
-        assertEquals(orders, response.getBody()); // Überprüft die zurückgegebene Liste
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(orders, response.getBody());
         verify(orderService, times(1)).getAllOrders();
     }
 
@@ -102,8 +104,8 @@ class OrderControllerTest {
 
         var response = orderController.updateOrderStatus(orderId, orderDTO);
 
-        assertEquals(200, response.getStatusCodeValue()); // Überprüft den Statuscode
-        assertEquals("Order status updated successfully.", response.getBody()); // Überprüft die Antwortnachricht
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("Order status updated successfully.", response.getBody());
         verify(orderService, times(1)).updateOrderStatus(orderId, "shipped");
     }
 
@@ -118,8 +120,8 @@ class OrderControllerTest {
 
         var response = orderController.updateOrderStatus(orderId, orderDTO);
 
-        assertEquals(400, response.getStatusCodeValue()); // Überprüft den Fehlerstatuscode
-        assertEquals("Invalid order status", response.getBody()); // Überprüft die Fehlermeldung
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals("Invalid order status", response.getBody());
         verify(orderService, times(1)).updateOrderStatus(orderId, "invalid-status");
     }
 

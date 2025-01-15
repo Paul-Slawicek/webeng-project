@@ -142,4 +142,3 @@ class UserServiceTest {
         verify(userRepository, times(1)).findAll();
     }
 }
-

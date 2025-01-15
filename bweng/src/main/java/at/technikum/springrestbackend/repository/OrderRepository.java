@@ -1,6 +1,5 @@
 package at.technikum.springrestbackend.repository;
 
-
 import at.technikum.springrestbackend.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 

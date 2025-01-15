@@ -78,7 +78,7 @@ export default {
         async fetchOrders() {
             try {
                 const response = await axios.get("/orders/all");
-                this.orders = response.data.sort((a, b) => a.id - b.id); // Sort by ID
+                this.orders = response.data.sort((a, b) => a.id - b.id);
             } catch (error) {
                 console.error("Error fetching orders:", error);
                 this.$root.showMessage("Failed to fetch orders. Please try again.", 2000, "error");

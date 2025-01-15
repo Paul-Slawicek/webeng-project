@@ -1,6 +1,5 @@
 package at.technikum.springrestbackend.security.jwt;
 
-
 import at.technikum.springrestbackend.security.UserPrincipal;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 

@@ -86,7 +86,6 @@ export default {
 };
 </script>
 
-
 <style>
 .container-wrapper {
     margin: 0 auto;

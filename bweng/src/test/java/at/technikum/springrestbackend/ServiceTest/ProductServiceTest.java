@@ -46,6 +46,7 @@ class ProductServiceTest {
         assertEquals(19.99, product.getPrice());
         verify(productRepository, times(1)).save(any(Product.class));
     }
+
     @Test
     void testGetAllProducts() {
         // Arrange

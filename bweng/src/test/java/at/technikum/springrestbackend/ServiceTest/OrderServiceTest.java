@@ -78,6 +78,7 @@ class OrderServiceTest {
         assertEquals(100.0, order.getTotalPrice());
         verify(orderRepository, times(1)).save(any(Order.class));
     }
+
     @Test
     void testGetAllOrders() {
         // Arrange
