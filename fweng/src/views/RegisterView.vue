@@ -70,13 +70,18 @@ export default {
           .required("Email is required"),
         username: Yup.string()
           .required("Username is required")
-          .min(3, "Username must be at least 3 characters"),
+          .min(5, "Username must be at least 5 characters"),
         password: Yup.string()
           .required("Password is required")
-          .min(8, "Password must be at least 8 characters"),
+          .min(8, "Password must be at least 8 characters")
+          .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"
+          ),
         password2: Yup.string()
           .oneOf([Yup.ref("password")], "Passwords must match")
-          .required("Password confirmation is required"),
+          .required("Password confirmation is required")
+          
       });
 
       try {
